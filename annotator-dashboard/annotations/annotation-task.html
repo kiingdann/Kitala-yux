@@ -6,7 +6,7 @@
     <title>Annotation Task - Kitala</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Work+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Work+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
         tailwind.config = {
@@ -22,32 +22,16 @@
                         background: "var(--background)",
                         foreground: "var(--foreground)",
                         primary: {
-                            DEFAULT: "var(--primary)",
-                            foreground: "var(--primary-foreground)",
+                            DEFAULT: "#4f39f6",
+                            foreground: "#ffffff",
                         },
                         secondary: {
-                            DEFAULT: "var(--secondary)",
-                            foreground: "var(--secondary-foreground)",
-                        },
-                        destructive: {
-                            DEFAULT: "var(--destructive)",
-                            foreground: "var(--destructive-foreground)",
+                            DEFAULT: "#f4f4f5",
+                            foreground: "#18181b",
                         },
                         muted: {
-                            DEFAULT: "var(--muted)",
-                            foreground: "var(--muted-foreground)",
-                        },
-                        accent: {
-                            DEFAULT: "var(--accent)",
-                            foreground: "var(--accent-foreground)",
-                        },
-                        popover: {
-                            DEFAULT: "var(--popover)",
-                            foreground: "var(--popover-foreground)",
-                        },
-                        card: {
-                            DEFAULT: "var(--card)",
-                            foreground: "var(--card-foreground)",
+                            DEFAULT: "#f4f4f5",
+                            foreground: "#71717b",
                         },
                     },
                     borderRadius: {
@@ -61,42 +45,47 @@
     </script>
     <style>
         :root {
-            --background: rgba(255, 255, 255, 1.00);
-            --foreground: rgba(9, 9, 11, 1.00);
-            --card: rgba(255, 255, 255, 1.00);
-            --card-foreground: rgba(9, 9, 11, 1.00);
-            --popover: rgba(255, 255, 255, 1.00);
-            --popover-foreground: rgba(9, 9, 11, 1.00);
-            --primary: rgba(20, 71, 230, 1.00);
-            --primary-foreground: rgba(239, 246, 255, 1.00);
-            --secondary: rgba(244, 244, 245, 1.00);
-            --secondary-foreground: rgba(24, 24, 27, 1.00);
-            --muted: rgba(244, 244, 245, 1.00);
-            --muted-foreground: rgba(113, 113, 123, 1.00);
-            --accent: rgba(244, 244, 245, 1.00);
-            --accent-foreground: rgba(24, 24, 27, 1.00);
-            --destructive: rgba(231, 0, 11, 1.00);
-            --destructive-foreground: rgba(255, 255, 255, 1.00);
-            --border: rgba(228, 228, 231, 1.00);
-            --input: rgba(228, 228, 231, 1.00);
-            --ring: rgba(161, 161, 161, 1.00);
+            --background: #ffffff;
+            --foreground: #09090b;
+            --primary: #4f39f6;
+            --primary-foreground: #ffffff;
+            --secondary: #f4f4f5;
+            --secondary-foreground: #18181b;
+            --muted: #f4f4f5;
+            --muted-foreground: #71717b;
+            --border: #e4e4e7;
+            --input: #e4e4e7;
             --radius: 8px;
         }
 
-        /* Custom Styles for Ranges */
+        /* Custom Styles for Ranges to match Design */
+        input[type=range] {
+            -webkit-appearance: none;
+            width: 100%;
+            background: transparent;
+        }
+
         input[type=range]::-webkit-slider-thumb {
             -webkit-appearance: none;
             height: 16px;
             width: 16px;
             border-radius: 50%;
             background: #ffffff;
-            border: 1px solid var(--primary);
+            border: 1px solid #1447e6;
+            box-shadow: 0px 1px 3px rgba(0,0,0,0.1), 0px 1px 2px -1px rgba(0,0,0,0.1);
             cursor: pointer;
-            margin-top: -6px; /* You need to specify a margin in Chrome, but in Firefox and IE it is automatic */
-            box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+            margin-top: -6px;
+        }
+
+        input[type=range]::-webkit-slider-runnable-track {
+            width: 100%;
+            height: 4px;
+            cursor: pointer;
+            background: #e2e8f0;
+            border-radius: 9999px;
         }
         
-        /* Custom scrollbar for main content */
+        /* Custom scrollbar */
         .custom-scrollbar::-webkit-scrollbar {
             width: 6px;
         }
@@ -109,80 +98,27 @@
         }
     </style>
 </head>
-<body class="bg-slate-50/50 font-sans antialiased h-screen flex overflow-hidden">
+<body class="bg-[#f8fafc] font-sans antialiased h-screen flex overflow-hidden">
 
-    <!-- Desktop Sidebar (Collapsed by default for Annotation View) -->
+    <!-- Sidebar -->
     <aside id="sidebar" class="hidden md:flex flex-col border-r bg-white py-6 transition-all duration-300 w-[88px]">
-        <!-- Logo -->
         <div class="mb-10 px-6 shrink-0 h-10 flex items-center justify-center">
-            <!-- Full Logo (Hidden) -->
-            <div id="logo-full" class="hidden flex items-center gap-2">
-                <div class="flex h-8 w-8 items-center justify-center text-primary">
-                   <!-- Zap Icon -->
-                   <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-6 w-6"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
-                </div>
-                <span class="text-xl font-bold text-slate-900">Kitala</span>
-            </div>
-            <!-- Mini Logo (Visible) -->
-            <div id="logo-mini" class="w-full flex justify-center">
-                 <div class="flex h-10 w-10 items-center justify-center rounded-xl bg-primary text-white shadow-indigo-200 shadow-lg shrink-0">
-                   <span class="text-lg font-bold">K</span>
-                </div>
+            <div class="flex h-10 w-10 items-center justify-center rounded-xl bg-primary text-white shadow-indigo-200 shadow-lg shrink-0">
+               <span class="text-lg font-bold">K</span>
             </div>
         </div>
-
-        <!-- Navigation -->
         <nav class="flex flex-1 flex-col px-3 gap-1 items-center w-full">
-            <!-- Projects (Active) -->
-            <a href="#" class="nav-item flex items-center rounded-xl text-sm font-medium transition-colors bg-[#eef2ff] text-primary h-10 w-10 justify-center p-0">
-                <!-- Folder Icon -->
-                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-5 w-5 shrink-0"><path d="M4 20h16a2 2 0 0 0 2-2V8a2 2 0 0 0-2-2h-7.93a2 2 0 0 1-1.66-.9l-.82-1.2A2 2 0 0 0 7.93 2H4a2 2 0 0 0-2 2v13c0 1.1.9 2 2 2Z"/></svg>
-                <span class="label hidden">My Projects</span>
+            <a href="#" class="flex h-10 w-10 items-center justify-center rounded-xl bg-[#eef2ff] text-primary transition-colors">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-5 w-5"><path d="M4 20h16a2 2 0 0 0 2-2V8a2 2 0 0 0-2-2h-7.93a2 2 0 0 1-1.66-.9l-.82-1.2A2 2 0 0 0 7.93 2H4a2 2 0 0 0-2 2v13c0 1.1.9 2 2 2Z"/></svg>
             </a>
-            <!-- Profile -->
-            <a href="#" class="nav-item flex items-center rounded-xl text-sm font-medium transition-colors text-slate-500 hover:bg-slate-50 hover:text-slate-900 h-10 w-10 justify-center p-0">
-                <!-- User Icon -->
-                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-5 w-5 shrink-0"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
-                <span class="label hidden">My Profile</span>
+            <!-- Icons -->
+            <a href="#" class="flex h-10 w-10 items-center justify-center rounded-xl text-slate-500 hover:bg-slate-50 transition-colors">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-5 w-5"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
             </a>
-            <!-- Payments -->
-            <a href="#" class="nav-item flex items-center rounded-xl text-sm font-medium transition-colors text-slate-500 hover:bg-slate-50 hover:text-slate-900 h-10 w-10 justify-center p-0">
-                <!-- CreditCard Icon -->
-                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-5 w-5 shrink-0"><rect width="20" height="14" x="2" y="5" rx="2"/><line x1="2" x2="22" y1="10" y2="10"/></svg>
-                <span class="label hidden">Payments</span>
+            <a href="#" class="flex h-10 w-10 items-center justify-center rounded-xl text-slate-500 hover:bg-slate-50 transition-colors">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-5 w-5"><rect width="20" height="14" x="2" y="5" rx="2"/><line x1="2" x2="22" y1="10" y2="10"/></svg>
             </a>
         </nav>
-
-        <!-- Footer -->
-        <div class="mt-auto px-3 space-y-1 w-full flex flex-col items-center">
-            <!-- Help -->
-            <a href="#" class="nav-item flex items-center rounded-xl text-sm font-medium transition-colors text-slate-500 hover:bg-slate-50 hover:text-slate-900 h-10 w-10 justify-center p-0">
-                <!-- HelpCircle Icon -->
-                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-5 w-5 shrink-0"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><path d="M12 17h.01"/></svg>
-                <span class="label hidden">Help</span>
-            </a>
-            
-            <!-- User Profile / Logout (Full - Hidden) -->
-            <div id="user-full" class="pt-2 mt-2 w-full hidden">
-                <button class="flex gap-[8px] items-center p-[8px] relative w-full rounded-xl hover:bg-slate-50 transition-colors text-left">
-                    <div class="relative rounded-[8px] shrink-0 size-[32px]">
-                        <img alt="" class="absolute inset-0 max-w-none object-cover rounded-[8px] size-full bg-slate-200" src="https://placehold.co/32x32" />
-                    </div>
-                    <div class="flex flex-col min-w-0 grow">
-                        <p class="truncate text-[14px] font-bold text-[#09090b]">Rema (Annotator)</p>
-                        <p class="truncate text-[12px] text-slate-500">Rema@gmail.com</p>
-                    </div>
-                    <div class="text-slate-400 hover:text-slate-600">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-4 w-4"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" x2="9" y1="12" y2="12"/></svg>
-                    </div>
-                </button>
-            </div>
-            
-            <!-- Mini Logout (Visible) -->
-            <button id="logout-mini" class="flex nav-item h-10 w-10 items-center justify-center rounded-xl text-slate-400 hover:bg-slate-50 hover:text-slate-600 transition-colors">
-                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-5 w-5 shrink-0"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" x2="9" y1="12" y2="12"/></svg>
-            </button>
-        </div>
     </aside>
 
     <!-- Main Content Wrapper -->
@@ -191,7 +127,7 @@
         <div class="h-[78px] bg-white border-b border-[#e4e4e7] flex items-center justify-between px-6 shrink-0 z-20 relative shadow-sm">
             <div class="flex items-center gap-6">
                 <div class="flex items-center gap-2">
-                    <button onclick="toggleSidebar()" class="p-1 hover:bg-slate-100 rounded-md text-slate-900 transition-colors">
+                    <button class="p-1 hover:bg-slate-100 rounded-md text-slate-900 transition-colors">
                         <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-5 w-5"><rect width="18" height="18" x="3" y="3" rx="2"/><path d="M9 3v18"/></svg>
                     </button>
                     <div class="h-[17px] w-[1px] bg-[#E4E4E7]"></div>
@@ -218,7 +154,7 @@
         </div>
 
         <!-- Scrollable Content -->
-        <div class="flex-1 overflow-y-auto pb-[120px] custom-scrollbar">
+        <div class="flex-1 overflow-y-auto pb-[120px] custom-scrollbar" id="main-scroll-area">
             <div class="flex flex-col items-center pt-8 px-4 md:px-8 gap-8 max-w-[900px] mx-auto">
                 
                 <!-- Instructions -->
@@ -238,9 +174,7 @@
 
                 <!-- Chat Bubble: Participant -->
                 <div class="w-full pl-[56px] relative ml-8">
-                    <div class="absolute left-0 top-2 h-[40px] w-[40px] bg-[#e2e8f0] rounded-full flex items-center justify-center text-[12px] font-bold text-[#45556c] shadow-sm">
-                        PD
-                    </div>
+                    <div class="absolute left-0 top-2 h-[40px] w-[40px] bg-[#e2e8f0] rounded-full flex items-center justify-center text-[12px] font-bold text-[#45556c] shadow-sm">PD</div>
                     <div class="bg-white rounded-[16px] p-[21px] shadow-sm flex flex-col gap-4">
                         <div class="bg-[#f8fafc] h-[56px] rounded-[12px] flex items-center px-2 pr-4 gap-3">
                             <div class="flex items-center gap-3 flex-1">
@@ -248,6 +182,7 @@
                                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-4 w-4 fill-current ml-0.5"><polygon points="6 3 20 12 6 21 6 3"/></svg>
                                 </button>
                                 <div class="flex h-8 items-center gap-[4px] flex-1 opacity-60">
+                                    <!-- Audio Waveform Visualization -->
                                     <div class="w-[4px] bg-[#a3b3ff] rounded-full opacity-50 h-[40%]"></div>
                                     <div class="w-[4px] bg-[#a3b3ff] rounded-full opacity-50 h-[60%]"></div>
                                     <div class="w-[4px] bg-[#a3b3ff] rounded-full opacity-50 h-[80%]"></div>
@@ -275,19 +210,19 @@
                     </div>
                 </div>
 
-                <!-- Chat Bubble: AI -->
+                <!-- Chat Bubble: AI (With Evaluation Flow) -->
                 <div class="w-full pl-[56px] relative ml-8">
-                    <div class="absolute -right-[56px] top-2 h-[40px] w-[40px] bg-[#e0e7ff] rounded-full flex items-center justify-center text-[12px] font-bold text-primary shadow-sm">
-                        AI
-                    </div>
-                    <div class="bg-[#f0f4fe] rounded-[16px] p-[21px] flex flex-col gap-4 border border-primary shadow-[0_0_0_4px_rgba(238,242,255,0.5)]">
-                        <!-- Audio & Header -->
+                    <div class="absolute -right-[56px] top-2 h-[40px] w-[40px] bg-[#e0e7ff] rounded-full flex items-center justify-center text-[12px] font-bold text-primary shadow-sm">AI</div>
+                    
+                    <div class="bg-[#f0f4fe] rounded-[16px] p-[21px] flex flex-col gap-4 border border-primary shadow-[0_0_0_4px_rgba(238,242,255,0.5)] transition-all duration-300">
+                        <!-- Audio Message -->
                         <div class="bg-[#f8fafc] h-[56px] rounded-[12px] flex items-center px-2 pr-4 gap-3">
-                            <div class="flex items-center gap-3 flex-1">
+                             <div class="flex items-center gap-3 flex-1">
                                 <button class="h-10 w-10 rounded-full flex items-center justify-center shadow-sm shrink-0 transition-colors bg-[#0f172b] text-white">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-4 w-4 fill-current ml-0.5"><polygon points="6 3 20 12 6 21 6 3"/></svg>
                                 </button>
                                 <div class="flex h-8 items-center gap-[4px] flex-1 opacity-60">
+                                    <!-- Audio Waveform Visualization -->
                                     <div class="w-[4px] bg-[#a3b3ff] rounded-full opacity-50 h-[30%]"></div>
                                     <div class="w-[4px] bg-[#a3b3ff] rounded-full opacity-50 h-[50%]"></div>
                                     <div class="w-[4px] bg-[#a3b3ff] rounded-full opacity-50 h-[80%]"></div>
@@ -302,129 +237,197 @@
                                 <span class="text-[12px] font-bold text-[#90a1b9] tabular-nums">0:24</span>
                             </div>
                         </div>
-
+                        
                         <!-- Transcript -->
                         <p class="text-[15px] font-medium text-[#1d293d] leading-relaxed">
                             I understand you are worried, Fatou. A fever in a baby can be serious. How old is your baby exactly? And does she have any other symptoms like vomiting?
                         </p>
-
-                        <!-- Footer / Metadata -->
-                        <div class="flex items-center justify-between">
-                            <div class="flex items-center gap-1.5 rounded-md px-2 py-1 bg-white/50">
-                                <span class="text-[10px] font-bold text-[#62748e] uppercase tracking-wider">MODEL:</span>
-                                <span class="text-[10px] font-bold text-[#1d293d] uppercase tracking-wider">GPT-4O-AUDIO</span>
-                            </div>
-                            <span class="text-[11px] font-bold text-[#a3b3ff]">10:31 AM</span>
-                        </div>
-
-                        <!-- Dynamic Evaluation Area -->
-                        <div id="evaluation-area">
-                            <!-- State: IDLE -->
-                            <div id="eval-state-idle" class="border-t border-primary/20 pt-4 flex justify-end">
-                                <button onclick="setEvaluationState('evaluating')" class="bg-[#eef2ff] hover:bg-primary/10 text-primary border border-primary/20 h-[32px] px-4 rounded-[8px] text-[12px] font-semibold flex items-center gap-2 transition-colors">
-                                    <div class="relative flex items-center justify-center">
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-3 w-3 absolute"><polyline points="20 6 9 17 4 12"/></svg>
-                                        <div class="h-3 w-3 border border-current rounded-sm opacity-0"></div>
+                        
+                        <!-- Footer / Evaluation Area -->
+                        <div id="ai-response-footer" class="w-full">
+                            
+                            <!-- 1. Start State: Metadata + Button -->
+                            <div id="eval-state-start" class="flex items-center justify-between border-t border-[#c6d2ff]/30 pt-4">
+                                <div class="flex items-center gap-3">
+                                    <div class="flex items-center gap-1.5 rounded-md px-2 py-1 bg-white/50">
+                                        <span class="text-[10px] font-bold text-[#62748e] uppercase tracking-wider">MODEL:</span>
+                                        <span class="text-[10px] font-bold text-[#1d293d] uppercase tracking-wider">GPT-4O-AUDIO</span>
                                     </div>
+                                    <span class="text-[11px] font-bold text-[#a3b3ff]">10:31 AM</span>
+                                </div>
+                                
+                                <button onclick="showEvaluationForm()" class="bg-[#eef2ff]/50 hover:bg-[#eef2ff] border border-[#c6d2ff] rounded-[8px] h-[32px] px-4 flex items-center gap-2 text-[#4f39f6] text-[12px] font-semibold transition-colors">
+                                    <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M8 2H3.33333C2.97971 2 2.64057 2.14048 2.39052 2.39052C2.14048 2.64057 2 2.97971 2 3.33333V12.6667C2 13.0203 2.14048 13.3594 2.39052 13.6095C2.64057 13.8595 2.97971 14 3.33333 14H12.6667C13.0203 14 13.3594 13.8595 13.6095 13.6095C13.8595 13.3594 14 13.0203 14 12.6667V8" stroke="#4F39F6" stroke-width="1.33333" stroke-linecap="round" stroke-linejoin="round"/>
+                                        <path d="M12.25 1.74999C12.5152 1.48477 12.8749 1.33577 13.25 1.33577C13.6251 1.33577 13.9848 1.48477 14.25 1.74999C14.5152 2.0152 14.6642 2.37492 14.6642 2.74999C14.6642 3.12506 14.5152 3.48477 14.25 3.74999L8.24131 9.75932C8.08301 9.91749 7.88745 10.0333 7.67265 10.096L5.75731 10.656C5.69995 10.6727 5.63914 10.6737 5.58125 10.6589C5.52337 10.6441 5.47053 10.6139 5.42828 10.5717C5.38603 10.5294 5.35591 10.4766 5.34108 10.4187C5.32625 10.3608 5.32725 10.3 5.34398 10.2427L5.90398 8.32732C5.967 8.11269 6.083 7.91736 6.24131 7.75932L12.25 1.74999Z" stroke="#4F39F6" stroke-width="1.33333" stroke-linecap="round" stroke-linejoin="round"/>
+                                    </svg>
                                     Evaluate Response
                                 </button>
                             </div>
 
-                            <!-- State: EVALUATING -->
-                            <div id="eval-state-evaluating" class="bg-white rounded-[16px] w-full p-[16px] space-y-6 hidden">
-                                <div class="space-y-4">
-                                    <div class="h-[15px]">
-                                        <span class="text-[10px] font-bold text-[#62748e] uppercase tracking-[0.5px]">Quality Metrics</span>
+                            <!-- 2. Form State: Metadata + Sliders + Inputs -->
+                            <div id="eval-state-form" class="hidden flex-col gap-4">
+                                <!-- Metadata Header -->
+                                <div class="flex items-center justify-between mb-2">
+                                    <div class="flex items-center gap-3">
+                                        <div class="flex items-center gap-1.5 rounded-md px-2 py-1 bg-white/50">
+                                            <span class="text-[10px] font-bold text-[#62748e] uppercase tracking-wider">MODEL:</span>
+                                            <span class="text-[10px] font-bold text-[#1d293d] uppercase tracking-wider">GPT-4O-AUDIO</span>
+                                        </div>
+                                        <span class="text-[11px] font-bold text-[#a3b3ff]">10:31 AM</span>
                                     </div>
-                                    <!-- Metric 1 -->
-                                    <div class="w-full space-y-2">
-                                        <div class="flex items-center justify-between">
-                                            <span class="text-[12px] font-semibold text-[#314158]">Accuracy / Credibility</span>
-                                            <span class="text-[12px] font-bold text-primary">5<span class="text-[#90a1b9] font-medium text-[10px]">/5</span></span>
-                                        </div>
-                                        <div class="flex justify-between items-start">
-                                            <p class="text-[9px] font-bold text-[#90a1b9] uppercase tracking-wider">Is the information factually correct?</p>
-                                        </div>
-                                        <div class="relative h-4 w-full flex items-center">
-                                            <div class="absolute w-full h-[16px] bg-[#f4f4f5] rounded-full overflow-hidden">
-                                                <div class="h-full bg-primary" style="width: 100%"></div>
+                                </div>
+
+                                <div class="bg-white rounded-[16px] p-[16px] flex flex-col gap-6">
+                                    <div class="flex gap-8">
+                                        <!-- Quality Metrics Column -->
+                                        <div class="w-[304px] flex flex-col gap-6 shrink-0">
+                                            <h4 class="text-[10px] font-bold text-[#62748e] uppercase tracking-[0.5px]">Quality Metrics</h4>
+                                            
+                                            <!-- Metric 1 -->
+                                            <div class="space-y-2">
+                                                <div class="flex justify-between items-center h-[17px]">
+                                                    <span class="text-[12px] font-semibold text-[#314158]">Accuracy / Credibility</span>
+                                                    <div class="flex items-baseline text-primary font-bold text-[12px]">5<span class="text-[#90a1b9] text-[10px] font-medium">/5</span></div>
+                                                </div>
+                                                <p class="text-[9px] font-bold text-[#90a1b9] uppercase tracking-[0.225px]">Is the information factually correct?</p>
+                                                <div class="relative h-4 flex items-center">
+                                                    <div class="w-full h-1 bg-[#e2e8f0] rounded-full absolute"></div>
+                                                    <div class="w-full h-1 bg-[#1447e6] rounded-full absolute origin-left" style="transform: scaleX(1)"></div>
+                                                    <input type="range" min="1" max="5" value="5" class="relative w-full h-4 opacity-0 z-10 cursor-pointer" oninput="updateSlider(this)">
+                                                    <div class="h-4 w-4 bg-white border border-[#1447e6] rounded-full absolute right-0 shadow-sm pointer-events-none"></div>
+                                                </div>
                                             </div>
-                                            <input type="range" min="1" max="5" value="5" class="absolute w-full h-full opacity-0 cursor-pointer z-10">
-                                            <div class="absolute h-[16px] w-[16px] bg-white border border-primary rounded-full shadow-sm pointer-events-none" style="left: calc(100% - 16px)"></div>
-                                        </div>
-                                    </div>
-                                    <!-- Metric 2 -->
-                                    <div class="w-full space-y-2">
-                                        <div class="flex items-center justify-between">
-                                            <span class="text-[12px] font-semibold text-[#314158]">Tone & Empathy</span>
-                                            <span class="text-[12px] font-bold text-primary">4<span class="text-[#90a1b9] font-medium text-[10px]">/5</span></span>
-                                        </div>
-                                        <div class="flex justify-between items-start">
-                                            <p class="text-[9px] font-bold text-[#90a1b9] uppercase tracking-wider">Does the response feel human and caring?</p>
-                                        </div>
-                                        <div class="relative h-4 w-full flex items-center">
-                                            <div class="absolute w-full h-[16px] bg-[#f4f4f5] rounded-full overflow-hidden">
-                                                <div class="h-full bg-primary" style="width: 80%"></div>
+
+                                            <!-- Metric 2 -->
+                                            <div class="space-y-2">
+                                                <div class="flex justify-between items-center h-[17px]">
+                                                    <span class="text-[12px] font-semibold text-[#314158]">Tone & Empathy</span>
+                                                    <div class="flex items-baseline text-primary font-bold text-[12px]">4<span class="text-[#90a1b9] text-[10px] font-medium">/5</span></div>
+                                                </div>
+                                                <p class="text-[9px] font-bold text-[#90a1b9] uppercase tracking-[0.225px]">Does the response feel human and caring?</p>
+                                                <div class="relative h-4 flex items-center">
+                                                    <div class="w-full h-1 bg-[#e2e8f0] rounded-full absolute"></div>
+                                                    <div class="w-[80%] h-1 bg-[#1447e6] rounded-full absolute top-1.5"></div>
+                                                    <input type="range" min="1" max="5" value="4" class="relative w-full h-4 opacity-0 z-10 cursor-pointer" oninput="updateSlider(this)">
+                                                    <div class="h-4 w-4 bg-white border border-[#1447e6] rounded-full absolute left-[80%] -ml-2 shadow-sm pointer-events-none"></div>
+                                                </div>
                                             </div>
-                                            <input type="range" min="1" max="5" value="4" class="absolute w-full h-full opacity-0 cursor-pointer z-10">
-                                            <div class="absolute h-[16px] w-[16px] bg-white border border-primary rounded-full shadow-sm pointer-events-none" style="left: calc(80% - 8px)"></div>
+
+                                            <!-- Metric 3 -->
+                                            <div class="space-y-2">
+                                                <div class="flex justify-between items-center h-[17px]">
+                                                    <span class="text-[12px] font-semibold text-[#314158]">Cultural Resonance</span>
+                                                    <div class="flex items-baseline text-primary font-bold text-[12px]">2<span class="text-[#90a1b9] text-[10px] font-medium">/5</span></div>
+                                                </div>
+                                                <p class="text-[9px] font-bold text-[#90a1b9] uppercase tracking-[0.225px]">Uses appropriate local idioms and references?</p>
+                                                <div class="relative h-4 flex items-center">
+                                                    <div class="w-full h-1 bg-[#e2e8f0] rounded-full absolute"></div>
+                                                    <div class="w-[40%] h-1 bg-[#1447e6] rounded-full absolute top-1.5"></div>
+                                                    <input type="range" min="1" max="5" value="2" class="relative w-full h-4 opacity-0 z-10 cursor-pointer" oninput="updateSlider(this)">
+                                                    <div class="h-4 w-4 bg-white border border-[#1447e6] rounded-full absolute left-[40%] -ml-2 shadow-sm pointer-events-none"></div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <!-- Right Column -->
+                                        <div class="flex-1 flex flex-col gap-6">
+                                            <div class="flex flex-col gap-3">
+                                                <h4 class="text-[10px] font-bold text-[#62748e] uppercase tracking-[0.5px]">Flags</h4>
+                                                <div class="flex flex-col gap-2">
+                                                    <button class="h-[36px] w-full border border-[#e2e8f0] rounded-[6px] text-[11px] font-semibold text-[#62748e] hover:bg-slate-50">Safety Violation</button>
+                                                    <button class="h-[36px] w-full border border-[#e2e8f0] rounded-[6px] text-[11px] font-semibold text-[#62748e] hover:bg-slate-50">Hallucination</button>
+                                                    <button class="h-[36px] w-full border border-[#e2e8f0] rounded-[6px] text-[11px] font-semibold text-[#62748e] hover:bg-slate-50">Cultural Mismatch</button>
+                                                    <button class="h-[36px] w-full border border-[#e2e8f0] rounded-[6px] text-[11px] font-semibold text-[#62748e] hover:bg-slate-50">Robotic Tone</button>
+                                                </div>
+                                            </div>
+
+                                            <div class="flex flex-col gap-3">
+                                                <h4 class="text-[10px] font-bold text-[#62748e] uppercase tracking-[0.5px]">Observation</h4>
+                                                <textarea class="w-full h-[80px] bg-[#eef2ff]/50 border border-[#e0e7ff] rounded-[6px] p-3 text-[12px] text-[#71717b] resize-none focus:outline-none focus:border-primary" placeholder="Add specific notes about this response..."></textarea>
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
 
-                                <div class="space-y-3">
-                                    <div class="h-[15px]">
-                                        <span class="text-[10px] font-bold text-[#62748e] uppercase tracking-[0.5px]">Flags</span>
-                                    </div>
-                                    <div class="flex flex-col gap-2">
-                                        <button class="h-[36px] w-full border rounded-[6px] text-[11px] font-semibold transition-colors flex items-center justify-center bg-white border-[#e2e8f0] text-[#62748e] hover:border-primary/30 hover:bg-slate-50">Safety Violation</button>
-                                        <button class="h-[36px] w-full border rounded-[6px] text-[11px] font-semibold transition-colors flex items-center justify-center bg-white border-[#e2e8f0] text-[#62748e] hover:border-primary/30 hover:bg-slate-50">Hallucination</button>
-                                        <button class="h-[36px] w-full border rounded-[6px] text-[11px] font-semibold transition-colors flex items-center justify-center bg-[#fff7ed] border-[#ffedd4] text-[#f54900]">Cultural Mismatch</button>
-                                    </div>
-                                </div>
-
-                                <div class="space-y-3">
-                                    <div class="h-[15px]">
-                                        <span class="text-[10px] font-bold text-[#62748e] uppercase tracking-[0.5px]">Observation</span>
-                                    </div>
-                                    <textarea placeholder="Add specific notes about this response..." class="w-full min-h-[80px] p-2 text-[12px] rounded-md bg-[#eef2ff]/50 border border-[#e0e7ff] text-[#71717b] resize-none focus:outline-none focus:ring-1 focus:ring-primary font-sans"></textarea>
-                                </div>
-
-                                <div class="flex items-center justify-end gap-2">
-                                    <button onclick="setEvaluationState('idle')" class="text-[12px] font-medium text-[#62748e] hover:text-[#0f172b] px-3 py-2">Cancel</button>
-                                    <button onclick="setEvaluationState('evaluated')" class="bg-primary hover:bg-primary/90 text-white h-[32px] px-4 rounded-[6px] text-[12px] font-medium flex items-center gap-2 transition-colors">
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-3 w-3"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v13a2 2 0 0 1-2 2z"/><polyline points="17 21 17 13 7 13 7 21"/><polyline points="7 3 7 8 15 8"/></svg>
-                                        Save Evaluation
-                                    </button>
-                                </div>
-                            </div>
-
-                            <!-- State: EVALUATED -->
-                            <div id="eval-state-evaluated" class="bg-white rounded-[16px] w-full p-[16px] space-y-6 hidden">
-                                <div class="flex items-center justify-between">
-                                    <span class="text-[12px] font-bold text-[#0f172b]">METRICS</span>
-                                    <div class="flex gap-4">
-                                        <div class="flex items-center gap-2 text-[12px]">
-                                            <span class="text-[#62748e] font-medium">Accuracy</span>
-                                            <span class="font-bold text-primary">5/5</span>
-                                        </div>
-                                        <div class="flex items-center gap-2 text-[12px]">
-                                            <span class="text-[#62748e] font-medium">Tone</span>
-                                            <span class="font-bold text-primary">4/5</span>
-                                        </div>
-                                        <div class="flex items-center gap-2 text-[12px]">
-                                            <span class="text-[#62748e] font-medium">Cultural</span>
-                                            <span class="font-bold text-primary">2/5</span>
-                                        </div>
-                                        <button onclick="setEvaluationState('evaluating')" class="ml-2 text-[#62748e] hover:text-primary transition-colors">
-                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-4 w-4"><path d="M17 3a2.828 2.828 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5L17 3z"/></svg>
+                                    <!-- Actions -->
+                                    <div class="flex justify-end gap-2 pt-2 border-t border-transparent">
+                                        <button onclick="cancelEvaluation()" class="px-3 h-[32px] rounded-[6px] text-[12px] font-medium text-[#62748e] hover:text-[#0f172b]">Cancel</button>
+                                        <button onclick="saveEvaluation()" class="px-4 h-[32px] bg-[#4f39f6] hover:bg-[#3e2cd4] text-white rounded-[6px] text-[12px] font-medium flex items-center gap-2 shadow-sm">
+                                            <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                <path d="M10.1333 2C10.485 2.00501 10.8205 2.14878 11.0667 2.4L13.6 4.93333C13.8512 5.17951 13.995 5.51497 14 5.86667V12.6667C14 13.0203 13.8595 13.3594 13.6095 13.6095C13.3594 13.8595 13.0203 14 12.6667 14H3.33333C2.97971 14 2.64057 13.8595 2.39052 13.6095C2.14048 13.3594 2 13.0203 2 12.6667V3.33333C2 2.97971 2.14048 2.64057 2.39052 2.39052C2.64057 2.14048 2.97971 2 3.33333 2H10.1333Z" stroke="white" stroke-width="1.33333" stroke-linecap="round" stroke-linejoin="round"/>
+                                                <path d="M11.3333 14V9.33333C11.3333 9.15652 11.2631 8.98695 11.1381 8.86193C11.013 8.73691 10.8435 8.66667 10.6667 8.66667H5.33333C5.15652 8.66667 4.98695 8.73691 4.86193 8.86193C4.7369 8.98695 4.66667 9.15652 4.66667 9.33333V14" stroke="white" stroke-width="1.33333" stroke-linecap="round" stroke-linejoin="round"/>
+                                                <path d="M4.66667 2V4.66667C4.66667 4.84348 4.7369 5.01305 4.86193 5.13807C4.98695 5.2631 5.15652 5.33333 5.33333 5.33333H10" stroke="white" stroke-width="1.33333" stroke-linecap="round" stroke-linejoin="round"/>
+                                            </svg>
+                                            Save Evaluation
                                         </button>
                                     </div>
                                 </div>
-                                <div class="flex items-start gap-4">
-                                    <span class="text-[10px] font-bold text-[#62748e] uppercase tracking-[0.5px] mt-1.5 w-[48px] shrink-0">FLAGS</span>
-                                    <div class="flex flex-wrap gap-2">
-                                        <span class="px-3 py-1 rounded-[6px] bg-[#fff7ed] border border-[#ffedd4] text-[#f54900] text-[10px] font-semibold">Cultural Mismatch</span>
+                            </div>
+
+                            <!-- 3. Summary State: Compact View -->
+                            <div id="eval-state-summary" class="hidden flex-col gap-4">
+                                 <!-- Metadata Header -->
+                                 <div class="flex items-center justify-between mb-2">
+                                    <div class="flex items-center gap-3">
+                                        <div class="flex items-center gap-1.5 rounded-md px-2 py-1 bg-white/50">
+                                            <span class="text-[10px] font-bold text-[#62748e] uppercase tracking-wider">MODEL:</span>
+                                            <span class="text-[10px] font-bold text-[#1d293d] uppercase tracking-wider">GPT-4O-AUDIO</span>
+                                        </div>
+                                        <span class="text-[11px] font-bold text-[#a3b3ff]">10:31 AM</span>
+                                    </div>
+                                </div>
+
+                                <div class="bg-white rounded-[16px] p-[16px] flex flex-col gap-4">
+                                    <!-- Header Row -->
+                                    <div class="flex items-center justify-between h-[24px]">
+                                        <div class="flex items-center gap-4">
+                                            <span class="text-[12px] font-semibold text-[#314158] w-[48px]">Metrics</span>
+                                            <div class="flex items-center gap-4 text-[12px]">
+                                                <div class="flex items-center gap-1.5">
+                                                    <span class="text-[#90a1b9] font-medium">Accuracy</span>
+                                                    <span class="text-primary font-bold">5/5</span>
+                                                </div>
+                                                <div class="flex items-center gap-1.5">
+                                                    <span class="text-[#90a1b9] font-medium">Tone</span>
+                                                    <span class="text-primary font-bold">4/5</span>
+                                                </div>
+                                                <div class="flex items-center gap-1.5">
+                                                    <span class="text-[#90a1b9] font-medium">Cultural</span>
+                                                    <span class="text-primary font-bold">2/5</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <button onclick="editEvaluation()" class="h-[24px] w-[24px] bg-[#e0e7ff] rounded-[6px] flex items-center justify-center text-primary hover:bg-[#d0dbff] transition-colors">
+                                            <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                <path d="M8 2H3.33333C2.97971 2 2.64057 2.14048 2.39052 2.39052C2.14048 2.64057 2 2.97971 2 3.33333V12.6667C2 13.0203 2.14048 13.3594 2.39052 13.6095C2.64057 13.8595 2.97971 14 3.33333 14H12.6667C13.0203 14 13.3594 13.8595 13.6095 13.6095C13.8595 13.3594 14 13.0203 14 12.6667V8" stroke="currentColor" stroke-width="1.33333" stroke-linecap="round" stroke-linejoin="round"/>
+                                                <path d="M12.25 1.74999C12.5152 1.48477 12.8749 1.33577 13.25 1.33577C13.6251 1.33577 13.9848 1.48477 14.25 1.74999C14.5152 2.0152 14.6642 2.37492 14.6642 2.74999C14.6642 3.12506 14.5152 3.48477 14.25 3.74999L8.24131 9.75932C8.08301 9.91749 7.88745 10.0333 7.67265 10.096L5.75731 10.656C5.69995 10.6727 5.63914 10.6737 5.58125 10.6589C5.52337 10.6441 5.47053 10.6139 5.42828 10.5717C5.38603 10.5294 5.35591 10.4766 5.34108 10.4187C5.32625 10.3608 5.32725 10.3 5.34398 10.2427L5.90398 8.32732C5.967 8.11269 6.083 7.91736 6.24131 7.75932L12.25 1.74999Z" stroke="currentColor" stroke-width="1.33333" stroke-linecap="round" stroke-linejoin="round"/>
+                                            </svg>
+                                        </button>
+                                    </div>
+
+                                    <!-- Flags -->
+                                    <div class="flex items-center gap-4 h-[21px]">
+                                        <span class="text-[10px] font-bold text-[#90a1b9] uppercase tracking-[0.5px] w-[48px] shrink-0">Flags</span>
+                                        <div class="flex items-center gap-2">
+                                            <div class="flex items-center px-2.5 py-0.5 rounded-full border border-[#e2e8f0] bg-white">
+                                                <span class="text-[10px] font-medium text-[#45556c]">Safety Violation</span>
+                                            </div>
+                                            <div class="flex items-center px-2.5 py-0.5 rounded-full border border-[#e2e8f0] bg-white">
+                                                <span class="text-[10px] font-medium text-[#45556c]">Hallucination</span>
+                                            </div>
+                                            <div class="flex items-center px-2.5 py-0.5 rounded-full border border-[#ffedd4] bg-[#fff7ed]">
+                                                <span class="text-[10px] font-medium text-[#f54900]">Cultural Mismatch</span>
+                                            </div>
+                                            <div class="flex items-center px-2.5 py-0.5 rounded-full border border-[#e2e8f0] bg-white">
+                                                <span class="text-[10px] font-medium text-[#45556c]">Robotic Tone</span>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- Note -->
+                                    <div class="flex items-start gap-4 h-[39px]">
+                                        <span class="text-[10px] font-bold text-[#90a1b9] uppercase tracking-[0.5px] w-[48px] shrink-0 pt-1">Note</span>
+                                        <p class="text-[12px] text-[#45556c] italic leading-[19.5px]">"The model response was generally good but seemed to miss the cultural nuance regarding the specific fever treatment mentioned..."</p>
                                     </div>
                                 </div>
                             </div>
@@ -433,112 +436,284 @@
                     </div>
                 </div>
 
+                <!-- Session Complete Report (Hidden by default) -->
+                <div id="session-report" class="hidden w-full flex-col items-center py-8">
+                    <div class="w-full max-w-[648px] bg-white rounded-[16px] shadow-[0px_10px_15px_-3px_rgba(0,0,0,0.05)] border border-[#e4e4e7] overflow-hidden">
+                        <!-- Header -->
+                        <div class="h-[65px] bg-[#eef2ff]/50 border-b border-[#e0e7ff] flex items-center justify-between px-6">
+                            <div class="flex items-center gap-3">
+                                <div class="h-[32px] w-[32px] bg-[#e0e7ff] rounded-full flex items-center justify-center text-primary">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-5 w-5"><circle cx="12" cy="12" r="10"/><path d="m9 12 2 2 4-4"/></svg>
+                                </div>
+                                <span class="text-[18px] font-bold text-[#1e1a4d]">Session Complete</span>
+                            </div>
+                            <span class="text-[10px] font-bold text-[#7c86ff] uppercase tracking-[0.5px]">Final Report</span>
+                        </div>
+
+                        <div class="p-6 flex flex-col gap-6">
+                            <!-- Scores -->
+                            <div class="flex gap-4">
+                                <div class="flex-1 bg-[#f8fafc] border border-[#f1f5f9] rounded-[12px] h-[77px] flex flex-col items-center justify-center gap-1">
+                                    <span class="text-[24px] font-bold text-[#0f172b]">3.7</span>
+                                    <span class="text-[10px] font-bold text-[#62748e] uppercase tracking-[0.5px]">Culture</span>
+                                </div>
+                                <div class="flex-1 bg-[#f8fafc] border border-[#f1f5f9] rounded-[12px] h-[77px] flex flex-col items-center justify-center gap-1">
+                                    <span class="text-[24px] font-bold text-[#0f172b]">3.3</span>
+                                    <span class="text-[10px] font-bold text-[#62748e] uppercase tracking-[0.5px]">Empathy</span>
+                                </div>
+                                <div class="flex-1 bg-[#f8fafc] border border-[#f1f5f9] rounded-[12px] h-[77px] flex flex-col items-center justify-center gap-1">
+                                    <span class="text-[24px] font-bold text-[#0f172b]">4.7</span>
+                                    <span class="text-[10px] font-bold text-[#62748e] uppercase tracking-[0.5px]">Accuracy</span>
+                                </div>
+                            </div>
+
+                            <!-- Comment -->
+                            <div class="flex flex-col gap-2">
+                                <span class="text-[10px] font-bold text-[#62748e] uppercase tracking-[0.5px]">General Comment</span>
+                                <p id="report-comment" class="text-[18px] font-medium italic text-[#1d293d]">“No comment provided”</p>
+                            </div>
+
+                            <!-- Footer -->
+                            <div class="flex justify-end pt-2">
+                                <p class="text-[10px] font-medium text-[#62748e]">Logged by Rema • Today, 10:45 AM</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
             </div>
         </div>
 
-        <!-- Floating Footer Input -->
+        <!-- Floating Footer -->
         <div class="absolute bottom-0 left-0 w-full z-10">
             <div class="max-w-[900px] mx-auto relative h-[100px] flex flex-col justify-end">
-               <!-- Input Bar - Floats above the white strip -->
-               <div class="absolute top-[-27px] left-0 w-full px-8 md:px-[100px]">
-                  <div class="flex items-center gap-3">
-                    <div class="flex-1 bg-white h-[54px] rounded-full shadow-lg flex items-center px-6 transition-all hover:shadow-xl ring-1 ring-black/5">
-                      <input 
-                        class="w-full border-none bg-transparent p-0 placeholder:text-[#90a1b9] text-[14px] h-full focus:outline-none font-sans" 
-                        placeholder="Message..." 
-                      />
+                
+                <!-- Action Bar (Default) -->
+                <div id="footer-actions-default">
+                    <div class="absolute top-[-27px] left-0 w-full px-8 md:px-[100px]">
+                        <div class="flex items-center gap-3">
+                            <div class="flex-1 bg-white h-[54px] rounded-full shadow-lg flex items-center px-6 transition-all hover:shadow-xl ring-1 ring-black/5">
+                                <input class="border-none shadow-none focus:outline-none placeholder:text-muted-foreground text-[14px] h-full p-0 w-full" placeholder="Message...">
+                            </div>
+                            <button class="h-[48px] w-[48px] bg-primary rounded-full shadow-md flex items-center justify-center text-white hover:bg-primary/90 transition-colors">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-5 w-5"><path d="M12 2a3 3 0 0 0-3 3v7a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3Z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/><line x1="12" x2="12" y1="19" y2="22"/></svg>
+                            </button>
+                        </div>
                     </div>
-                    <button class="h-[48px] w-[48px] bg-primary rounded-full shadow-md flex items-center justify-center text-white hover:bg-primary/90 transition-colors">
-                      <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-5 w-5"><path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/><line x1="12" x2="12" y1="19" y2="23"/><line x1="8" x2="16" y1="23" y2="23"/></svg>
-                    </button>
-                  </div>
-               </div>
-    
-               <!-- White Bottom Strip -->
-               <div class="bg-white h-[69px] border-t border-[#e4e4e7] w-full flex items-center px-8 md:px-[100px]">
-                  <div class="w-full flex items-center justify-between">
-                    <a href="index.html" class="flex items-center justify-center text-[#62748e] hover:text-[#0f172b] gap-2 h-9 px-4 text-sm font-medium transition-colors rounded-md hover:bg-slate-100">
-                      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-4 w-4"><polygon points="5 4 15 12 5 20 5 4"/><line x1="19" x2="19" y1="5" y2="19"/></svg> Skip Session
-                    </a>
-                    <a href="complete.html" class="bg-primary hover:bg-primary/90 text-white gap-2 px-6 rounded-[8px] font-bold h-9 flex items-center justify-center text-sm transition-colors shadow-sm">
-                      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-4 w-4"><circle cx="12" cy="12" r="10"/><path d="m9 12 2 2 4-4"/></svg> Complete Session
-                    </a>
-                  </div>
-               </div>
+                    <div class="bg-white h-[69px] border-t border-[#e4e4e7] w-full flex items-center px-8 md:px-[100px]">
+                        <div class="w-full flex items-center justify-between">
+                            <button class="text-[#62748e] hover:text-[#09090b] gap-2 h-9 px-4 flex items-center text-sm font-medium">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-4 w-4"><polygon points="5 4 15 12 5 20 5 4"/><line x1="19" x2="19" y1="5" y2="19"/></svg> Skip Session
+                            </button>
+                            <button onclick="openSummaryModal()" class="bg-primary hover:bg-primary/90 text-white gap-2 px-6 rounded-[8px] font-bold h-9 flex items-center text-sm transition-colors">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-4 w-4"><circle cx="12" cy="12" r="10"/><path d="m9 12 2 2 4-4"/></svg> Complete Session
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Action Bar (Completed) -->
+                <div id="footer-actions-completed" class="hidden">
+                    <div class="bg-white h-[69px] border-t border-[#e4e4e7] w-full flex items-center px-8 md:px-[100px]">
+                        <div class="w-full flex items-center justify-center gap-4">
+                            <!-- Start Next Session Button -->
+                            <button id="btn-next-session" onclick="startNextSession()" class="hidden h-[36px] w-[262px] items-center justify-center rounded-md bg-primary hover:bg-primary/90 text-white text-[12px] font-medium transition-colors">
+                                Start Next Session
+                            </button>
+                            <!-- Finish Project Button -->
+                            <a id="btn-finish-project" href="complete.html" class="hidden h-[36px] w-[262px] items-center justify-center rounded-md bg-primary hover:bg-primary/90 text-white text-[12px] font-medium transition-colors">
+                                Finish Project
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
             </div>
         </div>
+    </div>
 
+    <!-- Summary Modal -->
+    <div id="summary-modal" class="fixed inset-0 z-50 flex items-center justify-center hidden">
+        <!-- Overlay -->
+        <div class="fixed inset-0 bg-black/50 transition-opacity" onclick="closeSummaryModal()"></div>
+        
+        <!-- Modal Content -->
+        <div class="bg-white rounded-[16px] shadow-lg w-full max-w-[650px] z-50 overflow-hidden flex flex-col gap-0 border border-[#e4e4e7]">
+             <!-- Header -->
+            <div class="h-[72px] bg-[#eef2ff]/30 flex items-center px-6 gap-3 border-b border-[#e4e4e7]/50">
+                <div class="h-[40px] w-[40px] bg-[#e0e7ff] rounded-[8px] flex items-center justify-center text-primary">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-5 w-5"><line x1="8" x2="21" y1="6" y2="6"/><line x1="8" x2="21" y1="12" y2="12"/><line x1="8" x2="21" y1="18" y2="18"/><line x1="3" x2="3.01" y1="6" y2="6"/><line x1="3" x2="3.01" y1="12" y2="12"/><line x1="3" x2="3.01" y1="18" y2="18"/></svg>
+                </div>
+                <h2 class="text-[20px] font-bold text-[#1e1a4d]">Session Summary</h2>
+            </div>
+
+            <div class="p-8 flex flex-col gap-8">
+                <!-- Average Scores -->
+                <div class="flex flex-col gap-4">
+                    <h4 class="text-[12px] font-bold text-[#62748e] uppercase tracking-[0.6px]">Average Scores</h4>
+                    <div class="grid grid-cols-3 gap-4">
+                        <div class="bg-[#f8fafc] border border-border/50 rounded-[16px] h-[77px] flex flex-col items-center justify-center gap-1">
+                            <span class="text-[30px] font-bold text-[#0f172b] leading-none">3.7</span>
+                            <span class="text-[10px] font-bold text-[#62748e] uppercase tracking-[0.5px]">Cultural Fit</span>
+                        </div>
+                        <div class="bg-[#f8fafc] border border-border/50 rounded-[16px] h-[77px] flex flex-col items-center justify-center gap-1">
+                            <span class="text-[30px] font-bold text-[#0f172b] leading-none">3.3</span>
+                            <span class="text-[10px] font-bold text-[#62748e] uppercase tracking-[0.5px]">Empathy</span>
+                        </div>
+                        <div class="bg-[#f8fafc] border border-border/50 rounded-[16px] h-[77px] flex flex-col items-center justify-center gap-1">
+                            <span class="text-[30px] font-bold text-[#0f172b] leading-none">4.7</span>
+                            <span class="text-[10px] font-bold text-[#62748e] uppercase tracking-[0.5px]">Accuracy</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- General Comment -->
+                <div class="flex flex-col gap-3">
+                    <h4 class="text-[12px] font-bold text-[#62748e] uppercase tracking-[0.6px]">General Comment</h4>
+                    <textarea id="modal-comment-input" placeholder="How did this session made you feel ? How were the responses provided by the model ?" class="w-full min-h-[100px] p-3 text-[12px] rounded-md bg-white border border-[#e2e8f0] text-[#0f172b] resize-none focus:outline-none focus:ring-1 focus:ring-primary shadow-sm"></textarea>
+                </div>
+            </div>
+
+            <!-- Footer -->
+            <div class="h-[72px] bg-[#f4f4f5]/20 border-t border-[#e4e4e7] flex items-center justify-end px-6 gap-3">
+                <button onclick="closeSummaryModal()" class="text-[12px] font-medium text-[#62748e] hover:text-[#0f172b] px-4 py-2">Cancel</button>
+                <button onclick="submitSession()" class="bg-primary hover:bg-primary/90 text-white text-[12px] font-medium h-[36px] px-6 rounded-[8px] transition-colors">Submit Session</button>
+            </div>
+        </div>
     </div>
 
     <script>
-        function toggleSidebar() {
-            const sidebar = document.getElementById('sidebar');
-            const logoFull = document.getElementById('logo-full');
-            const logoMini = document.getElementById('logo-mini');
-            const items = document.querySelectorAll('.nav-item');
-            const userFull = document.getElementById('user-full');
-            const logoutMini = document.getElementById('logout-mini');
+        let currentSessionIndex = 0;
 
-            const isExpanded = sidebar.classList.contains('w-[215px]');
-
-            if (isExpanded) {
-                // Collapse
-                sidebar.classList.replace('w-[215px]', 'w-[88px]');
-                
-                logoFull.classList.add('hidden');
-                logoMini.classList.remove('hidden');
-                
-                userFull.classList.add('hidden');
-                logoutMini.classList.remove('hidden');
-                logoutMini.classList.add('flex');
-
-                items.forEach(item => {
-                    if (item.id === 'logout-mini') return; // Skip the mini logout button itself
-                    
-                    const label = item.querySelector('.label');
-                    if (label) label.classList.add('hidden');
-                    
-                    item.classList.remove('w-full', 'px-4', 'py-3', 'gap-3');
-                    item.classList.add('h-10', 'w-10', 'justify-center', 'p-0');
-                });
-
-            } else {
-                // Expand
-                sidebar.classList.replace('w-[88px]', 'w-[215px]');
-                
-                logoFull.classList.remove('hidden');
-                logoMini.classList.add('hidden');
-                
-                userFull.classList.remove('hidden');
-                logoutMini.classList.add('hidden');
-                logoutMini.classList.remove('flex');
-
-                items.forEach(item => {
-                    if (item.id === 'logout-mini') return;
-
-                    const label = item.querySelector('.label');
-                    if (label) label.classList.remove('hidden');
-                    
-                    item.classList.add('w-full', 'px-4', 'py-3', 'gap-3');
-                    item.classList.remove('h-10', 'w-10', 'justify-center', 'p-0');
-                });
+        function updateSlider(input) {
+            // Visual update for slider fill
+            const value = (input.value - input.min) / (input.max - input.min) * 100;
+            // Update the colored bar width
+            input.previousElementSibling.style.width = value + "%";
+            // Update the thumb position (visual only as the input handles it)
+            input.nextElementSibling.style.left = value + "%";
+            
+            // Update the score text
+            const scoreDisplay = input.closest('.space-y-2').querySelector('.text-primary');
+            if (scoreDisplay) {
+                scoreDisplay.innerHTML = `${input.value}<span class="text-[#90a1b9] text-[10px] font-medium">/5</span>`;
             }
         }
 
-        function setEvaluationState(state) {
-            const idle = document.getElementById('eval-state-idle');
-            const evaluating = document.getElementById('eval-state-evaluating');
-            const evaluated = document.getElementById('eval-state-evaluated');
+        function showEvaluationForm() {
+            document.getElementById('eval-state-start').classList.add('hidden');
+            document.getElementById('eval-state-form').classList.remove('hidden');
+            document.getElementById('eval-state-form').classList.add('flex');
+        }
 
-            // Hide all
-            idle.classList.add('hidden');
-            evaluating.classList.add('hidden');
-            evaluated.classList.add('hidden');
+        function cancelEvaluation() {
+            document.getElementById('eval-state-form').classList.add('hidden');
+            document.getElementById('eval-state-form').classList.remove('flex');
+            document.getElementById('eval-state-start').classList.remove('hidden');
+        }
 
-            // Show active
-            if (state === 'idle') idle.classList.remove('hidden');
-            if (state === 'evaluating') evaluating.classList.remove('hidden');
-            if (state === 'evaluated') evaluated.classList.remove('hidden');
+        function saveEvaluation() {
+            document.getElementById('eval-state-form').classList.add('hidden');
+            document.getElementById('eval-state-form').classList.remove('flex');
+            document.getElementById('eval-state-summary').classList.remove('hidden');
+            document.getElementById('eval-state-summary').classList.add('flex');
+        }
+
+        function editEvaluation() {
+            document.getElementById('eval-state-summary').classList.add('hidden');
+            document.getElementById('eval-state-summary').classList.remove('flex');
+            document.getElementById('eval-state-form').classList.remove('hidden');
+            document.getElementById('eval-state-form').classList.add('flex');
+        }
+
+        function openSummaryModal() {
+            document.getElementById('summary-modal').classList.remove('hidden');
+        }
+
+        function closeSummaryModal() {
+            document.getElementById('summary-modal').classList.add('hidden');
+        }
+
+        function submitSession() {
+            // Get comment
+            const comment = document.getElementById('modal-comment-input').value;
+            
+            // Close modal
+            closeSummaryModal();
+            
+            // Update report
+            document.getElementById('report-comment').textContent = `“${comment || "No comment provided"}”`;
+            
+            // Show report
+            document.getElementById('session-report').classList.remove('hidden');
+            document.getElementById('session-report').classList.add('flex');
+            
+            // Toggle footer
+            document.getElementById('footer-actions-default').classList.add('hidden');
+            document.getElementById('footer-actions-completed').classList.remove('hidden');
+
+            // Toggle correct button based on session index
+            const nextBtn = document.getElementById('btn-next-session');
+            const finishBtn = document.getElementById('btn-finish-project');
+            
+            if (currentSessionIndex === 0) {
+                nextBtn.classList.remove('hidden');
+                nextBtn.classList.add('flex');
+                finishBtn.classList.add('hidden');
+                finishBtn.classList.remove('flex');
+            } else {
+                nextBtn.classList.add('hidden');
+                nextBtn.classList.remove('flex');
+                finishBtn.classList.remove('hidden');
+                finishBtn.classList.add('flex');
+            }
+            
+            // Scroll to bottom
+            const scrollArea = document.getElementById('main-scroll-area');
+            setTimeout(() => {
+                scrollArea.scrollTop = scrollArea.scrollHeight;
+            }, 100);
+        }
+
+        function startNextSession() {
+            currentSessionIndex++;
+            
+            // Hide report
+            document.getElementById('session-report').classList.add('hidden');
+            document.getElementById('session-report').classList.remove('flex');
+
+            // Reset evaluation state
+            document.getElementById('eval-state-summary').classList.add('hidden');
+            document.getElementById('eval-state-summary').classList.remove('flex');
+            document.getElementById('eval-state-form').classList.add('hidden');
+            document.getElementById('eval-state-form').classList.remove('flex');
+            document.getElementById('eval-state-start').classList.remove('hidden');
+
+            // Reset footer
+            document.getElementById('footer-actions-default').classList.remove('hidden');
+            document.getElementById('footer-actions-completed').classList.add('hidden');
+
+            // Clear inputs
+            document.getElementById('modal-comment-input').value = "";
+            const textareas = document.querySelectorAll('textarea');
+            textareas.forEach(t => t.value = "");
+            
+            // Update session counter
+            const counterText = document.querySelector('.text-\\[12px\\].font-bold.text-\\[#0f172b\\]');
+            if(counterText) counterText.textContent = "13/18";
+
+            // Update session title
+            const sessionTitle = document.querySelector('.text-\\[20px\\]');
+            if(sessionTitle) {
+                sessionTitle.innerHTML = `
+                    Vaccination Hesitancy
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-4 w-4 opacity-50"><path d="m6 9 6 6 6-6"/></svg>
+                `;
+            }
+
+            // Scroll to top
+            const scrollArea = document.getElementById('main-scroll-area');
+            scrollArea.scrollTop = 0;
         }
     </script>
 </body>
