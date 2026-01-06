@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Session Complete - Kitala</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Work+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Work Sans', 'sans-serif'],
+                    },
+                    colors: {
+                        border: "var(--border)",
+                        input: "var(--input)",
+                        ring: "var(--ring)",
+                        background: "var(--background)",
+                        foreground: "var(--foreground)",
+                        primary: {
+                            DEFAULT: "var(--primary)",
+                            foreground: "var(--primary-foreground)",
+                        },
+                        secondary: {
+                            DEFAULT: "var(--secondary)",
+                            foreground: "var(--secondary-foreground)",
+                        },
+                        destructive: {
+                            DEFAULT: "var(--destructive)",
+                            foreground: "var(--destructive-foreground)",
+                        },
+                        muted: {
+                            DEFAULT: "var(--muted)",
+                            foreground: "var(--muted-foreground)",
+                        },
+                        accent: {
+                            DEFAULT: "var(--accent)",
+                            foreground: "var(--accent-foreground)",
+                        },
+                        popover: {
+                            DEFAULT: "var(--popover)",
+                            foreground: "var(--popover-foreground)",
+                        },
+                        card: {
+                            DEFAULT: "var(--card)",
+                            foreground: "var(--card-foreground)",
+                        },
+                    },
+                    borderRadius: {
+                        lg: "var(--radius)",
+                        md: "calc(var(--radius) - 2px)",
+                        sm: "calc(var(--radius) - 4px)",
+                    },
+                }
+            }
+        }
+    </script>
+    <style>
+        :root {
+            --background: rgba(255, 255, 255, 1.00);
+            --foreground: rgba(9, 9, 11, 1.00);
+            --card: rgba(255, 255, 255, 1.00);
+            --card-foreground: rgba(9, 9, 11, 1.00);
+            --popover: rgba(255, 255, 255, 1.00);
+            --popover-foreground: rgba(9, 9, 11, 1.00);
+            --primary: rgba(79, 57, 246, 1.00); /* Updated to match the indigo-like color used in the component */
+            --primary-foreground: rgba(255, 255, 255, 1.00);
+            --secondary: rgba(244, 244, 245, 1.00);
+            --secondary-foreground: rgba(24, 24, 27, 1.00);
+            --muted: rgba(244, 244, 245, 1.00);
+            --muted-foreground: rgba(113, 113, 123, 1.00);
+            --accent: rgba(244, 244, 245, 1.00);
+            --accent-foreground: rgba(24, 24, 27, 1.00);
+            --destructive: rgba(231, 0, 11, 1.00);
+            --destructive-foreground: rgba(255, 255, 255, 1.00);
+            --border: rgba(228, 228, 231, 1.00);
+            --input: rgba(228, 228, 231, 1.00);
+            --ring: rgba(161, 161, 161, 1.00);
+            --radius: 8px;
+        }
+    </style>
+</head>
+<body class="bg-[#f8fafc] font-sans antialiased h-screen flex flex-col items-center justify-start overflow-y-auto p-8">
+
+    <!-- Main Container -->
+    <div class="w-[672px]">
+        <!-- Card -->
+        <div class="bg-white flex flex-col items-center p-[48px] rounded-[24px] shadow-[0px_1px_3px_0px_rgba(0,0,0,0.1),0px_1px_2px_-1px_rgba(0,0,0,0.1)] w-full">
+            
+            <!-- Heading -->
+            <h1 class="font-bold text-[30px] leading-[36px] text-[#0f172b] text-center w-[576px] mb-6">
+                Congratulations!
+            </h1>
+
+            <!-- Illustration Placeholder (Using a styled div to represent the image area) -->
+            <div class="relative w-[296px] h-[174px] mb-6 bg-slate-100 rounded-lg overflow-hidden flex items-center justify-center border border-dashed border-slate-300">
+                 <span class="text-slate-400 text-sm font-medium">Celebration Illustration</span>
+                 <!-- In a real static build, we would link to the image asset here -->
+            </div>
+
+            <!-- Content Container -->
+            <div class="flex flex-col gap-[38px] items-start w-[448px]">
+                
+                <!-- Paragraph -->
+                <div class="w-full flex justify-center px-[11px] py-px">
+                    <p class="font-normal text-[16px] leading-[26px] text-[#45556c] text-center w-[425px]">
+                        Your responses have been submitted for review. Once approved, you can request your payment.
+                    </p>
+                </div>
+
+                <!-- Warning Container -->
+                <div class="bg-[#fffbeb] relative rounded-[12px] w-full border border-[#fef3c6] flex gap-[12px] items-start p-[17px]">
+                     <!-- Icon -->
+                    <div class="relative shrink-0 w-[20px] h-[20px]">
+                        <svg class="block w-full h-full" fill="none" viewBox="0 0 20 20">
+                            <g>
+                                <path d="M10 18.3333C14.6024 18.3333 18.3333 14.6024 18.3333 10C18.3333 5.39763 14.6024 1.66667 10 1.66667C5.39763 1.66667 1.66667 5.39763 1.66667 10C1.66667 14.6024 5.39763 18.3333 10 18.3333Z" stroke="#E17100" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.66667" />
+                                <path d="M10 6.66667V10" stroke="#E17100" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.66667" />
+                                <path d="M10 13.3333H10.0083" stroke="#E17100" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.66667" />
+                            </g>
+                        </svg>
+                    </div>
+                    
+                    <!-- Warning Text -->
+                    <div class="flex items-center justify-center">
+                        <p class="font-normal text-[12px] leading-[19.5px] text-[#973c00] w-[351px]">
+                            <span class="font-bold">Note: </span>
+                            Skipped tasks or responses that fail validation will be deducted from your total reward amount.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Button -->
+                <a href="index.html" class="bg-[#4f39f6] rounded-[6px] w-full flex items-center justify-center py-[8px] px-[16px] hover:bg-[#3e2cd0] transition-colors decoration-0">
+                    <span class="font-medium text-[12px] leading-[17.143px] text-white text-center">
+                        Go to Dashboard
+                    </span>
+                </a>
+            </div>
+
+        </div>
+    </div>
+
+</body>
+</html>
