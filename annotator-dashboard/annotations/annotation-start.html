@@ -1,0 +1,424 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Start Annotation - Kitala</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Work+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Work Sans', 'sans-serif'],
+                    },
+                    colors: {
+                        border: "var(--border)",
+                        input: "var(--input)",
+                        ring: "var(--ring)",
+                        background: "var(--background)",
+                        foreground: "var(--foreground)",
+                        primary: {
+                            DEFAULT: "var(--primary)",
+                            foreground: "var(--primary-foreground)",
+                        },
+                        secondary: {
+                            DEFAULT: "var(--secondary)",
+                            foreground: "var(--secondary-foreground)",
+                        },
+                        destructive: {
+                            DEFAULT: "var(--destructive)",
+                            foreground: "var(--destructive-foreground)",
+                        },
+                        muted: {
+                            DEFAULT: "var(--muted)",
+                            foreground: "var(--muted-foreground)",
+                        },
+                        accent: {
+                            DEFAULT: "var(--accent)",
+                            foreground: "var(--accent-foreground)",
+                        },
+                        popover: {
+                            DEFAULT: "var(--popover)",
+                            foreground: "var(--popover-foreground)",
+                        },
+                        card: {
+                            DEFAULT: "var(--card)",
+                            foreground: "var(--card-foreground)",
+                        },
+                    },
+                    borderRadius: {
+                        lg: "var(--radius)",
+                        md: "calc(var(--radius) - 2px)",
+                        sm: "calc(var(--radius) - 4px)",
+                    },
+                }
+            }
+        }
+    </script>
+    <style>
+        :root {
+            --background: rgba(255, 255, 255, 1.00);
+            --foreground: rgba(9, 9, 11, 1.00);
+            --card: rgba(255, 255, 255, 1.00);
+            --card-foreground: rgba(9, 9, 11, 1.00);
+            --popover: rgba(255, 255, 255, 1.00);
+            --popover-foreground: rgba(9, 9, 11, 1.00);
+            --primary: rgba(20, 71, 230, 1.00);
+            --primary-foreground: rgba(239, 246, 255, 1.00);
+            --secondary: rgba(244, 244, 245, 1.00);
+            --secondary-foreground: rgba(24, 24, 27, 1.00);
+            --muted: rgba(244, 244, 245, 1.00);
+            --muted-foreground: rgba(113, 113, 123, 1.00);
+            --accent: rgba(244, 244, 245, 1.00);
+            --accent-foreground: rgba(24, 24, 27, 1.00);
+            --destructive: rgba(231, 0, 11, 1.00);
+            --destructive-foreground: rgba(255, 255, 255, 1.00);
+            --border: rgba(228, 228, 231, 1.00);
+            --input: rgba(228, 228, 231, 1.00);
+            --ring: rgba(161, 161, 161, 1.00);
+            --radius: 8px;
+        }
+    </style>
+</head>
+<body class="bg-[#f8fafc] font-sans antialiased h-screen flex overflow-hidden">
+
+    <!-- Desktop Sidebar -->
+    <aside id="sidebar" class="hidden md:flex flex-col border-r bg-white py-6 transition-all duration-300 w-[215px]">
+        <!-- Logo -->
+        <div class="mb-10 px-6 shrink-0 h-10 flex items-center">
+            <!-- Full Logo -->
+            <div id="logo-full" class="flex items-center gap-2">
+                <div class="flex h-8 w-8 items-center justify-center text-indigo-600">
+                   <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-6 w-6"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+                </div>
+                <span class="text-xl font-bold text-slate-900">Kitala</span>
+            </div>
+            <!-- Mini Logo -->
+            <div id="logo-mini" class="hidden w-full flex justify-center">
+                 <div class="flex h-10 w-10 items-center justify-center rounded-xl bg-indigo-600 text-white shadow-indigo-200 shadow-lg shrink-0">
+                   <span class="text-lg font-bold">K</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Navigation -->
+        <nav class="flex flex-1 flex-col px-3 gap-1 items-center w-full">
+            <a href="#" class="nav-item flex w-full items-center gap-3 rounded-xl px-4 py-3 text-sm font-medium transition-colors bg-[#eef2ff] text-[#4f39f6]">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-5 w-5 shrink-0"><path d="M4 20h16a2 2 0 0 0 2-2V8a2 2 0 0 0-2-2h-7.93a2 2 0 0 1-1.66-.9l-.82-1.2A2 2 0 0 0 7.93 2H4a2 2 0 0 0-2 2v13c0 1.1.9 2 2 2Z"/></svg>
+                <span class="label">My Projects</span>
+            </a>
+            <a href="#" class="nav-item flex w-full items-center gap-3 rounded-xl px-4 py-3 text-sm font-medium transition-colors text-slate-500 hover:bg-slate-50 hover:text-slate-900">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-5 w-5 shrink-0"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+                <span class="label">My Profile</span>
+            </a>
+            <a href="#" class="nav-item flex w-full items-center gap-3 rounded-xl px-4 py-3 text-sm font-medium transition-colors text-slate-500 hover:bg-slate-50 hover:text-slate-900">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-5 w-5 shrink-0"><rect width="20" height="14" x="2" y="5" rx="2"/><line x1="2" x2="22" y1="10" y2="10"/></svg>
+                <span class="label">Payments</span>
+            </a>
+        </nav>
+
+        <!-- Footer -->
+        <div class="mt-auto px-3 space-y-1 w-full flex flex-col items-center">
+            <a href="#" class="nav-item flex w-full items-center gap-3 rounded-xl px-4 py-3 text-sm font-medium transition-colors text-slate-500 hover:bg-slate-50 hover:text-slate-900">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-5 w-5 shrink-0"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><path d="M12 17h.01"/></svg>
+                <span class="label">Help</span>
+            </a>
+            
+            <!-- User Profile / Logout -->
+            <div id="user-full" class="pt-2 mt-2 w-full">
+                <button class="flex gap-[8px] items-center p-[8px] relative w-full rounded-xl hover:bg-slate-50 transition-colors text-left">
+                    <div class="relative rounded-[8px] shrink-0 size-[32px]">
+                        <img alt="" class="absolute inset-0 max-w-none object-cover rounded-[8px] size-full bg-slate-200" src="https://placehold.co/32x32" />
+                    </div>
+                    <div class="flex flex-col min-w-0 grow">
+                        <p class="truncate text-[14px] font-bold text-[#09090b]">Rema (Annotator)</p>
+                        <p class="truncate text-[12px] text-slate-500">Rema@gmail.com</p>
+                    </div>
+                    <div class="text-slate-400 hover:text-slate-600">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-4 w-4"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" x2="9" y1="12" y2="12"/></svg>
+                    </div>
+                </button>
+            </div>
+            
+            <!-- Mini Logout -->
+            <button id="logout-mini" class="hidden nav-item h-10 w-10 items-center justify-center rounded-xl text-slate-400 hover:bg-slate-50 hover:text-slate-600 transition-colors">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-5 w-5 shrink-0"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" x2="9" y1="12" y2="12"/></svg>
+            </button>
+        </div>
+    </aside>
+
+    <div class="flex-1 flex flex-col min-w-0 overflow-hidden h-full">
+        <!-- Header -->
+        <div class="h-[49px] shrink-0 w-full bg-white border-b border-[#e4e4e7] flex items-center px-6">
+            <div class="flex items-center gap-2 text-[14px] text-[#71717b]">
+                <div onclick="toggleSidebar()" class="size-[28px] flex items-center justify-center text-[#09090b] cursor-pointer hover:bg-slate-100 rounded-md transition-colors">
+                    <!-- PanelLeft Icon -->
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="size-5"><rect width="18" height="18" x="3" y="3" rx="2"/><path d="M9 3v18"/></svg>
+                </div>
+                <div class="h-[17px] w-[1px] bg-[#E4E4E7] mx-2"></div>
+                <a href="#" class="cursor-pointer hover:text-[#09090b] transition-colors">Projects</a>
+                <!-- ChevronRight Icon -->
+                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="size-3.5"><path d="m9 18 6-6-6-6"/></svg>
+                <span class="text-[#09090b]">Testing Voice LLM for Health in Rwanda</span>
+            </div>
+        </div>
+
+        <!-- Main Content -->
+        <div class="flex-1 overflow-auto flex flex-col items-center py-[40px] px-6 gap-[21px]">
+            <!-- Title -->
+            <div class="text-center">
+                <h1 class="font-bold text-[#0f172b] text-[30px] leading-[36px] tracking-[0.3955px] mb-2">
+                    Testing Voice LLM for Health in Rwanda
+                </h1>
+                <p class="font-normal text-[#62748e] text-[16px] leading-[24px] tracking-[-0.3125px]">
+                    Evaluate voice conversations with an LLM on health related topics
+                </p>
+            </div>
+
+            <!-- Card -->
+            <div class="bg-white rounded-[24px] w-full max-w-[960px] shadow-[0px_1px_3px_0px_rgba(0,0,0,0.1),0px_1px_2px_-1px_rgba(0,0,0,0.1)] border border-[#e2e8f0] p-[40px] flex flex-col items-center gap-[24px]">
+                <!-- Hero Image Placeholder -->
+                <div class="h-[103px] w-[192px] relative bg-slate-100 rounded-lg flex items-center justify-center text-slate-400">
+                    <img src="https://placehold.co/192x103/png?text=Illustration" alt="Project Illustration" class="object-contain w-full h-full">
+                </div>
+
+                <!-- Stats -->
+                <div class="flex flex-wrap justify-center gap-[32px] w-full border-b border-[#f1f5f9] pb-[24px] md:border-b-0 md:pb-0">
+                    <div class="flex justify-center min-w-[140px]">
+                        <div class="flex gap-[12px] items-start">
+                            <div class="bg-[#f8fafc] rounded-full size-[40px] flex items-center justify-center shrink-0">
+                                <!-- Time Icon -->
+                                <div class="relative shrink-0 size-[20px]">
+                                    <svg class="block size-full" fill="none" preserveAspectRatio="none" viewBox="0 0 20 20">
+                                        <g clip-path="url(#clip0_80_462)">
+                                            <path d="M10.0002 18.3329C14.6026 18.3329 18.3335 14.602 18.3335 9.99959C18.3335 5.39722 14.6026 1.66626 10.0002 1.66626C5.39783 1.66626 1.66687 5.39722 1.66687 9.99959C1.66687 14.602 5.39783 18.3329 10.0002 18.3329Z" stroke="#90A1B9" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.66667" />
+                                            <path d="M10 15C12.7614 15 15 12.7614 15 10C15 7.23858 12.7614 5 10 5C7.23858 5 5 7.23858 5 10C5 12.7614 7.23858 15 10 15Z" stroke="#90A1B9" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.66667" />
+                                            <path d="M9.9998 11.6671C10.9203 11.6671 11.6665 10.9209 11.6665 10.0004C11.6665 9.07993 10.9203 8.33374 9.9998 8.33374C9.07932 8.33374 8.33313 9.07993 8.33313 10.0004C8.33313 10.9209 9.07932 11.6671 9.9998 11.6671Z" stroke="#90A1B9" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.66667" />
+                                        </g>
+                                        <defs>
+                                            <clipPath id="clip0_80_462">
+                                                <rect fill="white" height="20" width="20" />
+                                            </clipPath>
+                                        </defs>
+                                    </svg>
+                                </div>
+                            </div>
+                            <div class="flex flex-col items-start justify-center h-[40px]">
+                                <p class="font-bold text-[#0f172b] text-[16px] leading-none mb-1">~ 2 hours</p>
+                                <p class="font-bold text-[#90a1b9] text-[10px] uppercase leading-none">Est. Completion Time</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="flex justify-center min-w-[140px]">
+                         <div class="flex gap-[12px] items-start">
+                            <div class="bg-[#f8fafc] rounded-full size-[40px] flex items-center justify-center shrink-0">
+                                <!-- Tasks Icon -->
+                                <div class="relative shrink-0 size-[20px]">
+                                    <svg class="block size-full" fill="none" preserveAspectRatio="none" viewBox="0 0 20 20">
+                                        <path d="M2.5 10H2.50833" stroke="#90A1B9" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.66667" />
+                                        <path d="M2.5 15H2.50833" stroke="#90A1B9" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.66667" />
+                                        <path d="M2.5 5H2.50833" stroke="#90A1B9" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.66667" />
+                                        <path d="M6.66667 10H17.5" stroke="#90A1B9" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.66667" />
+                                        <path d="M6.66667 15H17.5" stroke="#90A1B9" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.66667" />
+                                        <path d="M6.66667 5H17.5" stroke="#90A1B9" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.66667" />
+                                    </svg>
+                                </div>
+                            </div>
+                            <div class="flex flex-col items-start justify-center h-[40px]">
+                                <p class="font-bold text-[#0f172b] text-[16px] leading-none mb-1">50 Tasks</p>
+                                <p class="font-bold text-[#90a1b9] text-[10px] uppercase leading-none">per mission</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="flex justify-center min-w-[140px]">
+                        <div class="flex gap-[12px] items-start">
+                            <div class="bg-[#f8fafc] rounded-full size-[40px] flex items-center justify-center shrink-0">
+                                 <!-- Money Icon -->
+                                 <div class="relative shrink-0 size-[20px]">
+                                    <svg class="block size-full" fill="none" preserveAspectRatio="none" viewBox="0 0 20 20">
+                                        <path d="M10 1.66667V18.3333" stroke="#90A1B9" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.66667" />
+                                        <path d="M14.1667 4.16667H7.91667C7.14312 4.16667 6.40125 4.47396 5.85427 5.02094C5.30729 5.56792 5 6.30979 5 7.08333C5 7.85688 5.30729 8.59875 5.85427 9.14573C6.40125 9.69271 7.14312 10 7.91667 10H12.0833C12.8569 10 13.5987 10.3073 14.1457 10.8543C14.6927 11.4013 15 12.1431 15 12.9167C15 13.6902 14.6927 14.4321 14.1457 14.9791C13.5987 15.526 12.8569 15.8333 12.0833 15.8333H5" stroke="#90A1B9" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.66667" />
+                                    </svg>
+                                 </div>
+                            </div>
+                            <div class="flex flex-col items-start justify-center h-[40px]">
+                                <p class="font-bold text-[#0f172b] text-[16px] leading-none mb-1">$ 500</p>
+                                <p class="font-bold text-[#90a1b9] text-[10px] uppercase leading-none">MAX Payout</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-[#dfe3e7] h-px shrink-0 w-full"></div>
+
+                <!-- Main Objective -->
+                <div class="flex gap-[16px] items-start w-full">
+                    <div class="relative rounded-[12px] shrink-0 size-[40px] flex items-center justify-center bg-[#eef2ff]">
+                        <!-- Objective Icon -->
+                        <div class="relative shrink-0 size-[20px]">
+                            <svg class="block size-full" fill="none" preserveAspectRatio="none" viewBox="0 0 20 20">
+                                <path d="M3.33333 12.5C3.33333 12.5 4.16667 11.6667 6.66667 11.6667C9.16667 11.6667 10.8333 13.3333 13.3333 13.3333C15.8333 13.3333 16.6667 12.5 16.6667 12.5V2.5C16.6667 2.5 15.8333 3.33333 13.3333 3.33333C10.8333 3.33333 9.16667 1.66667 6.66667 1.66667C4.16667 1.66667 3.33333 2.5 3.33333 2.5V12.5Z" fill="#4F39F6" stroke="#4F39F6" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.66667" />
+                                <path d="M3.33333 18.3333V12.5" stroke="#4F39F6" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.66667" />
+                            </svg>
+                        </div>
+                    </div>
+                    <div class="flex flex-col gap-[8px] w-full">
+                        <div class="relative shrink-0 w-full">
+                            <p class="font-bold text-[#0f172b] text-[18px] leading-tight">Main Objective</p>
+                        </div>
+                        <div class="font-normal text-[#45556c] text-[12px] leading-[19.5px]">
+                            <p>
+                                The primary goal of this project is to curate a high-quality dataset that identifies harmful stereotypes related to African cultures, people, and geography in text and media. By annotating this data, you are directly contributing to training AI models to be more culturally aware, unbiased, and respectful. We aim to reduce the prevalence of "poverty porn," generalizations, and historical inaccuracies in generated content.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-[#f1f5f9] h-px shrink-0 w-full"></div>
+
+                <!-- Your Mission -->
+                <div class="flex gap-[16px] items-start w-full">
+                    <div class="relative rounded-[12px] shrink-0 size-[40px] flex items-center justify-center bg-[#eff6ff]">
+                        <!-- Mission Icon -->
+                        <div class="relative shrink-0 size-[20px]">
+                            <svg class="block size-full" fill="none" preserveAspectRatio="none" viewBox="0 0 20 20">
+                                 <path d="M5.5 5.5C5.5 4.57953 6.2462 3.83333 7.16667 3.83333C8.08713 3.83333 8.83333 4.57953 8.83333 5.5C8.83333 6.07128 8.54591 6.57543 8.10777 6.87572C7.65222 7.18796 7.16667 7.61438 7.16667 8.16667" stroke="#2B7FFF" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.66667" />
+                                 <path d="M12.5 1.66667H5C4.55797 1.66667 4.13405 1.84226 3.82149 2.15482C3.50893 2.46738 3.33333 2.89131 3.33333 3.33333V16.6667C3.33333 17.1087 3.50893 17.5326 3.82149 17.8452C4.13405 18.1577 4.55797 18.3333 5 18.3333H15C15.442 18.3333 15.8659 18.1577 16.1785 17.8452C16.4911 17.5326 16.6667 17.1087 16.6667 16.6667V5.83333L12.5 1.66667Z" stroke="#2B7FFF" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.66667" />
+                                 <path d="M11.6667 1.66667V5C11.6667 5.44203 11.8423 5.86595 12.1548 6.17851C12.4674 6.49107 12.8913 6.66667 13.3333 6.66667H16.6667" stroke="#2B7FFF" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.66667" />
+                                 <path d="M7.5 12.5L9.16667 14.1667L12.5 10.8333" stroke="#2B7FFF" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.66667" />
+                            </svg>
+                        </div>
+                    </div>
+                    <div class="flex flex-col gap-[8px] w-full">
+                        <div class="relative shrink-0 w-full">
+                             <p class="font-bold text-[#0f172b] text-[18px] leading-tight">Your mission</p>
+                        </div>
+                        <div class="font-normal text-[#45556c] text-[12px] leading-[19.5px]">
+                            <ul class="list-none pl-0 m-0 flex flex-col gap-1">
+                                <li class="flex items-start gap-2">
+                                    <span class="w-1.5 h-1.5 rounded-full bg-[#45556c] mt-2 shrink-0"></span>
+                                    Task 1
+                                </li>
+                                <li class="flex items-start gap-2">
+                                    <span class="w-1.5 h-1.5 rounded-full bg-[#45556c] mt-2 shrink-0"></span>
+                                    Task 2
+                                </li>
+                                <li class="flex items-start gap-2">
+                                    <span class="w-1.5 h-1.5 rounded-full bg-[#45556c] mt-2 shrink-0"></span>
+                                    Task 3
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-[#f1f5f9] h-px shrink-0 w-full"></div>
+
+                <!-- Tips & Tricks -->
+                <div class="flex gap-[16px] items-start w-full">
+                    <div class="relative rounded-[12px] shrink-0 size-[40px] flex items-center justify-center bg-[#fffbeb]">
+                        <!-- Tips Icon -->
+                        <div class="relative shrink-0 size-[20px]">
+                            <svg class="block size-full" fill="none" preserveAspectRatio="none" viewBox="0 0 20 20">
+                                <path d="M12.5 11.6667C12.6667 10.8333 13.0833 10.25 13.75 9.58333C14.5833 8.83333 15 7.75 15 6.66667C15 5.34058 14.4732 4.06881 13.5355 3.13113C12.5979 2.19345 11.3261 1.66667 10 1.66667C8.67392 1.66667 7.40215 2.19345 6.46447 3.13113C5.52678 4.06881 5 5.34058 5 6.66667C5 7.5 5.16667 8.5 6.25 9.58333C6.83333 10.1667 7.33333 10.8333 7.5 11.6667" fill="#E17100" />
+                                <path d="M12.5 11.6667C12.6667 10.8333 13.0833 10.25 13.75 9.58333C14.5833 8.83333 15 7.75 15 6.66667C15 5.34058 14.4732 4.06881 13.5355 3.13113C12.5979 2.19345 11.3261 1.66667 10 1.66667C8.67392 1.66667 7.40215 2.19345 6.46447 3.13113C5.52678 4.06881 5 5.34058 5 6.66667C5 7.5 5.16667 8.5 6.25 9.58333C6.83333 10.1667 7.33333 10.8333 7.5 11.6667" stroke="#E17100" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.66667" />
+                                <path d="M7.5 15H12.5Z" fill="#E17100" />
+                                <path d="M7.5 15H12.5" stroke="#E17100" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.66667" />
+                                <path d="M8.33333 18.3333H11.6667Z" fill="#E17100" />
+                                <path d="M8.33333 18.3333H11.6667" stroke="#E17100" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.66667" />
+                            </svg>
+                        </div>
+                    </div>
+                    <div class="flex flex-col gap-[8px] w-full">
+                         <div class="relative shrink-0 w-full">
+                            <p class="font-bold text-[#0f172b] text-[18px] leading-tight">Tips & Tricks</p>
+                        </div>
+                        <div class="font-normal text-[#45556c] text-[12px] leading-[19.5px]">
+                            <ul class="list-none pl-0 m-0 flex flex-col gap-1">
+                                <li class="flex items-start gap-2">
+                                    <span class="w-1.5 h-1.5 rounded-full bg-[#45556c] mt-2 shrink-0"></span>
+                                    Tip 1
+                                </li>
+                                <li class="flex items-start gap-2">
+                                    <span class="w-1.5 h-1.5 rounded-full bg-[#45556c] mt-2 shrink-0"></span>
+                                    Tip 2
+                                </li>
+                                <li class="flex items-start gap-2">
+                                    <span class="w-1.5 h-1.5 rounded-full bg-[#45556c] mt-2 shrink-0"></span>
+                                    Tip 3
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Start Button -->
+                <a href="task.html" class="bg-[#4f39f6] hover:bg-[#3e2cd4] text-[#eff6ff] h-[48px] px-8 rounded-[12px] font-semibold text-[14px] flex items-center gap-2 mt-4 transition-colors">
+                    Start Your Mission!
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="size-4"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function toggleSidebar() {
+            const sidebar = document.getElementById('sidebar');
+            const logoFull = document.getElementById('logo-full');
+            const logoMini = document.getElementById('logo-mini');
+            const items = document.querySelectorAll('.nav-item');
+            const userFull = document.getElementById('user-full');
+            const logoutMini = document.getElementById('logout-mini');
+
+            const isExpanded = sidebar.classList.contains('w-[215px]');
+
+            if (isExpanded) {
+                // Collapse
+                sidebar.classList.replace('w-[215px]', 'w-[88px]');
+                
+                logoFull.classList.add('hidden');
+                logoMini.classList.remove('hidden');
+                
+                userFull.classList.add('hidden');
+                logoutMini.classList.remove('hidden');
+                logoutMini.classList.add('flex');
+
+                items.forEach(item => {
+                    if (item.id === 'logout-mini') return; // Skip the mini logout button itself
+                    
+                    const label = item.querySelector('.label');
+                    if (label) label.classList.add('hidden');
+                    
+                    item.classList.remove('w-full', 'px-4', 'py-3', 'gap-3');
+                    item.classList.add('h-10', 'w-10', 'justify-center', 'p-0');
+                });
+
+            } else {
+                // Expand
+                sidebar.classList.replace('w-[88px]', 'w-[215px]');
+                
+                logoFull.classList.remove('hidden');
+                logoMini.classList.add('hidden');
+                
+                userFull.classList.remove('hidden');
+                logoutMini.classList.add('hidden');
+                logoutMini.classList.remove('flex');
+
+                items.forEach(item => {
+                    if (item.id === 'logout-mini') return;
+
+                    const label = item.querySelector('.label');
+                    if (label) label.classList.remove('hidden');
+                    
+                    item.classList.add('w-full', 'px-4', 'py-3', 'gap-3');
+                    item.classList.remove('h-10', 'w-10', 'justify-center', 'p-0');
+                });
+            }
+        }
+    </script>
+</body>
+</html>
