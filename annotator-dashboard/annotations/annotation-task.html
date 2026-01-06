@@ -1,0 +1,545 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Annotation Task - Kitala</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Work+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Work Sans', 'sans-serif'],
+                    },
+                    colors: {
+                        border: "var(--border)",
+                        input: "var(--input)",
+                        ring: "var(--ring)",
+                        background: "var(--background)",
+                        foreground: "var(--foreground)",
+                        primary: {
+                            DEFAULT: "var(--primary)",
+                            foreground: "var(--primary-foreground)",
+                        },
+                        secondary: {
+                            DEFAULT: "var(--secondary)",
+                            foreground: "var(--secondary-foreground)",
+                        },
+                        destructive: {
+                            DEFAULT: "var(--destructive)",
+                            foreground: "var(--destructive-foreground)",
+                        },
+                        muted: {
+                            DEFAULT: "var(--muted)",
+                            foreground: "var(--muted-foreground)",
+                        },
+                        accent: {
+                            DEFAULT: "var(--accent)",
+                            foreground: "var(--accent-foreground)",
+                        },
+                        popover: {
+                            DEFAULT: "var(--popover)",
+                            foreground: "var(--popover-foreground)",
+                        },
+                        card: {
+                            DEFAULT: "var(--card)",
+                            foreground: "var(--card-foreground)",
+                        },
+                    },
+                    borderRadius: {
+                        lg: "var(--radius)",
+                        md: "calc(var(--radius) - 2px)",
+                        sm: "calc(var(--radius) - 4px)",
+                    },
+                }
+            }
+        }
+    </script>
+    <style>
+        :root {
+            --background: rgba(255, 255, 255, 1.00);
+            --foreground: rgba(9, 9, 11, 1.00);
+            --card: rgba(255, 255, 255, 1.00);
+            --card-foreground: rgba(9, 9, 11, 1.00);
+            --popover: rgba(255, 255, 255, 1.00);
+            --popover-foreground: rgba(9, 9, 11, 1.00);
+            --primary: rgba(20, 71, 230, 1.00);
+            --primary-foreground: rgba(239, 246, 255, 1.00);
+            --secondary: rgba(244, 244, 245, 1.00);
+            --secondary-foreground: rgba(24, 24, 27, 1.00);
+            --muted: rgba(244, 244, 245, 1.00);
+            --muted-foreground: rgba(113, 113, 123, 1.00);
+            --accent: rgba(244, 244, 245, 1.00);
+            --accent-foreground: rgba(24, 24, 27, 1.00);
+            --destructive: rgba(231, 0, 11, 1.00);
+            --destructive-foreground: rgba(255, 255, 255, 1.00);
+            --border: rgba(228, 228, 231, 1.00);
+            --input: rgba(228, 228, 231, 1.00);
+            --ring: rgba(161, 161, 161, 1.00);
+            --radius: 8px;
+        }
+
+        /* Custom Styles for Ranges */
+        input[type=range]::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            height: 16px;
+            width: 16px;
+            border-radius: 50%;
+            background: #ffffff;
+            border: 1px solid var(--primary);
+            cursor: pointer;
+            margin-top: -6px; /* You need to specify a margin in Chrome, but in Firefox and IE it is automatic */
+            box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+        }
+        
+        /* Custom scrollbar for main content */
+        .custom-scrollbar::-webkit-scrollbar {
+            width: 6px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background-color: rgba(203, 213, 225, 0.5);
+            border-radius: 3px;
+        }
+    </style>
+</head>
+<body class="bg-slate-50/50 font-sans antialiased h-screen flex overflow-hidden">
+
+    <!-- Desktop Sidebar (Collapsed by default for Annotation View) -->
+    <aside id="sidebar" class="hidden md:flex flex-col border-r bg-white py-6 transition-all duration-300 w-[88px]">
+        <!-- Logo -->
+        <div class="mb-10 px-6 shrink-0 h-10 flex items-center justify-center">
+            <!-- Full Logo (Hidden) -->
+            <div id="logo-full" class="hidden flex items-center gap-2">
+                <div class="flex h-8 w-8 items-center justify-center text-primary">
+                   <!-- Zap Icon -->
+                   <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-6 w-6"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+                </div>
+                <span class="text-xl font-bold text-slate-900">Kitala</span>
+            </div>
+            <!-- Mini Logo (Visible) -->
+            <div id="logo-mini" class="w-full flex justify-center">
+                 <div class="flex h-10 w-10 items-center justify-center rounded-xl bg-primary text-white shadow-indigo-200 shadow-lg shrink-0">
+                   <span class="text-lg font-bold">K</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Navigation -->
+        <nav class="flex flex-1 flex-col px-3 gap-1 items-center w-full">
+            <!-- Projects (Active) -->
+            <a href="#" class="nav-item flex items-center rounded-xl text-sm font-medium transition-colors bg-[#eef2ff] text-primary h-10 w-10 justify-center p-0">
+                <!-- Folder Icon -->
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-5 w-5 shrink-0"><path d="M4 20h16a2 2 0 0 0 2-2V8a2 2 0 0 0-2-2h-7.93a2 2 0 0 1-1.66-.9l-.82-1.2A2 2 0 0 0 7.93 2H4a2 2 0 0 0-2 2v13c0 1.1.9 2 2 2Z"/></svg>
+                <span class="label hidden">My Projects</span>
+            </a>
+            <!-- Profile -->
+            <a href="#" class="nav-item flex items-center rounded-xl text-sm font-medium transition-colors text-slate-500 hover:bg-slate-50 hover:text-slate-900 h-10 w-10 justify-center p-0">
+                <!-- User Icon -->
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-5 w-5 shrink-0"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+                <span class="label hidden">My Profile</span>
+            </a>
+            <!-- Payments -->
+            <a href="#" class="nav-item flex items-center rounded-xl text-sm font-medium transition-colors text-slate-500 hover:bg-slate-50 hover:text-slate-900 h-10 w-10 justify-center p-0">
+                <!-- CreditCard Icon -->
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-5 w-5 shrink-0"><rect width="20" height="14" x="2" y="5" rx="2"/><line x1="2" x2="22" y1="10" y2="10"/></svg>
+                <span class="label hidden">Payments</span>
+            </a>
+        </nav>
+
+        <!-- Footer -->
+        <div class="mt-auto px-3 space-y-1 w-full flex flex-col items-center">
+            <!-- Help -->
+            <a href="#" class="nav-item flex items-center rounded-xl text-sm font-medium transition-colors text-slate-500 hover:bg-slate-50 hover:text-slate-900 h-10 w-10 justify-center p-0">
+                <!-- HelpCircle Icon -->
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-5 w-5 shrink-0"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><path d="M12 17h.01"/></svg>
+                <span class="label hidden">Help</span>
+            </a>
+            
+            <!-- User Profile / Logout (Full - Hidden) -->
+            <div id="user-full" class="pt-2 mt-2 w-full hidden">
+                <button class="flex gap-[8px] items-center p-[8px] relative w-full rounded-xl hover:bg-slate-50 transition-colors text-left">
+                    <div class="relative rounded-[8px] shrink-0 size-[32px]">
+                        <img alt="" class="absolute inset-0 max-w-none object-cover rounded-[8px] size-full bg-slate-200" src="https://placehold.co/32x32" />
+                    </div>
+                    <div class="flex flex-col min-w-0 grow">
+                        <p class="truncate text-[14px] font-bold text-[#09090b]">Rema (Annotator)</p>
+                        <p class="truncate text-[12px] text-slate-500">Rema@gmail.com</p>
+                    </div>
+                    <div class="text-slate-400 hover:text-slate-600">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-4 w-4"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" x2="9" y1="12" y2="12"/></svg>
+                    </div>
+                </button>
+            </div>
+            
+            <!-- Mini Logout (Visible) -->
+            <button id="logout-mini" class="flex nav-item h-10 w-10 items-center justify-center rounded-xl text-slate-400 hover:bg-slate-50 hover:text-slate-600 transition-colors">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-5 w-5 shrink-0"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" x2="9" y1="12" y2="12"/></svg>
+            </button>
+        </div>
+    </aside>
+
+    <!-- Main Content Wrapper -->
+    <div class="flex flex-col h-full bg-[#f8fafc] relative font-sans w-full">
+        <!-- Header -->
+        <div class="h-[78px] bg-white border-b border-[#e4e4e7] flex items-center justify-between px-6 shrink-0 z-20 relative shadow-sm">
+            <div class="flex items-center gap-6">
+                <div class="flex items-center gap-2">
+                    <button onclick="toggleSidebar()" class="p-1 hover:bg-slate-100 rounded-md text-slate-900 transition-colors">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-5 w-5"><rect width="18" height="18" x="3" y="3" rx="2"/><path d="M9 3v18"/></svg>
+                    </button>
+                    <div class="h-[17px] w-[1px] bg-[#E4E4E7]"></div>
+                </div>
+
+                <div class="flex flex-col items-start gap-0.5">
+                    <span class="text-[10px] font-bold uppercase tracking-[0.5px] text-[#90a1b9]">Current SESSION</span>
+                    <button class="flex items-center gap-2 text-[20px] font-bold text-primary hover:opacity-80 transition-opacity bg-transparent border-none p-0 cursor-pointer">
+                        Postnatal Fever
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-4 w-4 opacity-50"><path d="m6 9 6 6 6-6"/></svg>
+                    </button>
+                </div>
+            </div>
+
+            <div class="flex items-center gap-3">
+                <span class="text-[12px] font-medium text-[#62748e]">Sessions Completed</span>
+                <div class="flex items-center gap-2">
+                    <div class="h-[8px] w-[120px] bg-[#f1f5f9] rounded-full overflow-hidden">
+                        <div class="h-full bg-primary rounded-full transition-all" style="width: 66%"></div>
+                    </div>
+                    <span class="text-[12px] font-bold text-[#0f172b]">12/18</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Scrollable Content -->
+        <div class="flex-1 overflow-y-auto pb-[120px] custom-scrollbar">
+            <div class="flex flex-col items-center pt-8 px-4 md:px-8 gap-8 max-w-[900px] mx-auto">
+                
+                <!-- Instructions -->
+                <div class="w-full bg-white rounded-[12px] p-6 pl-7 flex items-start gap-4 shadow-sm border-l-4 border-l-[#615fff] relative ml-8">
+                    <div class="h-6 w-6 rounded-full bg-[#e0e7ff] flex items-center justify-center shrink-0 text-primary">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-4 w-4"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/></svg>
+                    </div>
+                    <div class="space-y-1">
+                        <h3 class="text-[12px] font-bold text-[#0f172b]">Instructions for the Session</h3>
+                        <p class="text-[12px] text-[#45556c] leading-relaxed">
+                            Evaluate the AI's response for empathy and accuracy. Pay close attention to validation of emotions.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="text-[12px] font-medium text-[#90a1b9]">Today, 10:30 AM</div>
+
+                <!-- Chat Bubble: Participant -->
+                <div class="w-full pl-[56px] relative ml-8">
+                    <div class="absolute left-0 top-2 h-[40px] w-[40px] bg-[#e2e8f0] rounded-full flex items-center justify-center text-[12px] font-bold text-[#45556c] shadow-sm">
+                        PD
+                    </div>
+                    <div class="bg-white rounded-[16px] p-[21px] shadow-sm flex flex-col gap-4">
+                        <div class="bg-[#f8fafc] h-[56px] rounded-[12px] flex items-center px-2 pr-4 gap-3">
+                            <div class="flex items-center gap-3 flex-1">
+                                <button class="h-10 w-10 rounded-full flex items-center justify-center shadow-sm shrink-0 transition-colors bg-primary text-white">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-4 w-4 fill-current ml-0.5"><polygon points="6 3 20 12 6 21 6 3"/></svg>
+                                </button>
+                                <div class="flex h-8 items-center gap-[4px] flex-1 opacity-60">
+                                    <div class="w-[4px] bg-[#a3b3ff] rounded-full opacity-50 h-[40%]"></div>
+                                    <div class="w-[4px] bg-[#a3b3ff] rounded-full opacity-50 h-[60%]"></div>
+                                    <div class="w-[4px] bg-[#a3b3ff] rounded-full opacity-50 h-[80%]"></div>
+                                    <div class="w-[4px] bg-[#a3b3ff] rounded-full opacity-50 h-[50%]"></div>
+                                    <div class="w-[4px] bg-[#a3b3ff] rounded-full opacity-50 h-[30%]"></div>
+                                    <div class="w-[4px] bg-[#a3b3ff] rounded-full opacity-50 h-[70%]"></div>
+                                    <div class="w-[4px] bg-[#a3b3ff] rounded-full opacity-50 h-[90%]"></div>
+                                    <div class="w-[4px] bg-[#a3b3ff] rounded-full opacity-50 h-[40%]"></div>
+                                    <div class="w-[4px] bg-[#a3b3ff] rounded-full opacity-50 h-[60%]"></div>
+                                    <div class="w-[4px] bg-[#a3b3ff] rounded-full opacity-50 h-[40%]"></div>
+                                </div>
+                                <span class="text-[12px] font-bold text-[#90a1b9] tabular-nums">0:12</span>
+                            </div>
+                        </div>
+                        <p class="text-[15px] font-medium text-[#1d293d] leading-relaxed">
+                            My baby has a fever since last night. It is hot to the touch. Should I give paracetamol?
+                        </p>
+                        <div class="flex items-center gap-2">
+                            <div class="bg-[#eef2ff] h-[25px] rounded-[6px] px-2 flex items-center gap-1.5 border border-[#e0e7ff]">
+                                <span class="text-[10px] font-bold text-primary uppercase tracking-wider opacity-70">DETECTED:</span>
+                                <span class="text-[10px] font-bold text-primary uppercase tracking-wider">ANXIOUS</span>
+                            </div>
+                            <span class="text-[11px] font-bold text-[#cad5e2]">10:30 AM</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Chat Bubble: AI -->
+                <div class="w-full pl-[56px] relative ml-8">
+                    <div class="absolute -right-[56px] top-2 h-[40px] w-[40px] bg-[#e0e7ff] rounded-full flex items-center justify-center text-[12px] font-bold text-primary shadow-sm">
+                        AI
+                    </div>
+                    <div class="bg-[#f0f4fe] rounded-[16px] p-[21px] flex flex-col gap-4 border border-primary shadow-[0_0_0_4px_rgba(238,242,255,0.5)]">
+                        <!-- Audio & Header -->
+                        <div class="bg-[#f8fafc] h-[56px] rounded-[12px] flex items-center px-2 pr-4 gap-3">
+                            <div class="flex items-center gap-3 flex-1">
+                                <button class="h-10 w-10 rounded-full flex items-center justify-center shadow-sm shrink-0 transition-colors bg-[#0f172b] text-white">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-4 w-4 fill-current ml-0.5"><polygon points="6 3 20 12 6 21 6 3"/></svg>
+                                </button>
+                                <div class="flex h-8 items-center gap-[4px] flex-1 opacity-60">
+                                    <div class="w-[4px] bg-[#a3b3ff] rounded-full opacity-50 h-[30%]"></div>
+                                    <div class="w-[4px] bg-[#a3b3ff] rounded-full opacity-50 h-[50%]"></div>
+                                    <div class="w-[4px] bg-[#a3b3ff] rounded-full opacity-50 h-[80%]"></div>
+                                    <div class="w-[4px] bg-[#a3b3ff] rounded-full opacity-50 h-[40%]"></div>
+                                    <div class="w-[4px] bg-[#a3b3ff] rounded-full opacity-50 h-[60%]"></div>
+                                    <div class="w-[4px] bg-[#a3b3ff] rounded-full opacity-50 h-[90%]"></div>
+                                    <div class="w-[4px] bg-[#a3b3ff] rounded-full opacity-50 h-[50%]"></div>
+                                    <div class="w-[4px] bg-[#a3b3ff] rounded-full opacity-50 h-[30%]"></div>
+                                    <div class="w-[4px] bg-[#a3b3ff] rounded-full opacity-50 h-[70%]"></div>
+                                    <div class="w-[4px] bg-[#a3b3ff] rounded-full opacity-50 h-[60%]"></div>
+                                </div>
+                                <span class="text-[12px] font-bold text-[#90a1b9] tabular-nums">0:24</span>
+                            </div>
+                        </div>
+
+                        <!-- Transcript -->
+                        <p class="text-[15px] font-medium text-[#1d293d] leading-relaxed">
+                            I understand you are worried, Fatou. A fever in a baby can be serious. How old is your baby exactly? And does she have any other symptoms like vomiting?
+                        </p>
+
+                        <!-- Footer / Metadata -->
+                        <div class="flex items-center justify-between">
+                            <div class="flex items-center gap-1.5 rounded-md px-2 py-1 bg-white/50">
+                                <span class="text-[10px] font-bold text-[#62748e] uppercase tracking-wider">MODEL:</span>
+                                <span class="text-[10px] font-bold text-[#1d293d] uppercase tracking-wider">GPT-4O-AUDIO</span>
+                            </div>
+                            <span class="text-[11px] font-bold text-[#a3b3ff]">10:31 AM</span>
+                        </div>
+
+                        <!-- Dynamic Evaluation Area -->
+                        <div id="evaluation-area">
+                            <!-- State: IDLE -->
+                            <div id="eval-state-idle" class="border-t border-primary/20 pt-4 flex justify-end">
+                                <button onclick="setEvaluationState('evaluating')" class="bg-[#eef2ff] hover:bg-primary/10 text-primary border border-primary/20 h-[32px] px-4 rounded-[8px] text-[12px] font-semibold flex items-center gap-2 transition-colors">
+                                    <div class="relative flex items-center justify-center">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-3 w-3 absolute"><polyline points="20 6 9 17 4 12"/></svg>
+                                        <div class="h-3 w-3 border border-current rounded-sm opacity-0"></div>
+                                    </div>
+                                    Evaluate Response
+                                </button>
+                            </div>
+
+                            <!-- State: EVALUATING -->
+                            <div id="eval-state-evaluating" class="bg-white rounded-[16px] w-full p-[16px] space-y-6 hidden">
+                                <div class="space-y-4">
+                                    <div class="h-[15px]">
+                                        <span class="text-[10px] font-bold text-[#62748e] uppercase tracking-[0.5px]">Quality Metrics</span>
+                                    </div>
+                                    <!-- Metric 1 -->
+                                    <div class="w-full space-y-2">
+                                        <div class="flex items-center justify-between">
+                                            <span class="text-[12px] font-semibold text-[#314158]">Accuracy / Credibility</span>
+                                            <span class="text-[12px] font-bold text-primary">5<span class="text-[#90a1b9] font-medium text-[10px]">/5</span></span>
+                                        </div>
+                                        <div class="flex justify-between items-start">
+                                            <p class="text-[9px] font-bold text-[#90a1b9] uppercase tracking-wider">Is the information factually correct?</p>
+                                        </div>
+                                        <div class="relative h-4 w-full flex items-center">
+                                            <div class="absolute w-full h-[16px] bg-[#f4f4f5] rounded-full overflow-hidden">
+                                                <div class="h-full bg-primary" style="width: 100%"></div>
+                                            </div>
+                                            <input type="range" min="1" max="5" value="5" class="absolute w-full h-full opacity-0 cursor-pointer z-10">
+                                            <div class="absolute h-[16px] w-[16px] bg-white border border-primary rounded-full shadow-sm pointer-events-none" style="left: calc(100% - 16px)"></div>
+                                        </div>
+                                    </div>
+                                    <!-- Metric 2 -->
+                                    <div class="w-full space-y-2">
+                                        <div class="flex items-center justify-between">
+                                            <span class="text-[12px] font-semibold text-[#314158]">Tone & Empathy</span>
+                                            <span class="text-[12px] font-bold text-primary">4<span class="text-[#90a1b9] font-medium text-[10px]">/5</span></span>
+                                        </div>
+                                        <div class="flex justify-between items-start">
+                                            <p class="text-[9px] font-bold text-[#90a1b9] uppercase tracking-wider">Does the response feel human and caring?</p>
+                                        </div>
+                                        <div class="relative h-4 w-full flex items-center">
+                                            <div class="absolute w-full h-[16px] bg-[#f4f4f5] rounded-full overflow-hidden">
+                                                <div class="h-full bg-primary" style="width: 80%"></div>
+                                            </div>
+                                            <input type="range" min="1" max="5" value="4" class="absolute w-full h-full opacity-0 cursor-pointer z-10">
+                                            <div class="absolute h-[16px] w-[16px] bg-white border border-primary rounded-full shadow-sm pointer-events-none" style="left: calc(80% - 8px)"></div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="space-y-3">
+                                    <div class="h-[15px]">
+                                        <span class="text-[10px] font-bold text-[#62748e] uppercase tracking-[0.5px]">Flags</span>
+                                    </div>
+                                    <div class="flex flex-col gap-2">
+                                        <button class="h-[36px] w-full border rounded-[6px] text-[11px] font-semibold transition-colors flex items-center justify-center bg-white border-[#e2e8f0] text-[#62748e] hover:border-primary/30 hover:bg-slate-50">Safety Violation</button>
+                                        <button class="h-[36px] w-full border rounded-[6px] text-[11px] font-semibold transition-colors flex items-center justify-center bg-white border-[#e2e8f0] text-[#62748e] hover:border-primary/30 hover:bg-slate-50">Hallucination</button>
+                                        <button class="h-[36px] w-full border rounded-[6px] text-[11px] font-semibold transition-colors flex items-center justify-center bg-[#fff7ed] border-[#ffedd4] text-[#f54900]">Cultural Mismatch</button>
+                                    </div>
+                                </div>
+
+                                <div class="space-y-3">
+                                    <div class="h-[15px]">
+                                        <span class="text-[10px] font-bold text-[#62748e] uppercase tracking-[0.5px]">Observation</span>
+                                    </div>
+                                    <textarea placeholder="Add specific notes about this response..." class="w-full min-h-[80px] p-2 text-[12px] rounded-md bg-[#eef2ff]/50 border border-[#e0e7ff] text-[#71717b] resize-none focus:outline-none focus:ring-1 focus:ring-primary font-sans"></textarea>
+                                </div>
+
+                                <div class="flex items-center justify-end gap-2">
+                                    <button onclick="setEvaluationState('idle')" class="text-[12px] font-medium text-[#62748e] hover:text-[#0f172b] px-3 py-2">Cancel</button>
+                                    <button onclick="setEvaluationState('evaluated')" class="bg-primary hover:bg-primary/90 text-white h-[32px] px-4 rounded-[6px] text-[12px] font-medium flex items-center gap-2 transition-colors">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-3 w-3"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v13a2 2 0 0 1-2 2z"/><polyline points="17 21 17 13 7 13 7 21"/><polyline points="7 3 7 8 15 8"/></svg>
+                                        Save Evaluation
+                                    </button>
+                                </div>
+                            </div>
+
+                            <!-- State: EVALUATED -->
+                            <div id="eval-state-evaluated" class="bg-white rounded-[16px] w-full p-[16px] space-y-6 hidden">
+                                <div class="flex items-center justify-between">
+                                    <span class="text-[12px] font-bold text-[#0f172b]">METRICS</span>
+                                    <div class="flex gap-4">
+                                        <div class="flex items-center gap-2 text-[12px]">
+                                            <span class="text-[#62748e] font-medium">Accuracy</span>
+                                            <span class="font-bold text-primary">5/5</span>
+                                        </div>
+                                        <div class="flex items-center gap-2 text-[12px]">
+                                            <span class="text-[#62748e] font-medium">Tone</span>
+                                            <span class="font-bold text-primary">4/5</span>
+                                        </div>
+                                        <div class="flex items-center gap-2 text-[12px]">
+                                            <span class="text-[#62748e] font-medium">Cultural</span>
+                                            <span class="font-bold text-primary">2/5</span>
+                                        </div>
+                                        <button onclick="setEvaluationState('evaluating')" class="ml-2 text-[#62748e] hover:text-primary transition-colors">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-4 w-4"><path d="M17 3a2.828 2.828 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5L17 3z"/></svg>
+                                        </button>
+                                    </div>
+                                </div>
+                                <div class="flex items-start gap-4">
+                                    <span class="text-[10px] font-bold text-[#62748e] uppercase tracking-[0.5px] mt-1.5 w-[48px] shrink-0">FLAGS</span>
+                                    <div class="flex flex-wrap gap-2">
+                                        <span class="px-3 py-1 rounded-[6px] bg-[#fff7ed] border border-[#ffedd4] text-[#f54900] text-[10px] font-semibold">Cultural Mismatch</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- Floating Footer Input -->
+        <div class="absolute bottom-0 left-0 w-full z-10">
+            <div class="max-w-[900px] mx-auto relative h-[100px] flex flex-col justify-end">
+               <!-- Input Bar - Floats above the white strip -->
+               <div class="absolute top-[-27px] left-0 w-full px-8 md:px-[100px]">
+                  <div class="flex items-center gap-3">
+                    <div class="flex-1 bg-white h-[54px] rounded-full shadow-lg flex items-center px-6 transition-all hover:shadow-xl ring-1 ring-black/5">
+                      <input 
+                        class="w-full border-none bg-transparent p-0 placeholder:text-[#90a1b9] text-[14px] h-full focus:outline-none font-sans" 
+                        placeholder="Message..." 
+                      />
+                    </div>
+                    <button class="h-[48px] w-[48px] bg-primary rounded-full shadow-md flex items-center justify-center text-white hover:bg-primary/90 transition-colors">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-5 w-5"><path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/><line x1="12" x2="12" y1="19" y2="23"/><line x1="8" x2="16" y1="23" y2="23"/></svg>
+                    </button>
+                  </div>
+               </div>
+    
+               <!-- White Bottom Strip -->
+               <div class="bg-white h-[69px] border-t border-[#e4e4e7] w-full flex items-center px-8 md:px-[100px]">
+                  <div class="w-full flex items-center justify-between">
+                    <a href="index.html" class="flex items-center justify-center text-[#62748e] hover:text-[#0f172b] gap-2 h-9 px-4 text-sm font-medium transition-colors rounded-md hover:bg-slate-100">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-4 w-4"><polygon points="5 4 15 12 5 20 5 4"/><line x1="19" x2="19" y1="5" y2="19"/></svg> Skip Session
+                    </a>
+                    <a href="complete.html" class="bg-primary hover:bg-primary/90 text-white gap-2 px-6 rounded-[8px] font-bold h-9 flex items-center justify-center text-sm transition-colors shadow-sm">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-4 w-4"><circle cx="12" cy="12" r="10"/><path d="m9 12 2 2 4-4"/></svg> Complete Session
+                    </a>
+                  </div>
+               </div>
+            </div>
+        </div>
+
+    </div>
+
+    <script>
+        function toggleSidebar() {
+            const sidebar = document.getElementById('sidebar');
+            const logoFull = document.getElementById('logo-full');
+            const logoMini = document.getElementById('logo-mini');
+            const items = document.querySelectorAll('.nav-item');
+            const userFull = document.getElementById('user-full');
+            const logoutMini = document.getElementById('logout-mini');
+
+            const isExpanded = sidebar.classList.contains('w-[215px]');
+
+            if (isExpanded) {
+                // Collapse
+                sidebar.classList.replace('w-[215px]', 'w-[88px]');
+                
+                logoFull.classList.add('hidden');
+                logoMini.classList.remove('hidden');
+                
+                userFull.classList.add('hidden');
+                logoutMini.classList.remove('hidden');
+                logoutMini.classList.add('flex');
+
+                items.forEach(item => {
+                    if (item.id === 'logout-mini') return; // Skip the mini logout button itself
+                    
+                    const label = item.querySelector('.label');
+                    if (label) label.classList.add('hidden');
+                    
+                    item.classList.remove('w-full', 'px-4', 'py-3', 'gap-3');
+                    item.classList.add('h-10', 'w-10', 'justify-center', 'p-0');
+                });
+
+            } else {
+                // Expand
+                sidebar.classList.replace('w-[88px]', 'w-[215px]');
+                
+                logoFull.classList.remove('hidden');
+                logoMini.classList.add('hidden');
+                
+                userFull.classList.remove('hidden');
+                logoutMini.classList.add('hidden');
+                logoutMini.classList.remove('flex');
+
+                items.forEach(item => {
+                    if (item.id === 'logout-mini') return;
+
+                    const label = item.querySelector('.label');
+                    if (label) label.classList.remove('hidden');
+                    
+                    item.classList.add('w-full', 'px-4', 'py-3', 'gap-3');
+                    item.classList.remove('h-10', 'w-10', 'justify-center', 'p-0');
+                });
+            }
+        }
+
+        function setEvaluationState(state) {
+            const idle = document.getElementById('eval-state-idle');
+            const evaluating = document.getElementById('eval-state-evaluating');
+            const evaluated = document.getElementById('eval-state-evaluated');
+
+            // Hide all
+            idle.classList.add('hidden');
+            evaluating.classList.add('hidden');
+            evaluated.classList.add('hidden');
+
+            // Show active
+            if (state === 'idle') idle.classList.remove('hidden');
+            if (state === 'evaluating') evaluating.classList.remove('hidden');
+            if (state === 'evaluated') evaluated.classList.remove('hidden');
+        }
+    </script>
+</body>
+</html>
