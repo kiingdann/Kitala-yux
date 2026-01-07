@@ -1,1 +1,283 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Profile - Kitala</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Work+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Work Sans', 'sans-serif'],
+                    },
+                    colors: {
+                        border: "var(--border)",
+                        input: "var(--input)",
+                        ring: "var(--ring)",
+                        background: "var(--background)",
+                        foreground: "var(--foreground)",
+                        primary: {
+                            DEFAULT: "#4f39f6",
+                            foreground: "#ffffff",
+                        },
+                    },
+                    borderRadius: {
+                        lg: "8px",
+                        md: "6px",
+                        sm: "4px",
+                    },
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-[#f8fafc] font-sans antialiased h-screen flex overflow-hidden">
+
+    <!-- Sidebar -->
+    <aside id="sidebar" class="hidden md:flex flex-col border-r bg-white py-6 transition-all duration-300 w-[88px]">
+        <div class="mb-10 px-6 shrink-0 h-10 flex items-center justify-center">
+            <div class="flex h-10 w-10 items-center justify-center rounded-xl bg-[#4f39f6] text-white shadow-indigo-200 shadow-lg shrink-0">
+               <span class="text-lg font-bold">K</span>
+            </div>
+        </div>
+        <nav class="flex flex-1 flex-col px-3 gap-1 items-center w-full">
+            <a href="#" class="flex h-10 w-10 items-center justify-center rounded-xl text-slate-500 hover:bg-slate-50 transition-colors">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-5 w-5"><path d="M4 20h16a2 2 0 0 0 2-2V8a2 2 0 0 0-2-2h-7.93a2 2 0 0 1-1.66-.9l-.82-1.2A2 2 0 0 0 7.93 2H4a2 2 0 0 0-2 2v13c0 1.1.9 2 2 2Z"/></svg>
+            </a>
+            <a href="#" class="flex h-10 w-10 items-center justify-center rounded-xl bg-[#eef2ff] text-[#4f39f6] transition-colors">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-5 w-5"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+            </a>
+            <a href="#" class="flex h-10 w-10 items-center justify-center rounded-xl text-slate-500 hover:bg-slate-50 transition-colors">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-5 w-5"><rect width="20" height="14" x="2" y="5" rx="2"/><line x1="2" x2="22" y1="10" y2="10"/></svg>
+            </a>
+        </nav>
+    </aside>
+
+    <!-- Main Content Wrapper -->
+    <div class="flex-1 flex flex-col h-full bg-[#f8fafc] overflow-hidden">
+        
+        <!-- Top Navigation -->
+        <header class="flex items-center justify-between px-6 py-3 bg-white border-b border-[#e2e8f0] sticky top-0 z-10 shrink-0 h-[64px]">
+            <div class="flex items-center gap-4 flex-1">
+                <div class="flex items-center justify-center w-7 h-7">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#09090b" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-4 h-4"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+                </div>
+                <div class="h-4 w-px bg-[#e4e4e7]"></div>
+                <div class="relative w-96 max-w-full hidden md:block">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#90a1b9" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+                    <input 
+                        type="text" 
+                        placeholder="Search projects, researchers, or data..." 
+                        class="w-full h-9 pl-10 pr-4 bg-[#f8fafc] rounded-[10px] text-sm text-[#09090b] placeholder-[#90a1b9]/50 focus:outline-none focus:ring-1 focus:ring-[#4f39f6]"
+                    />
+                </div>
+            </div>
+            <div class="flex items-center gap-4">
+                <button class="relative p-1">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#90a1b9" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-5 h-5"><path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"/><path d="M10.3 21a1.94 1.94 0 0 0 3.4 0"/></svg>
+                    <span class="absolute top-0 right-0 w-2 h-2 bg-[#fb2c36] border-2 border-white rounded-full"></span>
+                </button>
+            </div>
+        </header>
+
+        <!-- Scrollable Main Content -->
+        <div class="flex-1 overflow-auto p-4 md:p-8">
+            <div class="max-w-[1092px] mx-auto">
+                
+                <!-- Page Header -->
+                <div class="mb-8 flex items-center justify-between">
+                    <h1 class="text-2xl font-bold text-[#0f172b]">My profile</h1>
+                </div>
+
+                <!-- Profile Card -->
+                <div class="bg-white rounded-2xl shadow-sm border border-[#e2e8f0] overflow-hidden">
+                    <div class="p-8">
+                        
+                        <!-- Header Section -->
+                        <div class="flex flex-col md:flex-row gap-6 mb-10 pb-10 border-b border-[#f1f5f9]">
+                            <div class="relative shrink-0">
+                                <div class="w-24 h-24 rounded-full bg-[#f1f5f9] border-4 border-white shadow-sm flex items-center justify-center overflow-hidden">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="#cad5e2" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-12 h-12"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+                                </div>
+                                <button class="absolute bottom-0 right-0 w-8 h-8 bg-[#4f39f6] rounded-full border-2 border-white shadow-sm flex items-center justify-center hover:bg-[#432dd7] transition-colors">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-3.5 h-3.5"><path d="M17 3a2.85 2.83 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5Z"/><path d="m15 5 4 4"/></svg>
+                                </button>
+                            </div>
+                            <div class="flex flex-col justify-center">
+                                <h2 class="text-2xl font-bold text-[#0f172b]">Susan Mwangi</h2>
+                                <p class="text-[#4f39f6] font-medium mt-1">African AI Evaluator</p>
+                            </div>
+                        </div>
+
+                        <!-- Form Content -->
+                        <div class="space-y-10">
+                            
+                            <!-- Account Information -->
+                            <section class="space-y-6">
+                                <h3 class="text-xs font-bold text-[#432dd7] uppercase tracking-wider">Account Information</h3>
+                                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                    <div class="space-y-2">
+                                        <label class="text-[#314158] font-medium text-xs block">
+                                            Full Name <span class="text-[#fb2c36]">*</span>
+                                        </label>
+                                        <div class="relative">
+                                            <input type="text" value="Susan Mwangi" class="flex h-9 w-full rounded-md border border-input bg-transparent px-3 py-1 text-sm shadow-sm transition-colors file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50 pr-8" />
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#cad5e2" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="absolute right-3 top-1/2 -translate-y-1/2 w-4 h-4 pointer-events-none"><path d="M17 3a2.85 2.83 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5Z"/><path d="m15 5 4 4"/></svg>
+                                        </div>
+                                    </div>
+                                    <div class="space-y-2">
+                                        <label class="text-[#314158] font-medium text-xs block">
+                                            Email <span class="text-[#fb2c36]">*</span>
+                                        </label>
+                                        <div class="relative">
+                                            <input type="email" value="Susan.mwangi@gmail.com" class="flex h-9 w-full rounded-md border border-input bg-transparent px-3 py-1 text-sm shadow-sm transition-colors file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50 pr-8" />
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#cad5e2" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="absolute right-3 top-1/2 -translate-y-1/2 w-4 h-4 pointer-events-none"><path d="M17 3a2.85 2.83 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5Z"/><path d="m15 5 4 4"/></svg>
+                                        </div>
+                                    </div>
+                                    <div class="space-y-2 md:col-span-2">
+                                        <label class="text-[#314158] font-medium text-xs flex gap-1">
+                                            LinkedIn URL <span class="text-[#90a1b9] font-normal">(Optional)</span>
+                                        </label>
+                                        <div class="relative">
+                                            <input type="text" value="https://linkedin.com/in/susanmwangi" class="flex h-9 w-full rounded-md border border-input bg-transparent px-3 py-1 text-sm shadow-sm transition-colors file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50 pr-8" />
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#cad5e2" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="absolute right-3 top-1/2 -translate-y-1/2 w-4 h-4 pointer-events-none"><path d="M17 3a2.85 2.83 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5Z"/><path d="m15 5 4 4"/></svg>
+                                        </div>
+                                    </div>
+                                </div>
+                            </section>
+
+                            <!-- Location and Profile -->
+                            <section class="space-y-6">
+                                <h3 class="text-xs font-bold text-[#432dd7] uppercase tracking-wider">Location and Profile</h3>
+                                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                    <div class="space-y-2">
+                                        <label class="text-[#314158] font-medium text-xs block">
+                                            Country of Origin <span class="text-[#fb2c36]">*</span>
+                                        </label>
+                                        <div class="relative">
+                                            <select class="flex h-9 w-full items-center justify-between rounded-md border border-input bg-transparent px-3 py-2 text-sm shadow-sm ring-offset-background placeholder:text-muted-foreground focus:outline-none focus:ring-1 focus:ring-ring disabled:cursor-not-allowed disabled:opacity-50 appearance-none">
+                                                <option value="kenya" selected>Kenya</option>
+                                                <option value="ghana">Ghana</option>
+                                                <option value="nigeria">Nigeria</option>
+                                                <option value="south_africa">South Africa</option>
+                                            </select>
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#71717B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="absolute right-3 top-1/2 -translate-y-1/2 w-4 h-4 pointer-events-none opacity-50"><path d="m6 9 6 6 6-6"/></svg>
+                                        </div>
+                                    </div>
+                                    <div class="space-y-2">
+                                        <label class="text-[#314158] font-medium text-xs block">
+                                            Country of Residence <span class="text-[#fb2c36]">*</span>
+                                        </label>
+                                        <div class="relative">
+                                            <select class="flex h-9 w-full items-center justify-between rounded-md border border-input bg-transparent px-3 py-2 text-sm shadow-sm ring-offset-background placeholder:text-muted-foreground focus:outline-none focus:ring-1 focus:ring-ring disabled:cursor-not-allowed disabled:opacity-50 appearance-none">
+                                                <option value="kenya" selected>Kenya</option>
+                                                <option value="ghana">Ghana</option>
+                                                <option value="nigeria">Nigeria</option>
+                                                <option value="south_africa">South Africa</option>
+                                            </select>
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#71717B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="absolute right-3 top-1/2 -translate-y-1/2 w-4 h-4 pointer-events-none opacity-50"><path d="m6 9 6 6 6-6"/></svg>
+                                        </div>
+                                    </div>
+                                </div>
+                            </section>
+
+                            <!-- Languages and Topics -->
+                            <section class="space-y-6">
+                                <h3 class="text-xs font-bold text-[#432dd7] uppercase tracking-wider">Languages and Topics</h3>
+                                
+                                <div class="space-y-2">
+                                    <label class="text-[#314158] font-medium text-xs block">
+                                        Spoken Languages <span class="text-[#fb2c36]">*</span>
+                                    </label>
+                                    <div class="min-h-[44px] p-2 bg-white border border-[#e2e8f0] rounded-md flex flex-wrap gap-2 items-center focus-within:ring-2 focus-within:ring-[#4f39f6] focus-within:ring-offset-2 transition-all">
+                                        <!-- Tags -->
+                                        <div class="inline-flex items-center border transition-colors focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 border-transparent bg-[#eef2ff] text-[#432dd7] border-[#e0e7ff] hover:bg-[#e0e7ff] gap-1 px-2 py-1 text-xs font-medium rounded-[6px]">
+                                            English
+                                            <button class="hover:text-[#4f39f6]/70">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-3 h-3"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
+                                            </button>
+                                        </div>
+                                        <div class="inline-flex items-center border transition-colors focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 border-transparent bg-[#eef2ff] text-[#432dd7] border-[#e0e7ff] hover:bg-[#e0e7ff] gap-1 px-2 py-1 text-xs font-medium rounded-[6px]">
+                                            Kiswahili
+                                            <button class="hover:text-[#4f39f6]/70">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-3 h-3"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
+                                            </button>
+                                        </div>
+                                        <input 
+                                            type="text"
+                                            placeholder="Add language..." 
+                                            class="flex-1 bg-transparent border-none outline-none text-sm text-[#09090b] placeholder-[#90a1b9] min-w-[120px]"
+                                        />
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#cad5e2" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-4 h-4 ml-auto shrink-0"><path d="M17 3a2.85 2.83 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5Z"/><path d="m15 5 4 4"/></svg>
+                                    </div>
+                                    <p class="text-[11px] text-[#62748e]">Start typing to find local languages (e.g. "Wolof", "Yoruba").</p>
+                                </div>
+
+                                <div class="space-y-2">
+                                    <label class="text-[#314158] font-medium text-xs block">
+                                        Topics of interest or expertise
+                                    </label>
+                                    <div class="min-h-[44px] p-2 bg-white border border-[#e2e8f0] rounded-md flex flex-wrap gap-2 items-center focus-within:ring-2 focus-within:ring-[#4f39f6] focus-within:ring-offset-2 transition-all">
+                                        <!-- Tags -->
+                                        <div class="inline-flex items-center border transition-colors focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 border-transparent bg-[#f1f5f9] text-[#314158] border-[#e2e8f0] hover:bg-[#e2e8f0] gap-1 px-2 py-1 text-xs font-medium rounded-[6px]">
+                                            AI Safety
+                                            <button class="hover:text-[#314158]/70">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-3 h-3"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
+                                            </button>
+                                        </div>
+                                        <div class="inline-flex items-center border transition-colors focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 border-transparent bg-[#f1f5f9] text-[#314158] border-[#e2e8f0] hover:bg-[#e2e8f0] gap-1 px-2 py-1 text-xs font-medium rounded-[6px]">
+                                            Maternal health
+                                            <button class="hover:text-[#314158]/70">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-3 h-3"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
+                                            </button>
+                                        </div>
+                                        <input 
+                                            type="text"
+                                            placeholder="Add topic..." 
+                                            class="flex-1 bg-transparent border-none outline-none text-sm text-[#09090b] placeholder-[#90a1b9] min-w-[120px]"
+                                        />
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#cad5e2" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-4 h-4 ml-auto shrink-0"><path d="M17 3a2.85 2.83 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5Z"/><path d="m15 5 4 4"/></svg>
+                                    </div>
+                                </div>
+                            </section>
+
+                            <!-- Additional Info -->
+                            <section class="space-y-6">
+                                <h3 class="text-xs font-bold text-[#432dd7] uppercase tracking-wider">Additional Info</h3>
+                                <div class="space-y-2">
+                                    <label class="text-[#314158] font-medium text-xs block">
+                                        Additional info (optional): tell us more about you, your skills, you ethnic group or community, gender
+                                    </label>
+                                    <div class="relative">
+                                        <textarea class="flex min-h-[120px] w-full rounded-md border border-input bg-transparent px-3 py-2 text-sm shadow-sm placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50 resize-none pr-8"></textarea>
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#cad5e2" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="absolute right-3 top-4 w-4 h-4 pointer-events-none"><path d="M17 3a2.85 2.83 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5Z"/><path d="m15 5 4 4"/></svg>
+                                    </div>
+                                </div>
+                            </section>
+
+                        </div>
+
+                        <!-- Footer Actions -->
+                        <div class="mt-10 pt-8 border-t border-[#f1f5f9] flex justify-end gap-3">
+                            <button class="inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 h-10 px-4 py-2 hover:bg-[#f1f5f9] text-[#45556c] hover:text-[#09090b]">
+                                Discard Changes
+                            </button>
+                            <button class="inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 h-10 px-4 py-2 bg-[#4f39f6] hover:bg-[#432dd7] text-white">
+                                Save Profile
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>
 
