@@ -35,8 +35,15 @@
             }
         }
     </script>
+    <style>
+        /* Custom scrollbar for select dropdown simulation */
+        .custom-select-content {
+            max-height: 200px;
+            overflow-y: auto;
+        }
+    </style>
 </head>
-<body class="bg-[#f8fafc] font-sans antialiased h-screen flex overflow-hidden">
+<body class="bg-[#f8fafc] font-sans antialiased h-screen flex overflow-hidden relative">
 
     <!-- Sidebar -->
     <aside id="sidebar" class="hidden md:flex flex-col border-r bg-white py-6 transition-all duration-300 w-[88px]">
@@ -59,13 +66,13 @@
     </aside>
 
     <!-- Main Content Wrapper -->
-    <div class="flex-1 flex flex-col h-full bg-[#f8fafc] overflow-hidden">
+    <div class="flex-1 flex flex-col h-full bg-[#f8fafc] overflow-hidden relative z-0">
         
         <!-- Top Navigation -->
         <header class="flex items-center justify-between px-6 py-3 bg-white border-b border-[#e2e8f0] sticky top-0 z-10 shrink-0 h-[64px]">
             <div class="flex items-center gap-4 flex-1">
                  <div class="flex items-center gap-2">
-                     <button class="flex items-center justify-center w-7 h-7 text-[#09090b]">
+                     <button id="sidebarToggle" class="flex items-center justify-center w-7 h-7 text-[#09090b] hover:bg-slate-100 rounded-md transition-colors">
                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-4 h-4"><rect width="18" height="18" x="3" y="3" rx="2"/><path d="M9 3v18"/></svg>
                     </button>
                     <div class="h-4 w-px bg-[#e4e4e7]"></div>
@@ -139,7 +146,7 @@
                         </div>
 
                         <!-- Add New Method Button -->
-                        <button class="border-2 border-[#e2e8f0] border-solid rounded-xl p-4 w-[233px] h-[97px] flex items-center justify-center gap-2 hover:bg-slate-50 transition-colors">
+                        <button id="addMethodBtn" class="border-2 border-[#e2e8f0] border-solid rounded-xl p-4 w-[233px] h-[97px] flex items-center justify-center gap-2 hover:bg-slate-50 transition-colors">
                             <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#90a1b9" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-5 h-5"><path d="M5 12h14"/><path d="M12 5v14"/></svg>
                             <span class="text-xs font-semibold text-[#90a1b9]">Add New Method</span>
                         </button>
@@ -251,5 +258,227 @@
         </div>
     </div>
 
+    <!-- Modal Overlay -->
+    <div id="modalOverlay" class="fixed inset-0 z-50 bg-black/80 hidden opacity-0 transition-opacity duration-200"></div>
+
+    <!-- Add Payment Method Modal -->
+    <div id="addPaymentModal" class="fixed left-[50%] top-[50%] z-50 w-full max-w-[720px] translate-x-[-50%] translate-y-[-50%] shadow-lg duration-200 bg-[#f8fafc] sm:rounded-[20px] hidden opacity-0 scale-95 transition-all">
+        
+        <!-- Header -->
+        <div class="px-8 pt-8 pb-4 bg-white rounded-t-[20px]">
+           <div class="flex flex-col space-y-1.5 text-center sm:text-left">
+             <h2 class="text-[18px] font-bold text-[#0f172b] leading-none tracking-tight">Payment Method Type</h2>
+           </div>
+           
+           <button id="closeModalBtn" class="absolute right-4 top-4 rounded-sm opacity-70 ring-offset-background transition-opacity hover:opacity-100 focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 disabled:pointer-events-none bg-transparent hover:bg-slate-100 p-1">
+               <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-4 w-4"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
+               <span class="sr-only">Close</span>
+           </button>
+
+           <!-- Method Selection -->
+           <div class="grid grid-cols-2 gap-4 mt-4">
+              <!-- Mobile Money -->
+              <div id="mobileOption" class="relative p-4 rounded-xl border-2 cursor-pointer transition-all flex items-start gap-3 bg-[#eef2ff] border-[#4f39f6]">
+                  <div class="w-10 h-10 rounded-lg bg-white border border-[#e2e8f0] flex items-center justify-center shrink-0 text-[#4f39f6]">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-5 h-5"><rect width="14" height="20" x="5" y="2" rx="2" ry="2"/><path d="M12 18h.01"/></svg>
+                  </div>
+                  <div class="flex flex-col">
+                      <span class="text-sm font-bold text-[#0f172b]">Mobile Money</span>
+                      <span class="text-xs text-[#64748b] mt-1">M-Pesa, Airtel Money, etc.</span>
+                  </div>
+                  <div class="absolute top-4 right-4 text-[#4f39f6] check-icon">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="currentColor" stroke="none" class="w-5 h-5"><path fill-rule="evenodd" d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z" clip-rule="evenodd"/></svg>
+                  </div>
+              </div>
+
+              <!-- Bank Transfer -->
+              <div id="bankOption" class="relative p-4 rounded-xl border-2 cursor-pointer transition-all flex items-start gap-3 bg-white border-[#e2e8f0] hover:border-[#cbd5e1]">
+                  <div class="w-10 h-10 rounded-lg bg-[#f1f5f9] flex items-center justify-center shrink-0 text-[#64748b]">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-5 h-5"><path d="M3 22h18"/><path d="M6 18v-7"/><path d="M10 18v-7"/><path d="M14 18v-7"/><path d="M18 18v-7"/><path d="M12 2l8 5H4z"/></svg>
+                  </div>
+                  <div class="flex flex-col">
+                      <span class="text-sm font-bold text-[#0f172b]">Bank Transfer</span>
+                      <span class="text-xs text-[#64748b] mt-1">Direct wire to your bank account.</span>
+                  </div>
+                  <div class="absolute top-4 right-4 text-[#4f39f6] hidden check-icon">
+                       <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="currentColor" stroke="none" class="w-5 h-5"><path fill-rule="evenodd" d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z" clip-rule="evenodd"/></svg>
+                  </div>
+              </div>
+           </div>
+        </div>
+
+        <!-- Form Content -->
+        <div class="p-8 bg-white m-6 mt-0 rounded-xl border border-[#e2e8f0]">
+            <h3 id="formTitle" class="text-[16px] font-bold text-[#0f172b] mb-6 border-b border-[#f1f5f9] pb-4">
+                Mobile Money Details
+            </h3>
+            
+            <div id="mobileForm" class="space-y-6">
+                <div class="grid grid-cols-2 gap-6">
+                    <div class="space-y-2">
+                        <label class="text-xs font-bold text-[#0f172b]">Provider</label>
+                        <!-- Custom Select Trigger -->
+                         <div class="relative">
+                            <select class="flex h-11 w-full items-center justify-between rounded-md border border-[#e2e8f0] bg-white px-3 py-2 text-sm text-[#0f172b] focus:outline-none focus:ring-2 focus:ring-[#4f39f6] focus:border-transparent appearance-none">
+                                <option value="m-pesa">M-Pesa</option>
+                                <option value="airtel">Airtel Money</option>
+                                <option value="mtn">MTN Mobile Money</option>
+                            </select>
+                            <div class="absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none opacity-50">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-4 w-4"><path d="m6 9 6 6 6-6"/></svg>
+                            </div>
+                         </div>
+                    </div>
+
+                    <div class="space-y-2">
+                        <label class="text-xs font-bold text-[#0f172b]">Phone Number</label>
+                        <div class="relative">
+                            <div class="absolute left-3 top-1/2 -translate-y-1/2 text-[#94a3b8]">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-4 h-4"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+                            </div>
+                            <input 
+                                type="text"
+                                placeholder="+254 700 000 000" 
+                                class="flex h-11 w-full rounded-md border border-[#e2e8f0] bg-white px-3 pl-10 py-1 text-sm shadow-sm transition-colors file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-[#94a3b8] focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-[#4f39f6] disabled:cursor-not-allowed disabled:opacity-50 text-[#0f172b]"
+                            />
+                        </div>
+                    </div>
+                </div>
+
+                <div class="space-y-2">
+                    <div class="flex items-center gap-1">
+                         <label class="text-xs font-bold text-[#0f172b]">Account Name</label>
+                         <span class="text-xs text-[#94a3b8]">(Optional)</span>
+                    </div>
+                   
+                    <input 
+                        type="text"
+                        placeholder="Name registered on the mobile money account" 
+                        class="flex h-11 w-full rounded-md border border-[#e2e8f0] bg-white px-3 py-1 text-sm shadow-sm transition-colors file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-[#94a3b8] focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-[#4f39f6] disabled:cursor-not-allowed disabled:opacity-50 text-[#0f172b]"
+                    />
+                    <p class="text-[11px] text-[#64748b]">If different from your profile name.</p>
+                </div>
+
+                <div class="flex justify-end gap-3 pt-4">
+                    <button class="modal-cancel-btn inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 h-10 px-6 border border-[#e2e8f0] bg-white text-[#64748b] font-semibold hover:text-[#0f172b] hover:bg-slate-50">
+                        Cancel
+                    </button>
+                    <button class="inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 h-10 px-6 bg-[#4f39f6] hover:bg-[#432dd7] text-white font-semibold">
+                        Save Changes
+                    </button>
+                </div>
+            </div>
+
+            <div id="bankForm" class="space-y-6 hidden">
+                <div class="p-4 bg-slate-50 rounded-lg text-sm text-slate-500 text-center">
+                    Bank transfer details form would go here.
+                </div>
+                 <div class="flex justify-end gap-3 pt-4">
+                    <button class="modal-cancel-btn inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 h-10 px-6 border border-[#e2e8f0] bg-white text-[#64748b] font-semibold hover:text-[#0f172b] hover:bg-slate-50">
+                        Cancel
+                    </button>
+                    <button class="inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 h-10 px-6 bg-[#4f39f6] hover:bg-[#432dd7] text-white font-semibold">
+                        Save Changes
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Footer Support -->
+        <div class="px-8 pb-8">
+             <div class="bg-[#eef2ff] rounded-xl border border-[#e0e7ff] p-4 flex gap-3 items-center">
+                <div class="w-8 h-8 rounded-full bg-white flex items-center justify-center shrink-0 shadow-sm">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#4f39f6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-4 h-4"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><path d="M12 17h.01"/></svg>
+                </div>
+                <div>
+                    <h4 class="text-xs font-bold text-[#0f172b]">Need help with your payment?</h4>
+                    <p class="text-[11px] text-[#64748b]">
+                        contact us if you have any question or issue with your payment - <a href="mailto:support@kitala.ai" class="text-[#4f39f6] font-bold hover:underline">support@kitala.ai</a>
+                    </p>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <script>
+        // Modal Logic
+        const modal = document.getElementById('addPaymentModal');
+        const overlay = document.getElementById('modalOverlay');
+        const openBtn = document.getElementById('addMethodBtn');
+        const closeBtn = document.getElementById('closeModalBtn');
+        const cancelBtns = document.querySelectorAll('.modal-cancel-btn');
+        
+        // Tab Logic
+        const mobileOption = document.getElementById('mobileOption');
+        const bankOption = document.getElementById('bankOption');
+        const mobileForm = document.getElementById('mobileForm');
+        const bankForm = document.getElementById('bankForm');
+        const formTitle = document.getElementById('formTitle');
+
+        function openModal() {
+            overlay.classList.remove('hidden');
+            modal.classList.remove('hidden');
+            // Small timeout to allow display:block to apply before adding opacity
+            setTimeout(() => {
+                overlay.classList.remove('opacity-0');
+                modal.classList.remove('opacity-0', 'scale-95');
+            }, 10);
+        }
+
+        function closeModal() {
+            overlay.classList.add('opacity-0');
+            modal.classList.add('opacity-0', 'scale-95');
+            setTimeout(() => {
+                overlay.classList.add('hidden');
+                modal.classList.add('hidden');
+            }, 200);
+        }
+
+        openBtn.addEventListener('click', openModal);
+        closeBtn.addEventListener('click', closeModal);
+        cancelBtns.forEach(btn => btn.addEventListener('click', closeModal));
+        overlay.addEventListener('click', closeModal);
+
+        // Tab Switching Logic
+        function selectMobile() {
+            // Update Tab Styles
+            mobileOption.classList.remove('bg-white', 'border-[#e2e8f0]', 'hover:border-[#cbd5e1]');
+            mobileOption.classList.add('bg-[#eef2ff]', 'border-[#4f39f6]');
+            mobileOption.querySelector('.text-[#64748b]').classList.replace('text-[#64748b]', 'text-[#4f39f6]');
+            mobileOption.querySelector('.check-icon').classList.remove('hidden');
+
+            bankOption.classList.add('bg-white', 'border-[#e2e8f0]', 'hover:border-[#cbd5e1]');
+            bankOption.classList.remove('bg-[#eef2ff]', 'border-[#4f39f6]');
+            bankOption.querySelector('.text-[#64748b]').classList.replace('text-[#64748b]', 'text-[#64748b]'); // Reset color if changed (logic for bank reset)
+            bankOption.querySelector('.check-icon').classList.add('hidden');
+
+            // Update Form
+            formTitle.textContent = "Mobile Money Details";
+            mobileForm.classList.remove('hidden');
+            bankForm.classList.add('hidden');
+        }
+
+        function selectBank() {
+            // Update Tab Styles
+            bankOption.classList.remove('bg-white', 'border-[#e2e8f0]', 'hover:border-[#cbd5e1]');
+            bankOption.classList.add('bg-[#eef2ff]', 'border-[#4f39f6]');
+            // Note: In React code, icon background color changed, but here I'll keep it simple or match React logic if needed
+            bankOption.querySelector('.check-icon').classList.remove('hidden');
+
+            mobileOption.classList.add('bg-white', 'border-[#e2e8f0]', 'hover:border-[#cbd5e1]');
+            mobileOption.classList.remove('bg-[#eef2ff]', 'border-[#4f39f6]');
+            mobileOption.querySelector('.check-icon').classList.add('hidden');
+
+             // Update Form
+             formTitle.textContent = "Bank Details";
+             mobileForm.classList.add('hidden');
+             bankForm.classList.remove('hidden');
+        }
+
+        mobileOption.addEventListener('click', selectMobile);
+        bankOption.addEventListener('click', selectBank);
+
+    </script>
 </body>
 </html>
