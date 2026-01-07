@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Project Details - Kitala</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Work+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Work Sans', 'sans-serif'],
+                    },
+                    colors: {
+                        border: "var(--border)",
+                        input: "var(--input)",
+                        ring: "var(--ring)",
+                        background: "var(--background)",
+                        foreground: "var(--foreground)",
+                        primary: {
+                            DEFAULT: "#4f39f6",
+                            foreground: "#ffffff",
+                        },
+                    },
+                    borderRadius: {
+                        lg: "8px",
+                        md: "6px",
+                        sm: "4px",
+                    },
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-[#f8fafc] font-sans antialiased h-screen flex overflow-hidden">
+
+    <!-- Sidebar -->
+    <aside id="sidebar" class="hidden md:flex flex-col border-r bg-white py-6 transition-all duration-300 w-[88px]">
+        <div class="mb-10 px-6 shrink-0 h-10 flex items-center justify-center">
+            <div class="flex h-10 w-10 items-center justify-center rounded-xl bg-[#4f39f6] text-white shadow-indigo-200 shadow-lg shrink-0">
+               <span class="text-lg font-bold">K</span>
+            </div>
+        </div>
+        <nav class="flex flex-1 flex-col px-3 gap-1 items-center w-full">
+            <a href="#" class="flex h-10 w-10 items-center justify-center rounded-xl bg-[#eef2ff] text-[#4f39f6] transition-colors">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-5 w-5"><path d="M4 20h16a2 2 0 0 0 2-2V8a2 2 0 0 0-2-2h-7.93a2 2 0 0 1-1.66-.9l-.82-1.2A2 2 0 0 0 7.93 2H4a2 2 0 0 0-2 2v13c0 1.1.9 2 2 2Z"/></svg>
+            </a>
+            <a href="#" class="flex h-10 w-10 items-center justify-center rounded-xl text-slate-500 hover:bg-slate-50 transition-colors">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-5 w-5"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+            </a>
+            <a href="#" class="flex h-10 w-10 items-center justify-center rounded-xl text-slate-500 hover:bg-slate-50 transition-colors">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-5 w-5"><rect width="20" height="14" x="2" y="5" rx="2"/><line x1="2" x2="22" y1="10" y2="10"/></svg>
+            </a>
+        </nav>
+    </aside>
+
+    <!-- Main Content -->
+    <div class="flex-1 flex flex-col h-full bg-[#f8fafc] overflow-hidden">
+        
+        <!-- Top Bar -->
+        <div class="flex items-center gap-2 px-6 h-[49px] bg-white border-b border-[#e4e4e7] shrink-0 z-10">
+            <button class="-ml-2 hover:bg-slate-100 text-[#09090b] p-2 rounded-md">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-5 w-5"><rect width="18" height="18" x="3" y="3" rx="2"/><path d="M9 3v18"/></svg>
+            </button>
+            <div class="h-[17px] w-[1px] bg-[#E4E4E7] mx-2"></div>
+            <div class="flex items-center gap-2 text-[14px]">
+                 <a href="index.html" class="text-[#71717b] cursor-pointer hover:text-[#09090b] transition-colors">Projects</a>
+                 <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-3.5 w-3.5 text-[#71717b]"><path d="m9 18 6-6-6-6"/></svg>
+                 <span class="text-[#09090b]">Testing Voice LLM for Health in Rwanda</span>
+            </div>
+        </div>
+
+        <!-- Scrollable Area -->
+        <div class="flex-1 overflow-auto p-8">
+            <div class="mx-auto max-w-[1200px]">
+                
+                <!-- Page Title -->
+                <div class="mb-8">
+                    <h1 class="text-[30px] font-bold text-[#09090b] leading-[36px]">Testing Voice LLM for Health in Rwanda</h1>
+                </div>
+
+                <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                    
+                    <!-- Left Column -->
+                    <div class="lg:col-span-2 space-y-8">
+                        
+                        <!-- Objective Card -->
+                        <div class="bg-white rounded-[8px] shadow-sm border border-[#e4e4e7] overflow-hidden p-6 grid gap-8">
+                            <!-- Objective -->
+                            <div class="flex gap-4">
+                                <div class="h-10 w-10 rounded-[12px] bg-[#eef2ff] flex items-center justify-center shrink-0">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="#4f39f6" stroke="#4f39f6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-5 w-5"><path d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1z"/><line x1="4" x2="4" y1="22" y2="15"/></svg>
+                                </div>
+                                <div class="space-y-1">
+                                    <h3 class="font-bold text-[#09090b] text-[12px]">Objective</h3>
+                                    <p class="text-[12px] text-[#71717b] leading-[19.5px]">
+                                        Evaluate the accuracy, empathy, and cultural relevance of voice assistants responding to sensitive health-related queries in Kinyarwanda. Your feedback directly improves the AI model.
+                                    </p>
+                                </div>
+                            </div>
+
+                            <div class="grid md:grid-cols-2 gap-8">
+                                <!-- Missions -->
+                                <div class="space-y-4">
+                                    <div class="flex items-center gap-2 mb-2">
+                                        <div class="h-6 w-6 rounded-[7px] bg-[#eff6ff] flex items-center justify-center">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#2b7fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-3.5 w-3.5"><path d="M8 6h13"/><path d="M8 12h13"/><path d="M8 18h13"/><path d="M3 6h.01"/><path d="M3 12h.01"/><path d="M3 18h.01"/></svg>
+                                        </div>
+                                        <h3 class="font-bold text-[#09090b] text-[12px]">Your Missions</h3>
+                                    </div>
+                                    <div class="space-y-4">
+                                        <div class="flex gap-3 items-center">
+                                             <div class="h-5 w-5 rounded-[4px] bg-[#f4f4f5] flex items-center justify-center text-[12px] font-bold text-[#71717b] shrink-0">1</div>
+                                             <p class="text-[12px] text-[#71717b] font-normal">Listen to the user query audio.</p>
+                                        </div>
+                                        <div class="flex gap-3 items-center">
+                                             <div class="h-5 w-5 rounded-[4px] bg-[#f4f4f5] flex items-center justify-center text-[12px] font-bold text-[#71717b] shrink-0">2</div>
+                                             <p class="text-[12px] text-[#71717b] font-normal">Verify the transcription text.</p>
+                                        </div>
+                                        <div class="flex gap-3 items-center">
+                                             <div class="h-5 w-5 rounded-[4px] bg-[#f4f4f5] flex items-center justify-center text-[12px] font-bold text-[#71717b] shrink-0">3</div>
+                                             <p class="text-[12px] text-[#71717b] font-normal">Rate helpfulness & empathy.</p>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Tips -->
+                                <div class="space-y-4">
+                                    <div class="flex items-center gap-2 mb-2">
+                                        <div class="h-6 w-6 rounded-[7px] bg-[#fffbeb] flex items-center justify-center">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="#e17100" stroke="#e17100" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-3.5 w-3.5"><path d="M15 14c.2-1 .7-1.7 1.5-2.5 1-1 1.5-2 1.5-3.5A6 6 0 0 0 6 8c0 1 .2 2.2 1.5 3.5.7.7 1.3 1.5 1.5 2.5"/><path d="M9 18h6"/><path d="M10 22h4"/></svg>
+                                        </div>
+                                        <h3 class="font-bold text-[#09090b] text-[12px]">Tips & Tricks</h3>
+                                    </div>
+                                    <div class="bg-[rgba(20,71,230,0.05)] rounded-[8px] p-4 space-y-3 border border-[rgba(20,71,230,0.1)]">
+                                        <div class="flex gap-3 items-start">
+                                            <div class="h-1.5 w-1.5 rounded-full bg-[#1447e6] mt-1.5 shrink-0"></div>
+                                            <p class="text-[12px] text-[#09090b] font-medium leading-[19.5px]">Use headphones to detect subtle audio artifacts.</p>
+                                        </div>
+                                        <div class="flex gap-3 items-start">
+                                            <div class="h-1.5 w-1.5 rounded-full bg-[#1447e6] mt-1.5 shrink-0"></div>
+                                            <p class="text-[12px] text-[#09090b] font-medium leading-[19.5px]">Flag any translation errors immediately.</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Recent Activity -->
+                        <div class="bg-white rounded-[8px] shadow-sm border border-[#e4e4e7] overflow-hidden">
+                            <div class="h-[62px] border-b border-[#e4e4e7] flex items-center px-6">
+                                <h3 class="text-[14px] font-bold text-[#09090b]">Recent Activity</h3>
+                            </div>
+                            <div class="overflow-x-auto">
+                                <table class="w-full text-left border-collapse">
+                                    <thead class="h-[40px] bg-[#fafafa] border-b border-[#e4e4e7]">
+                                        <tr>
+                                            <th class="px-6 py-3 font-semibold text-[12px] text-[#71717b] uppercase">Task ID</th>
+                                            <th class="px-6 py-3 font-semibold text-[12px] text-[#71717b] uppercase">Topic</th>
+                                            <th class="px-6 py-3 font-semibold text-[12px] text-[#71717b] uppercase">Scenario</th>
+                                            <th class="px-6 py-3 font-semibold text-[12px] text-[#71717b] uppercase">Duration</th>
+                                            <th class="px-6 py-3 font-semibold text-[12px] text-[#71717b] uppercase">Status</th>
+                                            <th class="px-6 py-3 font-semibold text-[12px] text-[#71717b] uppercase text-right">Date</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody class="divide-y divide-[#e4e4e7]">
+                                        <tr class="hover:bg-slate-50 transition-colors h-[67px]">
+                                            <td class="px-6 py-4 font-medium text-[#09090b] text-[12px]">#vid-2938</td>
+                                            <td class="px-6 py-4"><span class="text-[12px] font-bold px-2 py-0.5 rounded-[4px] bg-[#fce7f3] text-[#c6005c]">HIV / AIDS</span></td>
+                                            <td class="px-6 py-4 text-[#71717b] text-[12px]">Symptom Check / Cough</td>
+                                            <td class="px-6 py-4 text-[#71717b] tabular-nums text-[12px]">4m 32s</td>
+                                            <td class="px-6 py-4"><span class="text-[10px] font-bold px-2 py-1 rounded-[6px] uppercase tracking-[0.25px] bg-[#dcfce7] text-[#008236]">Approved</span></td>
+                                            <td class="px-6 py-4 text-right text-[#71717b] tabular-nums text-[12px]">Oct 24, 10:23 AM</td>
+                                        </tr>
+                                        <tr class="hover:bg-slate-50 transition-colors h-[67px]">
+                                            <td class="px-6 py-4 font-medium text-[#09090b] text-[12px]">#vid-2939</td>
+                                            <td class="px-6 py-4"><span class="text-[12px] font-bold px-2 py-0.5 rounded-[4px] bg-[#f3e8ff] text-[#8200db]">Pregnancy</span></td>
+                                            <td class="px-6 py-4 text-[#71717b] text-[12px]">Appointment / General</td>
+                                            <td class="px-6 py-4 text-[#71717b] tabular-nums text-[12px]">3m 15s</td>
+                                            <td class="px-6 py-4"><span class="text-[10px] font-bold px-2 py-1 rounded-[6px] uppercase tracking-[0.25px] bg-[#dcfce7] text-[#008236]">Approved</span></td>
+                                            <td class="px-6 py-4 text-right text-[#71717b] tabular-nums text-[12px]">Oct 24, 10:28 AM</td>
+                                        </tr>
+                                        <tr class="hover:bg-slate-50 transition-colors h-[67px]">
+                                            <td class="px-6 py-4 font-medium text-[#09090b] text-[12px]">#vid-2940</td>
+                                            <td class="px-6 py-4"><span class="text-[12px] font-bold px-2 py-0.5 rounded-[4px] bg-[#dbeafe] text-[#1447e6]">Mental Health</span></td>
+                                            <td class="px-6 py-4 text-[#71717b] text-[12px]">Emergency / Fever</td>
+                                            <td class="px-6 py-4 text-[#71717b] tabular-nums text-[12px]">5m 01s</td>
+                                            <td class="px-6 py-4"><span class="text-[10px] font-bold px-2 py-1 rounded-[6px] uppercase tracking-[0.25px] bg-[#fef3c6] text-[#bb4d00]">Reviewing</span></td>
+                                            <td class="px-6 py-4 text-right text-[#71717b] tabular-nums text-[12px]">Oct 24, 10:35 AM</td>
+                                        </tr>
+                                        <tr class="hover:bg-slate-50 transition-colors h-[67px]">
+                                            <td class="px-6 py-4 font-medium text-[#09090b] text-[12px]">#vid-2942</td>
+                                            <td class="px-6 py-4"><span class="text-[12px] font-bold px-2 py-0.5 rounded-[4px] bg-[#ffedd4] text-[#ca3500]">Chronic Disease</span></td>
+                                            <td class="px-6 py-4 text-[#71717b] text-[12px]">Pharmacy / Dosage</td>
+                                            <td class="px-6 py-4 text-[#71717b] tabular-nums text-[12px]">0m 45s</td>
+                                            <td class="px-6 py-4"><span class="text-[10px] font-bold px-2 py-1 rounded-[6px] uppercase tracking-[0.25px] bg-[#f4f4f5] text-[#71717b]">Skipped</span></td>
+                                            <td class="px-6 py-4 text-right text-[#71717b] tabular-nums text-[12px]">Oct 24, 11:05 AM</td>
+                                        </tr>
+                                        <tr class="hover:bg-slate-50 transition-colors h-[67px]">
+                                            <td class="px-6 py-4 font-medium text-[#09090b] text-[12px]">#vid-2935</td>
+                                            <td class="px-6 py-4"><span class="text-[12px] font-bold px-2 py-0.5 rounded-[4px] bg-[#dcfce7] text-[#008236]">Vaccination</span></td>
+                                            <td class="px-6 py-4 text-[#71717b] text-[12px]">Dietary / Advice</td>
+                                            <td class="px-6 py-4 text-[#71717b] tabular-nums text-[12px]">2m 45s</td>
+                                            <td class="px-6 py-4"><span class="text-[10px] font-bold px-2 py-1 rounded-[6px] uppercase tracking-[0.25px] bg-[#dcfce7] text-[#008236]">Approved</span></td>
+                                            <td class="px-6 py-4 text-right text-[#71717b] tabular-nums text-[12px]">Oct 23, 04:15 PM</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <!-- Right Column -->
+                    <div class="space-y-6">
+                        
+                        <!-- Progress Card -->
+                        <div class="bg-white rounded-[8px] shadow-sm border border-[#e4e4e7] overflow-hidden p-6">
+                            <div class="flex items-start justify-between mb-6">
+                                <div>
+                                    <h3 class="text-[12px] font-bold text-[#71717b] uppercase tracking-[0.6px] mb-1">My Progress</h3>
+                                    <div class="text-[36px] font-bold text-[#09090b] leading-none">24%</div>
+                                </div>
+                                <div class="h-[48px] w-[48px] relative rotate-[-90deg]">
+                                     <svg class="block size-full" fill="none" viewBox="0 0 48 48">
+                                        <path 
+                                            d="M23.8873 2.66667C29.5154 2.66667 34.913 4.90241 38.8926 8.88206C42.8723 12.8617 45.108 18.2593 45.108 23.8873C45.108 29.5154 42.8723 34.913 38.8926 38.8926C34.913 42.8723 29.5154 45.108 23.8873 45.108C18.2593 45.108 12.8617 42.8723 8.88206 38.8926C4.90241 34.913 2.66667 29.5154 2.66667 23.8873C2.66667 18.2593 4.90241 12.8617 8.88206 8.88206C12.8617 4.90241 18.2593 2.66667 23.8873 2.66667Z" 
+                                            stroke="#F4F4F5" 
+                                            stroke-opacity="1" 
+                                            stroke-width="5.33333" 
+                                        />
+                                        <path 
+                                            d="M23.8873 2.66667C29.5154 2.66667 34.913 4.90241 38.8926 8.88206C42.8723 12.8617 45.108 18.2593 45.108 23.8873C45.108 29.5154 42.8723 34.913 38.8926 38.8926C34.913 42.8723 29.5154 45.108 23.8873 45.108C18.2593 45.108 12.8617 42.8723 8.88206 38.8926C4.90241 34.913 2.66667 29.5154 2.66667 23.8873C2.66667 18.2593 4.90241 12.8617 8.88206 8.88206C12.8617 4.90241 18.2593 2.66667 23.8873 2.66667Z" 
+                                            stroke="#1447E6" 
+                                            stroke-dasharray="32 133.33" 
+                                            stroke-linecap="round" 
+                                            stroke-width="5.33333" 
+                                        />
+                                    </svg>
+                                </div>
+                            </div>
+
+                            <div class="mb-6 space-y-1">
+                                <div class="text-[12px] font-medium text-[#1447e6]">Max Payout amount:</div>
+                                <div class="text-[20px] font-bold text-[#1447e6]">$500</div>
+                            </div>
+
+                            <div class="space-y-2 mb-6">
+                                <div class="h-2 w-full bg-[#b2b2ff]/20 rounded-full overflow-hidden">
+                                    <div class="h-full bg-[#1447e6] w-[24%]"></div>
+                                </div>
+                                <div class="flex justify-between text-[12px] text-[#71717b] font-medium">
+                                    <span>12 Completed</span>
+                                    <span>38 Remaining</span>
+                                </div>
+                            </div>
+
+                            <a href="task.html" class="w-full h-[44px] bg-[#1447e6] hover:bg-[#1447e6]/90 text-white font-semibold text-[12px] rounded-[8px] flex items-center justify-center transition-colors">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-3 w-3 mr-2 fill-current"><polygon points="6 3 20 12 6 21 6 3"/></svg> Resume Task
+                            </a>
+                        </div>
+
+                        <!-- Request Payout -->
+                        <div class="rounded-[8px] border-2 border-dashed border-[#e4e4e7] p-6 flex flex-col items-center text-center bg-[#fafafa]/50">
+                            <div class="h-10 w-10 rounded-full bg-[#f4f4f5] flex items-center justify-center mb-3 text-[#71717b]">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-5 w-5"><rect width="18" height="11" x="3" y="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+                            </div>
+                            <h3 class="text-[12px] font-bold text-[#09090b] mb-1">Request Payout</h3>
+                            <p class="text-[12px] text-[#71717b]">Unlock at 100% completion</p>
+                        </div>
+
+                        <!-- Stats -->
+                        <div class="bg-white rounded-[8px] shadow-sm border border-[#e4e4e7] overflow-hidden divide-y divide-[#e4e4e7]">
+                            <div class="flex items-center justify-between p-4 h-[65px]">
+                                <div class="flex items-center gap-3">
+                                    <div class="h-8 w-8 bg-[#f4f4f5] rounded-full flex items-center justify-center text-[#71717b]">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-4 w-4"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+                                    </div>
+                                    <span class="text-[12px] font-bold text-[#71717b] uppercase tracking-[0.3px]">Time Remaining</span>
+                                </div>
+                                <div class="font-bold text-[#09090b] text-[16px]">3 Days</div>
+                            </div>
+                            <div class="flex items-center justify-between p-4 h-[65px]">
+                                <div class="flex items-center gap-3">
+                                    <div class="h-8 w-8 bg-[#f4f4f5] rounded-full flex items-center justify-center text-[#71717b]">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-4 w-4"><circle cx="12" cy="12" r="10"/><path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"/><path d="M2 12h20"/><path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"/></svg>
+                                    </div>
+                                    <span class="text-[12px] font-bold text-[#71717b] uppercase tracking-[0.3px]">EST. COMPLETION TIME</span>
+                                </div>
+                                <div class="font-bold text-[#09090b] text-[16px]">~ 2 hours</div>
+                            </div>
+                            <div class="flex items-center justify-between p-4 h-[65px]">
+                                <div class="flex items-center gap-3">
+                                    <div class="h-8 w-8 bg-[#f4f4f5] rounded-full flex items-center justify-center text-[#71717b]">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-4 w-4"><line x1="8" x2="21" y1="6" y2="6"/><line x1="8" x2="21" y1="12" y2="12"/><line x1="8" x2="21" y1="18" y2="18"/><line x1="3" x2="3.01" y1="6" y2="6"/><line x1="3" x2="3.01" y1="12" y2="12"/><line x1="3" x2="3.01" y1="18" y2="18"/></svg>
+                                    </div>
+                                    <span class="text-[12px] font-bold text-[#71717b] uppercase tracking-[0.3px]">Number of TASKS</span>
+                                </div>
+                                <div class="font-bold text-[#09090b] text-[16px]">50</div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>
