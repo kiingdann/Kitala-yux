@@ -1,1 +1,225 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Help Resources - Kitala</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Work+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Work Sans', 'sans-serif'],
+                    },
+                    colors: {
+                        border: "var(--border)",
+                        input: "var(--input)",
+                        ring: "var(--ring)",
+                        background: "var(--background)",
+                        foreground: "var(--foreground)",
+                        primary: {
+                            DEFAULT: "#4f39f6",
+                            foreground: "#ffffff",
+                        },
+                    },
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-[#f8fafc] font-sans antialiased h-screen flex overflow-hidden">
 
+    <!-- Sidebar -->
+    <aside id="sidebar" class="hidden md:flex flex-col border-r bg-white py-6 transition-all duration-300 w-[88px]">
+        <div class="mb-10 px-6 shrink-0 h-10 flex items-center justify-center">
+            <div class="flex h-10 w-10 items-center justify-center rounded-xl bg-[#4f39f6] text-white shadow-indigo-200 shadow-lg shrink-0">
+               <span class="text-lg font-bold">K</span>
+            </div>
+        </div>
+        <nav class="flex flex-1 flex-col px-3 gap-1 items-center w-full">
+            <a href="../projects/index.html" class="flex h-10 w-10 items-center justify-center rounded-xl text-slate-500 hover:bg-slate-50 transition-colors">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-5 w-5"><path d="M4 20h16a2 2 0 0 0 2-2V8a2 2 0 0 0-2-2h-7.93a2 2 0 0 1-1.66-.9l-.82-1.2A2 2 0 0 0 7.93 2H4a2 2 0 0 0-2 2v13c0 1.1.9 2 2 2Z"/></svg>
+            </a>
+            <a href="../profile/index.html" class="flex h-10 w-10 items-center justify-center rounded-xl text-slate-500 hover:bg-slate-50 transition-colors">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-5 w-5"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+            </a>
+            <a href="../payments/index.html" class="flex h-10 w-10 items-center justify-center rounded-xl text-slate-500 hover:bg-slate-50 transition-colors">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-5 w-5"><rect width="20" height="14" x="2" y="5" rx="2"/><line x1="2" x2="22" y1="10" y2="10"/></svg>
+            </a>
+             <!-- Help (Active) -->
+             <a href="#" class="flex h-10 w-10 items-center justify-center rounded-xl bg-[#eef2ff] text-[#4f39f6] transition-colors mt-auto">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-5 w-5"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><path d="M12 17h.01"/></svg>
+            </a>
+        </nav>
+    </aside>
+
+    <!-- Main Content Wrapper -->
+    <div class="flex-1 flex flex-col h-full bg-[#f8fafc] overflow-hidden">
+        
+        <!-- Header -->
+        <header class="flex items-center justify-between px-6 py-3 bg-white border-b border-[#e2e8f0] sticky top-0 z-10 shrink-0 h-[64px]">
+            <div class="flex items-center gap-4 flex-1">
+                <div class="flex items-center gap-2">
+                     <button id="sidebarToggle" class="flex items-center justify-center w-7 h-7 text-[#09090b] hover:bg-slate-100 rounded-md transition-colors">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-4 h-4"><rect width="18" height="18" x="3" y="3" rx="2" ry="2"/><path d="M9 3v18"/></svg>
+                    </button>
+                    <div class="h-4 w-px bg-[#e4e4e7]"></div>
+                </div>
+                <div class="flex items-center justify-center w-7 h-7 md:hidden">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#09090b" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-4 h-4"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+                </div>
+                <div class="relative w-96 max-w-full hidden md:block">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#90a1b9" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+                    <input 
+                        type="text" 
+                        placeholder="Search projects, researchers, or data..." 
+                        class="w-full h-9 pl-10 pr-4 bg-[#f8fafc] rounded-[10px] text-sm text-[#09090b] placeholder-[#90a1b9]/50 focus:outline-none focus:ring-1 focus:ring-[#4f39f6]"
+                    />
+                </div>
+            </div>
+            <div class="flex items-center gap-4">
+                <button class="relative p-1">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#90a1b9" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-5 h-5"><path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"/><path d="M10.3 21a1.94 1.94 0 0 0 3.4 0"/></svg>
+                    <span class="absolute top-0 right-0 w-2 h-2 bg-[#fb2c36] border-2 border-white rounded-full"></span>
+                </button>
+            </div>
+        </header>
+
+        <!-- Main Content -->
+        <div class="flex-1 overflow-auto bg-slate-50">
+             <div class="mx-auto max-w-6xl p-4 md:p-8 space-y-8">
+                
+                <!-- Search Section -->
+                <div class="space-y-4">
+                    <h2 class="text-lg font-medium text-slate-700">How can we help you today?</h2>
+                    <div class="relative max-w-2xl">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="absolute left-4 top-1/2 -translate-y-1/2 h-5 w-5 text-slate-400"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+                        <input 
+                            placeholder="Search for guides, tasks, or answers..." 
+                            class="flex w-full h-12 border border-slate-200 bg-white pl-12 pr-3 py-2 text-base shadow-sm placeholder:text-slate-400 rounded-xl focus:outline-none focus:ring-1 focus:ring-indigo-500"
+                        />
+                    </div>
+                </div>
+
+                <!-- Video Tutorials -->
+                <div class="space-y-4">
+                    <h3 class="text-xs font-bold uppercase tracking-wider text-slate-900">Video Tutorials</h3>
+                    <div class="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+                        
+                        <!-- Tutorial 1 -->
+                        <div class="overflow-hidden border-none shadow-sm hover:shadow-md transition-shadow group cursor-pointer bg-white rounded-xl">
+                            <div class="aspect-video w-full bg-gradient-to-br from-indigo-100 to-purple-100 flex items-center justify-center">
+                                <div class="h-12 w-12 rounded-full bg-white/90 flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="currentColor" stroke="none" class="h-5 w-5 ml-1 text-indigo-600"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+                                </div>
+                            </div>
+                            <div class="p-5 space-y-3">
+                                <div class="flex items-center gap-3">
+                                    <span class="rounded-sm px-1.5 py-0.5 text-[10px] font-bold uppercase tracking-wide bg-indigo-100 text-indigo-700">PLATFORM TOUR</span>
+                                    <div class="flex items-center gap-1.5 text-xs font-medium text-slate-400">
+                                        <span class="h-3 w-3 rounded-full border border-slate-300 flex items-center justify-center">
+                                            <span class="h-1.5 w-0.5 bg-slate-300"></span>
+                                        </span>
+                                        2:45
+                                    </div>
+                                </div>
+                                <div class="space-y-1">
+                                    <h4 class="font-bold text-slate-900">Getting Started with Kitala</h4>
+                                    <p class="text-sm text-slate-500 line-clamp-2 leading-relaxed">
+                                        Learn the basics of navigation and setting up your workspace effectively.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Tutorial 2 -->
+                        <div class="overflow-hidden border-none shadow-sm hover:shadow-md transition-shadow group cursor-pointer bg-white rounded-xl">
+                            <div class="aspect-video w-full bg-gradient-to-br from-sky-100 to-blue-100 flex items-center justify-center">
+                                <div class="h-12 w-12 rounded-full bg-white/90 flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="currentColor" stroke="none" class="h-5 w-5 ml-1 text-blue-600"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+                                </div>
+                            </div>
+                            <div class="p-5 space-y-3">
+                                <div class="flex items-center gap-3">
+                                    <span class="rounded-sm px-1.5 py-0.5 text-[10px] font-bold uppercase tracking-wide bg-blue-100 text-blue-700">TASKS</span>
+                                    <div class="flex items-center gap-1.5 text-xs font-medium text-slate-400">
+                                        <span class="h-3 w-3 rounded-full border border-slate-300 flex items-center justify-center">
+                                            <span class="h-1.5 w-0.5 bg-slate-300"></span>
+                                        </span>
+                                        5:12
+                                    </div>
+                                </div>
+                                <div class="space-y-1">
+                                    <h4 class="font-bold text-slate-900">How to Annotate Data</h4>
+                                    <p class="text-sm text-slate-500 line-clamp-2 leading-relaxed">
+                                        A step-by-step guide to using the annotation tools for high quality output.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+
+                         <!-- Tutorial 3 -->
+                         <div class="overflow-hidden border-none shadow-sm hover:shadow-md transition-shadow group cursor-pointer bg-white rounded-xl">
+                            <div class="aspect-video w-full bg-gradient-to-br from-orange-100 to-rose-100 flex items-center justify-center">
+                                <div class="h-12 w-12 rounded-full bg-white/90 flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="currentColor" stroke="none" class="h-5 w-5 ml-1 text-rose-600"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+                                </div>
+                            </div>
+                            <div class="p-5 space-y-3">
+                                <div class="flex items-center gap-3">
+                                    <span class="rounded-sm px-1.5 py-0.5 text-[10px] font-bold uppercase tracking-wide bg-rose-100 text-rose-700">QUALITY</span>
+                                    <div class="flex items-center gap-1.5 text-xs font-medium text-slate-400">
+                                        <span class="h-3 w-3 rounded-full border border-slate-300 flex items-center justify-center">
+                                            <span class="h-1.5 w-0.5 bg-slate-300"></span>
+                                        </span>
+                                        3:30
+                                    </div>
+                                </div>
+                                <div class="space-y-1">
+                                    <h4 class="font-bold text-slate-900">Best Practices Guide</h4>
+                                    <p class="text-sm text-slate-500 line-clamp-2 leading-relaxed">
+                                        Tips and tricks to ensure your work meets the quality standards required.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+                <!-- Support Banner -->
+                <div class="rounded-2xl border border-indigo-100 bg-indigo-50/50 p-6 md:p-8 flex flex-col md:flex-row items-start gap-4 md:items-center">
+                    <div class="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-indigo-100 text-indigo-600">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-6 w-6"><path d="M3 11l18-5v12L3 14v-3z"/><path d="M11.6 16.8a3 3 0 1 1-5.8-1.6"/></svg>
+                    </div>
+                    <div class="space-y-1">
+                        <h4 class="font-bold text-slate-900">Need further assistance?</h4>
+                        <p class="text-sm text-slate-600">
+                            Contact us if you have any question or issue with your payment - <a href="#" class="font-bold text-indigo-700 hover:underline">support@kitala.ai</a>
+                        </p>
+                    </div>
+                </div>
+
+             </div>
+        </div>
+    </div>
+    
+    <script>
+        const sidebar = document.getElementById('sidebar');
+        const sidebarToggle = document.getElementById('sidebarToggle');
+
+        if (sidebarToggle && sidebar) {
+            sidebarToggle.addEventListener('click', () => {
+                sidebar.classList.toggle('hidden');
+                sidebar.classList.toggle('absolute');
+                sidebar.classList.toggle('z-50');
+                sidebar.classList.toggle('h-full');
+            });
+        }
+    </script>
+</body>
+</html>
