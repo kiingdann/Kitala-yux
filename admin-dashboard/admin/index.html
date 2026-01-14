@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kitala - Projects Overview</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Work+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: { sans: ['Work Sans', 'sans-serif'] },
+                    colors: {
+                        primary: '#4F39F6',
+                        indigo: { 600: '#4F39F6' }
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-[#f8fafc] text-slate-900 font-sans p-8">
+    <div class="max-w-[1400px] mx-auto flex flex-col gap-8">
+        
+        <!-- Header -->
+        <div class="flex justify-between items-center animate-in slide-in-from-top duration-700">
+            <div class="flex flex-col gap-1">
+                <h1 class="text-[30px] font-bold text-[#0f172b] tracking-tight">Projects Overview</h1>
+                <p class="text-[#62748e] text-base">Manage and monitor all active evaluation projects.</p>
+            </div>
+            <button onclick="window.location.href='wizard/instructions.html'" class="h-10 px-6 bg-[#4f39f6] text-white font-bold rounded-[8px] shadow-lg shadow-[#4f39f6]/20 hover:shadow-[#4f39f6]/40 transition-all active:scale-95 flex items-center gap-2">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg>
+                New Project
+            </button>
+        </div>
+
+        <!-- Project Grid -->
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <!-- Project 1 -->
+            <div class="bg-white rounded-[20px] border border-[#e2e8f0] shadow-sm overflow-hidden flex flex-col group cursor-pointer hover:border-[#4f39f6] hover:shadow-xl hover:shadow-indigo-500/5 transition-all duration-500 animate-in zoom-in-95 duration-700" onclick="window.location.href='project/tasks.html'">
+                <div class="h-40 bg-slate-100 relative overflow-hidden">
+                    <img src="https://images.unsplash.com/photo-1576091160550-2173dba999ef?w=600&h=400&fit=crop" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                    <div class="absolute top-4 right-4 px-2.5 py-1 bg-[#dcfce7] text-[#008236] rounded-full text-[11px] font-bold border border-white">Active</div>
+                </div>
+                <div class="p-6 flex flex-col flex-1">
+                    <h3 class="text-[18px] font-bold text-[#0f172b] mb-2 line-clamp-1">Testing Voice LLM for Health in Rwanda</h3>
+                    <p class="text-[14px] text-slate-500 line-clamp-2 mb-6">Evaluating cultural resonance and medical accuracy of the regional Voice LLM implementation.</p>
+                    
+                    <div class="mt-auto flex flex-col gap-4">
+                        <div class="flex justify-between items-center text-[12px] font-bold text-slate-400 uppercase tracking-wider">
+                            <span>Progress</span>
+                            <span class="text-slate-900">78%</span>
+                        </div>
+                        <div class="h-1.5 bg-slate-100 rounded-full overflow-hidden">
+                            <div class="h-full bg-[#4f39f6] w-[78%]"></div>
+                        </div>
+                        <div class="flex items-center justify-between pt-4 border-t border-slate-50">
+                            <div class="flex -space-x-2">
+                                <div class="w-7 h-7 rounded-full border-2 border-white overflow-hidden bg-slate-100"><img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=100&h=100&fit=crop"></div>
+                                <div class="w-7 h-7 rounded-full border-2 border-white overflow-hidden bg-slate-100"><img src="https://images.unsplash.com/photo-1599566150163-29194dcaad36?w=100&h=100&fit=crop"></div>
+                                <div class="w-7 h-7 rounded-full border-2 border-white flex items-center justify-center bg-slate-200 text-[10px] font-bold text-slate-600">+12</div>
+                            </div>
+                            <span class="text-[13px] font-bold text-[#4f39f6] flex items-center gap-1">
+                                Enter Project
+                                <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="m9 18 6-6-6-6"/></svg>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
