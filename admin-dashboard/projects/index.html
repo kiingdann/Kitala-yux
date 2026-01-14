@@ -3,10 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Kitala - Projects Overview</title>
+    <title>Kitala - Project Dashboard</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Work+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <script>
         tailwind.config = {
             theme: {
@@ -23,189 +22,191 @@
 </head>
 <body class="bg-[#f8fafc] text-slate-900 font-sans flex min-h-screen">
 
-    <!-- Sidebar -->
-    <aside class="w-[215px] bg-white border-r border-slate-200 flex flex-col fixed left-0 top-0 h-screen z-20">
-        <!-- Logo -->
-        <div class="flex items-center h-[60px] shrink-0 px-6">
-            <!-- Kitala Logo SVG Placeholder -->
-            <div class="h-7 w-[79px] relative">
-               <svg class="block w-full h-full" viewBox="0 0 79 27" fill="none">
-                 <!-- Simplified path representation for the logo -->
-                 <path d="M46.34 12.81c.47-.04.94-.02 1.41.05 2.35.34 3.8 1.79 5.15 3.61-.16-.92.07-2.4.13-3.41.72-.02 1.44-.02 2.16-.01-.07 2.09-.48 4.24-.48 6.28 0 2.06.41 4.17.48 6.28-.72.01-1.44.01-2.16 0-.03-.82-.29-2.63-.15-3.27-.12-.02-.75.78-.86.92-1.93 2.79-6.71 3.61-9.29 1.23-4.19-3.87-2.47-11.16 3.61-11.68z" fill="#11056C"/>
-                 <path d="M69.01 14.62c2.85-.47 5.35 2.19 6.27 4.63-.05.27-.15.56-.27.8-.84 1.68-2.09 3.13-3.89 3.77-2.93.91-5.7-.7-6.05-3.8-.31-2.71 1.13-5.08 3.94-5.4z" fill="white"/>
-                 <path d="M5.45 5.63c1.11-1.41 2.3-2.83 3.49-4.18.1-.11.45-.37.59-.37.77.03 1.8 1.12 2.14 1.73-.58 1.27-2.23 2.78-3.07 3.96-.08.12-.68.83-.76.88-.17.28-.74.96-.96 1.2-.67.73-1.5 2.09-2.4 2.48-.56-.19-1.02-.53-1.46-.93-.23-.21-.56-.53-.57-.86-.01-.51 2.51-3.39 3.01-3.9z" fill="#16A2DE"/>
-               </svg>
-            </div>
+    <!-- Project Sidebar -->
+    <aside class="fixed left-0 top-0 h-screen w-[256px] bg-[#410dd8] flex flex-col px-[15px] py-[24px] z-20 font-['Work_Sans',sans-serif]">
+        <!-- Kitala Logo White -->
+        <div class="h-[27px] w-[79px] relative shrink-0 mb-8 ml-2">
+             <img src="../assets/logo.png" alt="Kitala" class="w-full h-full object-contain brightness-0 invert" />
+        </div>
+
+        <!-- Back Button -->
+        <a href="../../admin/index.html" class="flex items-center gap-[12px] pl-[8px] h-[20px] w-full hover:opacity-80 transition-opacity mb-8 group">
+             <div class="relative w-[20px] h-[20px] shrink-0 text-[#F8F8F8]">
+                 <svg class="w-full h-full" fill="none" viewBox="0 0 20 20" stroke="currentColor" stroke-width="2"><path d="M15 10H5"/><path d="m10 15-5-5 5-5"/></svg>
+             </div>
+             <span class="font-medium text-[14px] text-[#f8f8f8]">Back to Projects</span>
+        </a>
+
+        <!-- Project Info -->
+        <div class="flex flex-col gap-[16px] w-full mb-6">
+           <div class="flex items-start w-full gap-2">
+              <div class="h-[36px] w-[36px] shrink-0 bg-[#615fff]/20 rounded-[4px] border border-[#615fff]/30 flex items-center justify-center">
+                  <div class="w-[20px] h-[20px] text-white">
+                      <svg class="w-full h-full" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1 0-5H20"/></svg>
+                  </div>
+              </div>
+              <div class="flex flex-col">
+                  <div class="font-bold text-[14px] leading-[20px] text-white">
+                     Testing Voice LLM
+                  </div>
+                  <div class="font-bold text-[14px] leading-[20px] text-white">
+                     for Health in Rwanda
+                  </div>
+              </div>
+           </div>
+           <div class="w-full h-px bg-white/20"></div>
         </div>
 
         <!-- Navigation -->
-        <nav class="flex-1 flex flex-col gap-1 w-full px-3 py-4">
-            <a href="#" class="flex items-center gap-3 w-full px-3 py-2 rounded-lg text-left bg-[#eef2ff] text-[#4f39f6]">
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20h16a2 2 0 0 0 2-2V8a2 2 0 0 0-2-2h-7.93a2 2 0 0 1-1.66-.9l-.82-1.2A2 2 0 0 0 7.93 2H4a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2Z"/></svg>
-                <span class="font-['Outfit',sans-serif] text-sm">Projects</span>
+        <nav class="flex flex-col gap-[8px] w-full">
+             <a href="#" class="flex items-center gap-[12px] h-[40px] px-[12px] rounded-[10px] w-full transition-colors text-left bg-[#4f39f6] text-white">
+                 <div class="w-[20px] h-[20px] shrink-0 text-white">
+                     <svg class="w-full h-full" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
+                 </div>
+                 <span class="font-medium text-[14px]">Task Allocation</span>
+             </a>
+             <a href="#" class="flex items-center gap-[12px] h-[40px] px-[12px] rounded-[10px] w-full transition-colors text-left text-[#e6e6e6] hover:bg-white/10 hover:text-white">
+                <div class="w-[20px] h-[20px] shrink-0">
+                    <svg class="w-full h-full" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>
+                </div>
+                <span class="font-medium text-[14px]">Data Quality</span>
             </a>
-            <a href="#" class="flex items-center gap-3 w-full px-3 py-2 rounded-lg text-left text-slate-900 hover:bg-slate-50 transition-colors">
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
-                <span class="font-['Outfit',sans-serif] text-sm">Participants</span>
+            <a href="#" class="flex items-center gap-[12px] h-[40px] px-[12px] rounded-[10px] w-full transition-colors text-left text-[#e6e6e6] hover:bg-white/10 hover:text-white">
+                <div class="w-[20px] h-[20px] shrink-0">
+                    <svg class="w-full h-full" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M3 3v18h18"/><path d="m19 9-5 5-4-4-3 3"/></svg>
+                </div>
+                <span class="font-medium text-[14px]">Research Analytics</span>
             </a>
-            <a href="#" class="flex items-center gap-3 w-full px-3 py-2 rounded-lg text-left text-slate-900 hover:bg-slate-50 transition-colors">
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="14" x="2" y="5" rx="2"/><line x1="2" x2="22" y1="10" y2="10"/></svg>
-                <span class="font-['Outfit',sans-serif] text-sm">Payments</span>
+            <a href="#" class="flex items-center gap-[12px] h-[40px] px-[12px] rounded-[10px] w-full transition-colors text-left text-[#e6e6e6] hover:bg-white/10 hover:text-white">
+                <div class="w-[20px] h-[20px] shrink-0">
+                    <svg class="w-full h-full" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+                </div>
+                <span class="font-medium text-[14px]">Participants</span>
             </a>
-            <a href="#" class="flex items-center gap-3 w-full px-3 py-2 rounded-lg text-left text-slate-900 hover:bg-slate-50 transition-colors">
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12.22 2h-.44a2 2 0 0 0-2 2v.18a2 2 0 0 1-1 1.73l-.43.25a2 2 0 0 1-2 0l-.15-.08a2 2 0 0 0-2.73.73l-.22.38a2 2 0 0 0 .73 2.73l.15.1a2 2 0 0 1 1 1.72v.51a2 2 0 0 1-1 1.74l-.15.09a2 2 0 0 0-.73 2.73l.22.38a2 2 0 0 0 2.73.73l.15-.08a2 2 0 0 1 2 0l.43.25a2 2 0 0 1 1 1.73V20a2 2 0 0 0 2 2h.44a2 2 0 0 0 2-2v-.18a2 2 0 0 1 1-1.73l.43-.25a2 2 0 0 1 2 0l.15.08a2 2 0 0 0 2.73-.73l.22-.39a2 2 0 0 0-.73-2.73l-.15-.09a2 2 0 0 1-1-1.74v-.47a2 2 0 0 1 1-1.74l.15-.09a2 2 0 0 0 .73-2.73l-.22-.38a2 2 0 0 0-2.73-.73l-.15.08a2 2 0 0 1-2 0l-.43-.25a2 2 0 0 1-1-1.73V4a2 2 0 0 0-2-2z"/><circle cx="12" cy="12" r="3"/></svg>
-                <span class="font-['Outfit',sans-serif] text-sm">Settings</span>
+            <a href="#" class="flex items-center gap-[12px] h-[40px] px-[12px] rounded-[10px] w-full transition-colors text-left text-[#e6e6e6] hover:bg-white/10 hover:text-white">
+                <div class="w-[20px] h-[20px] shrink-0">
+                    <svg class="w-full h-full" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><rect width="20" height="14" x="2" y="5" rx="2"/><line x1="2" x2="22" y1="10" y2="10"/></svg>
+                </div>
+                <span class="font-medium text-[14px]">Payments</span>
+            </a>
+            <a href="#" class="flex items-center gap-[12px] h-[40px] px-[12px] rounded-[10px] w-full transition-colors text-left text-[#e6e6e6] hover:bg-white/10 hover:text-white">
+                <div class="w-[20px] h-[20px] shrink-0">
+                    <svg class="w-full h-full" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M12.22 2h-.44a2 2 0 0 0-2 2v.18a2 2 0 0 1-1 1.73l-.43.25a2 2 0 0 1-2 0l-.15-.08a2 2 0 0 0-2.73.73l-.22.38a2 2 0 0 0 .73 2.73l.15.1a2 2 0 0 1 1 1.72v.51a2 2 0 0 1-1 1.74l-.15.09a2 2 0 0 0-.73 2.73l.22.38a2 2 0 0 0 2.73.73l.15-.08a2 2 0 0 1 2 0l.43.25a2 2 0 0 1 1 1.73V20a2 2 0 0 0 2 2h.44a2 2 0 0 0 2-2v-.18a2 2 0 0 1 1-1.73l.43-.25a2 2 0 0 1 2 0l.15.08a2 2 0 0 0 2.73-.73l.22-.39a2 2 0 0 0-.73-2.73l-.15-.09a2 2 0 0 1-1-1.74v-.47a2 2 0 0 1 1-1.74l.15-.09a2 2 0 0 0 .73-2.73l-.22-.38a2 2 0 0 0-2.73-.73l-.15.08a2 2 0 0 1-2 0l-.43-.25a2 2 0 0 1-1-1.73V4a2 2 0 0 0-2-2z"/><circle cx="12" cy="12" r="3"/></svg>
+                </div>
+                <span class="font-medium text-[14px]">Project Settings</span>
             </a>
         </nav>
-
-        <!-- User Profile -->
-        <div class="px-3 pb-6 mt-auto">
-             <div class="flex items-center gap-2 px-2 py-1 rounded-lg hover:bg-slate-50 cursor-pointer">
-                 <div class="w-8 h-8 rounded-lg overflow-hidden shrink-0 bg-gray-200">
-                    <!-- Placeholder Avatar -->
-                 </div>
-                 <div class="flex-1 min-w-0 flex flex-col justify-center ml-1">
-                     <div class="text-sm font-normal text-slate-900 truncate font-['Outfit',sans-serif] leading-tight">Mariama (Admin)</div>
-                     <div class="text-[10px] text-slate-500 truncate font-['Outfit',sans-serif]">mariama@kitala.com</div>
-                 </div>
-             </div>
-        </div>
     </aside>
 
     <!-- Main Content -->
-    <main class="flex-1 flex flex-col min-w-0 transition-all duration-300 ease-in-out ml-[215px] h-screen overflow-hidden">
+    <main class="flex-1 flex flex-col min-w-0 ml-[256px] h-screen overflow-hidden">
         
         <!-- Header -->
-        <header class="bg-white h-[64px] border-b border-slate-200 px-6 flex items-center justify-between shrink-0 sticky top-0 z-10">
-            <div class="flex items-center gap-4 flex-1">
-                 <div class="h-4 w-px bg-slate-200"></div>
-                 <!-- Search -->
-                 <div class="relative w-full max-w-[384px]">
-                     <svg class="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
-                     <input type="text" placeholder="Search projects, researchers, or data..." class="w-full pl-10 pr-4 py-2 bg-[#f8fafc] border-none rounded-lg text-sm focus:outline-none text-slate-500 placeholder:text-slate-400 font-sans">
-                 </div>
-            </div>
-            <div class="flex items-center gap-4">
-                 <button class="relative w-8 h-8 flex items-center justify-center rounded-full hover:bg-slate-50">
-                    <svg class="w-5 h-5 text-slate-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"/><path d="M10.3 21a1.94 1.94 0 0 0 3.4 0"/></svg>
-                    <span class="absolute top-1 right-1.5 w-2 h-2 bg-[#fb2c36] rounded-full border-2 border-white"></span>
-                 </button>
-            </div>
+        <header class="bg-[#f8fafc] px-[32px] sticky top-0 z-10 py-6">
+           <!-- Project Title Breadcrumb -->
+           <div class="flex items-center gap-2 text-sm text-slate-500">
+              <span>Projects</span>
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg>
+              <span class="font-medium text-slate-900">Testing Voice LLM for Health in Rwanda</span>
+           </div>
         </header>
 
-        <!-- Page Content -->
-        <div class="flex-1 overflow-auto p-8">
-            <div class="flex flex-col gap-8 w-full max-w-[1268px] mx-auto">
+        <!-- Scrollable Area -->
+        <div class="flex-1 overflow-auto px-[32px] pb-12">
+            <div class="max-w-[1600px] mx-auto">
                 
-                <!-- Page Title -->
-                <div class="flex items-end justify-between">
-                    <div>
-                        <h1 class="text-2xl font-bold text-[#0f172b] mb-1">Projects Overview</h1>
-                        <p class="text-[#62748e] text-base">Manage your active and past projects</p>
-                    </div>
-                    <a href="../wizard/step-0-start.html" class="h-[44px] px-6 bg-[#4f39f6] hover:bg-[#3d2cdb] text-white font-bold rounded-[10px] flex items-center gap-2 shadow-sm transition-all">
-                        <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14"/><path d="M12 5v14"/></svg>
-                        Create New Project
-                    </a>
-                </div>
-
-                <!-- Filters -->
-                <div class="bg-white h-[54px] px-2 rounded-[14px] border border-[#e2e8f0] flex items-center justify-between shadow-sm">
-                    <div class="relative flex-1 max-w-[400px]">
-                        <svg class="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
-                        <input type="text" placeholder="Filter by project name..." class="w-full pl-10 pr-4 py-2 text-sm focus:outline-none text-slate-600 bg-transparent">
-                    </div>
-                    <div class="flex items-center gap-2">
-                        <div class="h-6 w-px bg-[#e2e8f0] mx-2"></div>
-                        <button class="h-[36px] px-4 text-sm font-medium text-[#45556c] hover:bg-slate-50 rounded-[10px] flex items-center gap-2">
-                            All Statuses <svg class="w-4 h-4 text-[#90a1b9]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m6 9 6 6 6-6"/></svg>
-                        </button>
-                    </div>
-                </div>
-
-                <!-- Projects Grid -->
-                <div class="flex flex-col gap-6">
-                    <div class="flex items-center justify-between">
-                        <h2 class="text-lg font-bold text-[#0f172b] flex items-center gap-2">
-                            <span class="w-5 h-5 rounded-full border border-[#c6d2ff] text-[#4f39f6] flex items-center justify-center text-[10px] bg-[#eef2ff] font-bold">↺</span>
-                            Recent Activity
-                        </h2>
-                    </div>
-
-                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                        <!-- Project Card 1 -->
-                        <div class="bg-white rounded-[14px] border border-[#e2e8f0] p-6 shadow-sm hover:shadow-md transition-all flex flex-col gap-6 h-full group cursor-pointer relative overflow-hidden">
-                            <div class="flex justify-between items-start gap-4">
-                                <div>
-                                    <h3 class="font-bold text-lg text-[#0f172b] leading-tight">Testing Voice LLM for Health in Senegal</h3>
-                                    <div class="flex items-center gap-2 mt-2 text-xs text-[#62748e] font-medium">
-                                        <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect width="18" height="18" x="3" y="4" rx="2" ry="2"/><line x1="16" x2="16" y1="2" y2="6"/><line x1="8" x2="8" y1="2" y2="6"/><line x1="3" x2="21" y1="10" y2="10"/></svg>
-                                        Oct 24 - Nov 30, 2025
-                                    </div>
-                                </div>
-                                <span class="px-3 py-1 rounded-full text-xs font-bold whitespace-nowrap bg-[#dbeafe] text-[#1447e6]">Completed</span>
-                            </div>
-                            <div>
-                                <div class="flex justify-between items-end mb-2">
-                                    <span class="text-[12px] font-bold text-[#45556c] uppercase tracking-wider">Task Completion</span>
-                                    <span class="text-[14px] font-bold text-[#0f172b]">100%</span>
-                                </div>
-                                <div class="h-2 w-full bg-[#f1f5f9] rounded-full overflow-hidden">
-                                    <div class="h-full rounded-full transition-all duration-500 bg-[#4f39f6]" style="width: 100%"></div>
-                                </div>
-                                <div class="mt-2 text-[12px] text-[#62748e] text-right font-medium">2,400 / 2,400 tasks</div>
-                            </div>
-                            <div class="flex items-center justify-between mt-auto pt-5 border-t border-[#f8fafc]">
-                                <div class="flex items-center gap-2 text-sm text-[#45556c] font-medium">
-                                    <div class="w-8 h-8 rounded-full bg-[#eef2ff] border border-[#e2e8f0] flex items-center justify-center text-[#4f39f6]">
-                                        <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
-                                    </div>
-                                    <span class="text-xs">0 Active Annotators</span>
-                                </div>
-                                <button class="px-3 py-2 bg-[#f8fafc] text-[#314158] hover:bg-[#eef2ff] hover:text-[#4f39f6] rounded-[10px] text-[12px] font-bold transition-colors flex items-center gap-2">
-                                    View Details 
-                                    <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
-                                </button>
+                <!-- Title Row -->
+                <div class="flex items-start justify-between mb-6">
+                    <div class="flex flex-col gap-2">
+                        <div class="flex items-center gap-4">
+                            <h1 class="font-bold text-[#0f172b] text-[30px] tracking-[-0.75px]">Task Allocation & Progress</h1>
+                            <div class="h-[24px] rounded-full px-3 flex items-center bg-[#dcfce7]">
+                                <span class="font-bold text-[12px] text-[#008236]">Active</span>
                             </div>
                         </div>
+                        <p class="font-normal text-[#62748e] text-[16px]">Monitor Progress and Allocate Tasks to Participants</p>
+                    </div>
+                    <div class="text-[#6b7280] text-[16px]">Oct 12-Feb 29</div>
+                </div>
 
-                         <!-- Project Card 2 -->
-                         <div class="bg-white rounded-[14px] border border-[#e2e8f0] p-6 shadow-sm hover:shadow-md transition-all flex flex-col gap-6 h-full group cursor-pointer relative overflow-hidden">
-                            <div class="flex justify-between items-start gap-4">
+                <!-- Stats Cards -->
+                <div class="grid grid-cols-3 gap-[24px] mb-8">
+                    <!-- Progress Card -->
+                    <div class="bg-white p-[24px] rounded-[14px] border border-[#e2e8f0] shadow-sm flex flex-col gap-4">
+                        <div class="flex justify-between items-start">
+                            <div class="flex items-center gap-3">
+                                <div class="w-10 h-10 bg-[#eef2ff] rounded-[10px] flex items-center justify-center text-[#4f39f6]">
+                                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect width="18" height="18" x="3" y="4" rx="2" ry="2"/><line x1="16" x2="16" y1="2" y2="6"/><line x1="8" x2="8" y1="2" y2="6"/><line x1="3" x2="21" y1="10" y2="10"/></svg>
+                                </div>
                                 <div>
-                                    <h3 class="font-bold text-lg text-[#0f172b] leading-tight">Sentiment Analysis Q3</h3>
-                                    <div class="flex items-center gap-2 mt-2 text-xs text-[#62748e] font-medium">
-                                        <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect width="18" height="18" x="3" y="4" rx="2" ry="2"/><line x1="16" x2="16" y1="2" y2="6"/><line x1="8" x2="8" y1="2" y2="6"/><line x1="3" x2="21" y1="10" y2="10"/></svg>
-                                        Nov 02 - Dec 15, 2025
-                                    </div>
+                                    <p class="font-bold text-[#0f172b] text-[16px]">Project Progress</p>
+                                    <p class="font-bold text-[#62748e] text-[12px] tracking-[0.6px] uppercase">SESSIONS COMPLETED</p>
                                 </div>
-                                <span class="px-3 py-1 rounded-full text-xs font-bold whitespace-nowrap bg-[#dcfce7] text-[#008236]">Started</span>
-                            </div>
-                            <div>
-                                <div class="flex justify-between items-end mb-2">
-                                    <span class="text-[12px] font-bold text-[#45556c] uppercase tracking-wider">Task Completion</span>
-                                    <span class="text-[14px] font-bold text-[#0f172b]">42%</span>
-                                </div>
-                                <div class="h-2 w-full bg-[#f1f5f9] rounded-full overflow-hidden">
-                                    <div class="h-full rounded-full transition-all duration-500 bg-[#4f39f6]" style="width: 42%"></div>
-                                </div>
-                                <div class="mt-2 text-[12px] text-[#62748e] text-right font-medium">6,300 / 15,000 tasks</div>
-                            </div>
-                            <div class="flex items-center justify-between mt-auto pt-5 border-t border-[#f8fafc]">
-                                <div class="flex items-center gap-2 text-sm text-[#45556c] font-medium">
-                                    <div class="w-8 h-8 rounded-full bg-[#eef2ff] border border-[#e2e8f0] flex items-center justify-center text-[#4f39f6]">
-                                        <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
-                                    </div>
-                                    <span class="text-xs">28 Active Annotators</span>
-                                </div>
-                                <button class="px-3 py-2 bg-[#f8fafc] text-[#314158] hover:bg-[#eef2ff] hover:text-[#4f39f6] rounded-[10px] text-[12px] font-bold transition-colors flex items-center gap-2">
-                                    View Details 
-                                    <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
-                                </button>
                             </div>
                         </div>
-
+                        <div>
+                            <div class="flex justify-between items-end mb-2">
+                                <span class="font-bold text-[#0f172b] text-[36px]">0%</span>
+                                <span class="font-medium text-[#62748e] text-[14px] mb-1">0 / 450 Sessions</span>
+                            </div>
+                            <div class="h-[8px] bg-[#f1f5f9] rounded-full overflow-hidden">
+                                <div class="bg-[#4f39f6] h-full w-0"></div>
+                            </div>
+                        </div>
                     </div>
+
+                    <!-- Participants Card -->
+                    <div class="bg-white p-[24px] rounded-[14px] border border-[#e2e8f0] shadow-sm flex flex-col gap-4">
+                        <div class="flex justify-between items-start">
+                            <div class="flex items-center gap-3">
+                                <div class="w-10 h-10 bg-[#e4fcfb] rounded-[10px] flex items-center justify-center text-[#3c918d]">
+                                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+                                </div>
+                                <div>
+                                    <p class="font-bold text-[#0f172b] text-[16px]">Participants</p>
+                                    <p class="font-bold text-[#62748e] text-[12px] tracking-[0.6px] uppercase">Project Team</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="flex justify-between items-end mb-2">
+                                <span class="font-bold text-[#0f172b] text-[36px]">0%</span>
+                                <span class="font-medium text-[#62748e] text-[14px] mb-1">0 active / 30 Recruited</span>
+                            </div>
+                            <div class="h-[8px] bg-[#f1f5f9] rounded-full overflow-hidden">
+                                <div class="bg-[#90a1b9] h-full w-0"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- QA Card -->
+                    <div class="bg-white p-[24px] rounded-[14px] border border-[#e2e8f0] shadow-sm flex flex-col gap-4">
+                        <div class="flex justify-between items-start">
+                            <div class="flex items-center gap-3">
+                                <div class="w-10 h-10 bg-[#fff2ea] rounded-[10px] flex items-center justify-center text-[#ffa263]">
+                                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+                                </div>
+                                <div>
+                                    <p class="font-bold text-[#0f172b] text-[16px]">QA Progress</p>
+                                    <p class="font-bold text-[#62748e] text-[12px] tracking-[0.6px] uppercase">Quality Control</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="flex justify-between items-end mb-2">
+                                <span class="font-bold text-[#0f172b] text-[36px]">0%</span>
+                                <span class="font-medium text-[#62748e] text-[14px] mb-1">0/450 Reviewed</span>
+                            </div>
+                            <div class="h-[8px] bg-[#f1f5f9] rounded-full overflow-hidden">
+                                <div class="bg-[#ffb07a] h-full w-0"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Tasks Table Placeholder -->
+                <div class="bg-white rounded-[14px] border border-[#e2e8f0] shadow-sm min-h-[400px] flex items-center justify-center text-slate-400">
+                    <p>Task List Content...</p>
                 </div>
 
             </div>
