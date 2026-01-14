@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kitala Wizard - Project Instructions</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Work+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: { sans: ['Work Sans', 'sans-serif'] },
+                    colors: {
+                        primary: '#4F39F6',
+                        indigo: { 600: '#4F39F6' }
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-[#f8fafc] text-slate-900 font-sans min-h-screen flex flex-col">
+    
+    <!-- Wizard Header -->
+    <header class="h-16 bg-white border-b border-slate-200 flex items-center px-8 justify-between sticky top-0 z-10">
+        <div class="flex items-center gap-4">
+            <div class="w-8 h-8 bg-[#4f39f6] rounded-lg flex items-center justify-center text-white">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
+            </div>
+            <span class="font-bold text-[18px] text-[#0f172b]">New Project Setup</span>
+        </div>
+        <button onclick="window.location.href='../index.html'" class="text-slate-400 hover:text-slate-600 transition-colors">
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M18 6 6 18M6 6l12 12"/></svg>
+        </button>
+    </header>
+
+    <!-- Step Indicator -->
+    <div class="bg-white border-b border-slate-100 py-4 px-8">
+        <div class="max-w-[800px] mx-auto flex items-center justify-between">
+            <div class="flex items-center gap-2">
+                <div class="w-6 h-6 rounded-full bg-[#4f39f6] text-white flex items-center justify-center text-[12px] font-bold">1</div>
+                <span class="text-[13px] font-bold text-[#4f39f6]">Instructions</span>
+            </div>
+            <div class="h-px bg-slate-200 flex-1 mx-4"></div>
+            <div class="flex items-center gap-2 opacity-40">
+                <div class="w-6 h-6 rounded-full bg-slate-200 text-slate-600 flex items-center justify-center text-[12px] font-bold">2</div>
+                <span class="text-[13px] font-medium text-slate-600">Model</span>
+            </div>
+            <div class="h-px bg-slate-200 flex-1 mx-4"></div>
+            <div class="flex items-center gap-2 opacity-40">
+                <div class="w-6 h-6 rounded-full bg-slate-200 text-slate-600 flex items-center justify-center text-[12px] font-bold">3</div>
+                <span class="text-[13px] font-medium text-slate-600">Scenarios</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <main class="flex-1 p-12 overflow-auto">
+        <div class="max-w-[800px] mx-auto bg-white rounded-[20px] border border-slate-200 shadow-xl shadow-slate-200/50 p-12">
+            <h2 class="text-[28px] font-bold text-[#0f172b] mb-4">Project Overview</h2>
+            <p class="text-slate-500 text-[16px] mb-10 leading-relaxed">Provide the core context and guidelines for this evaluation project. This will help us tailor the LLM prompts and participant matching.</p>
+            
+            <div class="space-y-8">
+                <div>
+                    <label class="block text-[13px] font-bold text-slate-400 uppercase tracking-wider mb-2">Project Name</label>
+                    <input type="text" placeholder="e.g. Maternal Health Voice Evaluation" class="w-full h-12 bg-slate-50 border border-slate-200 rounded-xl px-4 text-[15px] font-medium focus:outline-none focus:border-[#4f39f6] focus:bg-white transition-all">
+                </div>
+                <div>
+                    <label class="block text-[13px] font-bold text-slate-400 uppercase tracking-wider mb-2">Detailed Instructions</label>
+                    <textarea placeholder="Explain the goals, constraints, and specific areas of focus..." class="w-full h-40 bg-slate-50 border border-slate-200 rounded-xl p-4 text-[15px] font-medium focus:outline-none focus:border-[#4f39f6] focus:bg-white transition-all resize-none"></textarea>
+                </div>
+            </div>
+
+            <div class="mt-12 flex justify-between items-center">
+                <button onclick="window.location.href='../index.html'" class="text-slate-400 font-bold hover:text-slate-600 transition-colors px-4 py-2">Cancel</button>
+                <button onclick="window.location.href='model.html'" class="bg-[#4f39f6] text-white px-8 py-3 rounded-xl font-bold shadow-lg shadow-[#4f39f6]/20 transition-all active:scale-95 flex items-center gap-2">
+                    Next: Configuration
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="m9 18 6-6-6-6"/></svg>
+                </button>
+            </div>
+        </div>
+    </main>
+
+</body>
+</html>
