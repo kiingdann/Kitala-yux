@@ -3,73 +3,442 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Kitala - Projects Overview</title>
+    <title>Projects - Kitala</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Work+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <script>
         tailwind.config = {
             theme: {
                 extend: {
-                    fontFamily: { sans: ['Work Sans', 'sans-serif'] },
+                    fontFamily: { 
+                        sans: ['Work Sans', 'sans-serif'],
+                        outfit: ['Outfit', 'sans-serif']
+                    },
                     colors: {
-                        primary: '#4F39F6',
-                        indigo: { 600: '#4F39F6' }
+                        primary: '#4F39F6'
                     }
                 }
             }
         }
     </script>
+    <style>
+        /* Custom scrollbar */
+        ::-webkit-scrollbar {
+            width: 6px;
+            height: 6px;
+        }
+        ::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #cbd5e1;
+            border-radius: 3px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #94a3b8;
+        }
+        .sidebar-transition {
+            transition: width 0.3s ease-in-out, margin-left 0.3s ease-in-out;
+        }
+    </style>
 </head>
-<body class="bg-[#f8fafc] text-slate-900 font-sans p-8">
-    <div class="max-w-[1400px] mx-auto flex flex-col gap-8">
-        
-        <!-- Header -->
-        <div class="flex justify-between items-center animate-in slide-in-from-top duration-700">
-            <div class="flex flex-col gap-1">
-                <h1 class="text-[30px] font-bold text-[#0f172b] tracking-tight">Projects Overview</h1>
-                <p class="text-[#62748e] text-base">Manage and monitor all active evaluation projects.</p>
+<body class="bg-[#f8fafc] font-sans text-slate-900 flex h-screen overflow-hidden">
+
+    <!-- Sidebar -->
+    <aside id="sidebar" class="h-screen bg-white border-r border-slate-200 flex flex-col fixed left-0 top-0 z-20 sidebar-transition w-[215px] group">
+        <!-- Logo Header -->
+        <div class="flex items-center h-[60px] shrink-0 px-6 justify-start overflow-hidden whitespace-nowrap">
+            <div class="relative shrink-0 h-7 w-[79px] logo-full">
+                <svg class="block w-full h-full" fill="none" preserveAspectRatio="xMidYMid meet" viewBox="0 0 79 27">
+                    <g>
+                        <path d="M46.3369 12.8145C46.8083 12.7744 47.2828 12.7902 47.7505 12.8616C50.101 13.2058 51.5457 14.6486 52.9002 16.4716C52.7374 15.5513 52.9671 14.0681 53.032 13.0547C53.7534 13.0409 54.4748 13.0404 55.196 13.0534C55.1202 15.1448 54.7074 17.2936 54.7105 19.3353C54.7139 21.3934 55.1247 23.5095 55.1879 25.6218C54.4678 25.6319 53.7476 25.6296 53.0277 25.6157C53.001 24.7969 52.7402 22.9836 52.877 22.3417C52.7552 22.3267 52.129 23.1245 52.0217 23.2661C50.0923 26.0523 45.3112 26.8776 42.7295 24.4913C38.543 20.622 40.2641 13.3266 46.3369 12.8145Z" fill="#11056C" />
+                        <path d="M46.62 14.6168C47.2196 14.4981 48.3182 14.665 48.8865 14.8875C50.9717 15.7037 52.0544 17.3683 52.9456 19.2814C52.3223 21.2121 50.6752 23.1191 48.7433 23.8204C41.8696 25.8999 40.2799 15.3907 46.62 14.6168Z" fill="white" />
+                        <path d="M68.7212 12.8154C71.2632 12.4836 74.0271 14.3358 75.2201 16.5005C75.178 15.6321 75.3321 13.9922 75.3827 13.0586C76.1106 13.0418 76.8387 13.0407 77.5664 13.0552C77.4326 15.1622 77.153 17.2807 77.078 19.3804C77.0393 20.4615 77.2536 21.8127 77.3651 22.9038C77.4503 23.8074 77.5177 24.7124 77.5674 25.6184C76.8378 25.6341 76.108 25.6309 75.3786 25.609C75.3333 24.5656 75.213 23.4499 75.2201 22.4133L75.197 22.3506L75.126 22.3395C74.9697 22.6151 74.7645 22.8337 74.5702 23.0784C73.3583 24.6139 71.7915 25.6692 69.8129 25.8586C66.1449 26.1949 63.2353 23.7994 62.9057 20.1135C62.6102 16.8067 64.1444 13.8367 67.5074 12.9929C67.9162 12.8903 68.3002 12.8502 68.7212 12.8154Z" fill="#11056C" />
+                        <path d="M69.0098 14.6164C71.8607 14.1466 74.3638 16.8113 75.2819 19.2484C75.2322 19.517 75.1313 19.8023 75.0096 20.0466C74.171 21.7297 72.918 23.1783 71.1202 23.8192C68.1927 24.7276 65.4169 23.1224 65.0624 20.0257C64.7516 17.3124 66.1913 14.9419 69.0098 14.6164Z" fill="white" />
+                        <path d="M10.6307 8.46209L12.0529 8.46758L12.0501 22.6422C12.355 22.3396 12.7265 21.8416 13.0095 21.4968L14.6893 19.4721L20.0406 13.0375L22.5501 13.0605C21.7835 13.8397 20.7613 15.1983 19.9919 16.0685C19.5494 16.569 18.3725 17.8996 18.0173 18.397C18.635 19.2093 19.2863 20.2255 19.8633 21.0804L21.7712 23.9103C22.1251 24.4345 22.5573 25.1101 22.9415 25.5986C22.1337 25.6436 21.1966 25.6354 20.3823 25.6431C19.4689 24.0709 18.2731 22.5422 17.3201 20.9817C17.113 20.6426 16.8983 20.3508 16.7243 19.9876C15.759 20.9533 14.6813 22.4267 13.7374 23.4588C13.4885 23.7309 12.0661 25.4064 11.9339 25.6501C11.2772 25.6234 10.5634 25.626 9.90206 25.6156L9.91006 8.48739C10.1476 8.47607 10.3924 8.47033 10.6307 8.46209Z" fill="#11056C" />
+                        <path d="M31.8891 9.76271L33.1834 9.79654C33.1918 10.8782 33.1832 11.9597 33.1576 13.0409C35.1318 13.09 37.2144 13.0307 39.2095 13.0528C39.2123 13.6369 39.2075 14.2209 39.1948 14.805L33.1799 14.8024L33.1789 19.0949C33.1793 19.9825 33.1676 20.8179 33.2256 21.7151C33.3873 24.2201 35.8848 24.2792 37.7647 23.8238C38.2716 23.7011 38.7062 23.4868 39.1796 23.2552C39.2958 23.1972 39.3528 23.1756 39.4764 23.1353C39.5365 23.2221 39.5084 24.7428 39.5067 24.9528C37.3869 25.9839 34.1191 26.5142 32.2382 24.7259C30.8028 23.3609 31.0418 21.0097 31.0432 19.1921L31.0389 14.7864C30.1201 14.8033 29.2009 14.8027 28.2821 14.7847C28.2523 14.4653 28.2263 14.1458 28.2036 13.8259C28.931 13.5287 30.1576 13.3824 30.9666 13.2744C31.3614 12.1296 31.5179 10.7906 31.8891 9.76271Z" fill="#11056C" />
+                        <path d="M58.2268 8.46244C58.9278 8.44818 59.6546 8.47201 60.3578 8.48649L60.3452 20.6798L60.3541 23.9121C60.3556 24.3272 60.3805 25.2414 60.3294 25.6105C59.6286 25.6406 58.9131 25.6276 58.2107 25.6226C58.1726 24.5101 58.2031 23.2349 58.2032 22.112L58.2044 15.4623L58.2008 11.0911C58.1992 10.3064 58.1675 9.22095 58.2268 8.46244Z" fill="#11056C" />
+                        <path d="M5.4493 5.62614C6.56216 4.21378 7.74623 2.79526 8.93569 1.44915C9.037 1.33458 9.38292 1.07265 9.52512 1.07856C10.2999 1.11079 11.325 2.20332 11.6633 2.80747C11.0845 4.07887 9.4307 5.58682 8.59553 6.76271C8.51188 6.88045 7.91037 7.59498 7.83025 7.64333C7.65626 7.92208 7.091 8.60079 6.86459 8.84545C6.19151 9.57225 5.36677 10.934 4.45903 11.3195C3.90062 11.1242 3.43603 10.7844 3.00101 10.3868C2.77155 10.1769 2.43907 9.85535 2.43403 9.52448C2.42633 9.01851 4.95125 6.13012 5.4493 5.62614Z" fill="#16A2DE" />
+                        <path d="M5.44927 5.62614C6.56212 4.21378 7.74619 2.79526 8.93566 1.44915C9.03696 1.33458 9.38289 1.07265 9.52509 1.07856C10.2998 1.11079 11.325 2.20332 11.6633 2.80747C11.0845 4.07887 9.43066 5.58682 8.59549 6.76271C8.51184 6.88045 7.91033 7.59498 7.83021 7.64333C7.8278 7.61277 7.82482 7.57574 7.82129 7.53228C8.36816 6.79989 9.22898 5.81297 9.7948 5.13983C9.56115 4.96776 7.58206 3.46061 7.62816 3.46996C7.11698 3.36631 5.99303 5.48152 5.44927 5.62614Z" fill="url(#paint0_linear_logo)" />
+                        <path d="M24.4652 13.0483C25.3337 13.1096 25.7329 13.1057 26.5811 13.0401L26.575 25.6111C26.3398 25.6699 24.7729 25.6173 24.4637 25.6097L24.4652 13.0483Z" fill="#11056C" />
+                        <path d="M4.77062 1.02918C4.82586 1.03379 4.88094 1.0401 4.93581 1.04807C5.45749 1.12592 6.98476 2.20889 6.87007 2.90743C6.84851 3.039 6.59924 3.44173 6.497 3.55362C5.66719 4.46219 4.66496 6.08292 3.64324 6.73153C3.56476 6.72414 3.43558 6.69493 3.36996 6.65532C1.36117 5.44259 0.992133 4.97244 2.70389 3.18107C3.2159 2.64523 4.08696 1.2768 4.77062 1.02918Z" fill="#16A2DE" />
+                        <path d="M6.54269 10.3452C7.23343 10.381 8.31824 11.5116 8.64521 12.1077C8.32716 12.9397 6.18394 15.509 5.35987 15.9995C4.6921 15.8616 3.5667 14.8273 3.24791 14.2039C3.28181 14.1087 3.3205 14.0154 3.36384 13.9243C3.69743 13.2271 5.49201 11.1764 6.1234 10.5762C6.23394 10.4712 6.39733 10.3967 6.54269 10.3452Z" fill="#04D5DF" />
+                        <path d="M14.1542 1.07691C14.8509 1.06849 15.7758 1.94853 16.1708 2.47242C16.538 2.98549 15.8214 3.8186 15.4909 4.17527C14.7652 4.95834 14.0258 6.16776 13.1092 6.69321C12.4889 6.7021 11.2935 5.44914 10.9773 4.92491C11.2968 4.13378 13.4616 1.48367 14.1542 1.07691Z" fill="url(#paint1_linear_logo)" />
+                        <path d="M25.4069 8.454C25.8028 8.44162 26.1508 8.49827 26.4806 8.72756C26.7847 8.93673 26.9908 9.26041 27.0518 9.62439C27.1092 9.98797 27.0155 10.3592 26.7925 10.6521C26.4912 11.0503 26.1462 11.1566 25.6872 11.2206C24.9333 11.2886 24.1797 10.8378 24.036 10.0644C23.9753 9.72718 24.0526 9.37976 24.2507 9.10027C24.5533 8.66592 24.9218 8.53839 25.4069 8.454Z" fill="#11056C" />
+                    </g>
+                    <defs>
+                        <linearGradient gradientUnits="userSpaceOnUse" id="paint0_linear_logo" x1="8.5863" x2="10.6154" y1="4.23732" y2="1.77716">
+                            <stop stopColor="#2278DD" />
+                            <stop offset="1" stopColor="#2E4EDE" />
+                        </linearGradient>
+                        <linearGradient gradientUnits="userSpaceOnUse" id="paint1_linear_logo" x1="15.3772" x2="11.9311" y1="1.81883" y2="5.84992">
+                            <stop stopColor="#3A1CDD" />
+                            <stop offset="1" stopColor="#2968DC" />
+                        </linearGradient>
+                    </defs>
+                </svg>
             </div>
-            <button onclick="window.location.href='wizard/instructions.html'" class="h-10 px-6 bg-[#4f39f6] text-white font-bold rounded-[8px] shadow-lg shadow-[#4f39f6]/20 hover:shadow-[#4f39f6]/40 transition-all active:scale-95 flex items-center gap-2">
-                <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg>
-                New Project
-            </button>
+            <div class="w-8 h-8 rounded-lg bg-indigo-600 flex items-center justify-center text-white font-bold shrink-0 logo-collapsed hidden">K</div>
         </div>
 
-        <!-- Project Grid -->
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            <!-- Project 1 -->
-            <div class="bg-white rounded-[20px] border border-[#e2e8f0] shadow-sm overflow-hidden flex flex-col group cursor-pointer hover:border-[#4f39f6] hover:shadow-xl hover:shadow-indigo-500/5 transition-all duration-500 animate-in zoom-in-95 duration-700" onclick="window.location.href='project/tasks.html'">
-                <div class="h-40 bg-slate-100 relative overflow-hidden">
-                    <img src="https://images.unsplash.com/photo-1576091160550-2173dba999ef?w=600&h=400&fit=crop" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
-                    <div class="absolute top-4 right-4 px-2.5 py-1 bg-[#dcfce7] text-[#008236] rounded-full text-[11px] font-bold border border-white">Active</div>
+        <!-- Menu -->
+        <nav class="flex-1 flex flex-col gap-1 w-full py-4 px-3 sidebar-nav">
+            <a href="projects.html" class="flex items-center w-full px-3 py-2 rounded-lg text-left gap-3 bg-[#eef2ff] text-[#4f39f6] group/item transition-colors">
+                <svg class="shrink-0 w-4 h-4 nav-icon" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M3 7v10a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-6l-2-2H5a2 2 0 00-2 2z" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                <span class="font-outfit text-sm font-normal whitespace-nowrap overflow-hidden nav-label">Projects</span>
+            </a>
+            <a href="participants.html" class="flex items-center w-full px-3 py-2 rounded-lg text-left gap-3 text-slate-900 hover:bg-slate-50 group/item transition-colors">
+                <svg class="shrink-0 w-4 h-4 nav-icon" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                <span class="font-outfit text-sm font-normal whitespace-nowrap overflow-hidden nav-label">Participants</span>
+            </a>
+            <a href="payments.html" class="flex items-center w-full px-3 py-2 rounded-lg text-left gap-3 text-slate-900 hover:bg-slate-50 group/item transition-colors">
+                <svg class="shrink-0 w-4 h-4 nav-icon" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><rect x="1" y="4" width="22" height="16" rx="2" ry="2" stroke-linecap="round" stroke-linejoin="round"/><line x1="1" y1="10" x2="23" y2="10" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                <span class="font-outfit text-sm font-normal whitespace-nowrap overflow-hidden nav-label">Payments</span>
+            </a>
+            <a href="settings.html" class="flex items-center w-full px-3 py-2 rounded-lg text-left gap-3 text-slate-900 hover:bg-slate-50 group/item transition-colors">
+                <svg class="shrink-0 w-4 h-4 nav-icon" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" stroke-linecap="round" stroke-linejoin="round"/><circle cx="12" cy="12" r="3" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                <span class="font-outfit text-sm font-normal whitespace-nowrap overflow-hidden nav-label">Settings</span>
+            </a>
+        </nav>
+
+        <!-- Bottom Actions -->
+        <div class="flex flex-col gap-2 w-full mt-auto mb-6 px-3 sidebar-footer">
+            <button class="flex items-center w-full px-3 py-2 rounded-lg text-left gap-3 text-slate-900 hover:bg-slate-50 transition-colors" title="Help">
+                <svg class="shrink-0 w-4 h-4 footer-icon" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10" stroke-linecap="round" stroke-linejoin="round"/><path d="M9.09 9a3 3 0 015.83 1c0 2-3 3-3 3" stroke-linecap="round" stroke-linejoin="round"/><line x1="12" y1="17" x2="12.01" y2="17" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                <span class="font-outfit text-sm font-normal whitespace-nowrap overflow-hidden footer-label">Help</span>
+            </button>
+
+            <div class="flex items-center gap-2 px-2 py-1 rounded-lg hover:bg-slate-50 cursor-pointer mt-2 user-profile">
+                <div class="w-8 h-8 rounded-lg overflow-hidden shrink-0">
+                     <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=100&h=100&fit=crop" alt="User" class="w-full h-full object-cover">
                 </div>
-                <div class="p-6 flex flex-col flex-1">
-                    <h3 class="text-[18px] font-bold text-[#0f172b] mb-2 line-clamp-1">Testing Voice LLM for Health in Rwanda</h3>
-                    <p class="text-[14px] text-slate-500 line-clamp-2 mb-6">Evaluating cultural resonance and medical accuracy of the regional Voice LLM implementation.</p>
+                <div class="flex-1 min-w-0 flex flex-col justify-center ml-1 user-info overflow-hidden">
+                    <div class="text-sm font-normal text-slate-900 truncate font-outfit leading-tight">Mariama (Admin)</div>
+                    <div class="text-[10px] text-slate-500 truncate font-outfit">mariama@kitala.com</div>
+                </div>
+                <svg class="w-4 h-4 text-slate-400 shrink-0 user-chevron" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M8 9l4-4 4 4m0 6l-4 4-4-4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </div>
+        </div>
+    </aside>
+
+    <!-- Main Content -->
+    <main id="main-content" class="flex-1 flex flex-col min-w-0 transition-all duration-300 ease-in-out h-screen overflow-hidden ml-[215px]">
+        
+        <!-- Header -->
+        <header class="bg-white h-[64px] border-b border-slate-200 px-6 flex items-center justify-between shrink-0 sticky top-0 z-10">
+            <div class="flex items-center gap-4 flex-1">
+                <button onclick="toggleSidebar()" class="text-slate-400 hover:text-slate-600">
+                    <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2" ry="2" stroke-linecap="round" stroke-linejoin="round"/><line x1="9" y1="3" x2="9" y2="21" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                </button>
+                <div class="h-4 w-px bg-slate-200"></div>
+                <div class="relative w-full max-w-[384px]">
+                    <svg class="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8" stroke-linecap="round" stroke-linejoin="round"/><line x1="21" y1="21" x2="16.65" y2="16.65" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                    <input type="text" placeholder="Search projects, researchers, or data..." class="w-full pl-10 pr-4 py-2 bg-[#f8fafc] border-none rounded-lg text-sm focus:outline-none focus:ring-1 focus:ring-indigo-500/20 text-slate-500 placeholder:text-slate-400">
+                </div>
+            </div>
+            <div class="flex items-center gap-4">
+                <button class="relative w-8 h-8 flex items-center justify-center rounded-full hover:bg-slate-50 transition-colors">
+                    <svg class="w-5 h-5 text-slate-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9" stroke-linecap="round" stroke-linejoin="round"/><path d="M13.73 21a2 2 0 0 1-3.46 0" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                    <span class="absolute top-1 right-1.5 w-2 h-2 bg-[#fb2c36] rounded-full border-2 border-white"></span>
+                </button>
+            </div>
+        </header>
+
+        <!-- Projects Overview Content -->
+        <div class="flex-1 overflow-auto p-8">
+            <div class="flex flex-col gap-8 w-full max-w-[1268px] mx-auto">
+                
+                <!-- Page Header -->
+                <div class="flex items-end justify-between">
+                    <div>
+                        <h1 class="text-2xl font-bold text-[#0f172b] mb-1">Projects Overview</h1>
+                        <p class="text-[#62748e] text-base">Manage your active and past projects</p>
+                    </div>
+                    <button class="h-[44px] px-6 bg-[#4f39f6] hover:bg-[#3d2cdb] text-white font-bold rounded-[10px] flex items-center gap-2 shadow-sm transition-all">
+                        <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19" stroke-linecap="round" stroke-linejoin="round"/><line x1="5" y1="12" x2="19" y2="12" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                        Create New Project
+                    </button>
+                </div>
+
+                <!-- Filters Bar -->
+                <div class="bg-white h-[54px] px-2 rounded-[14px] border border-[#e2e8f0] flex items-center justify-between shadow-sm">
+                    <div class="relative flex-1 max-w-[400px]">
+                        <svg class="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8" stroke-linecap="round" stroke-linejoin="round"/><line x1="21" y1="21" x2="16.65" y2="16.65" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                        <input type="text" id="project-search" placeholder="Filter by project name..." class="w-full pl-10 pr-4 py-2 text-sm focus:outline-none text-slate-600 bg-transparent">
+                    </div>
                     
-                    <div class="mt-auto flex flex-col gap-4">
-                        <div class="flex justify-between items-center text-[12px] font-bold text-slate-400 uppercase tracking-wider">
-                            <span>Progress</span>
-                            <span class="text-slate-900">78%</span>
-                        </div>
-                        <div class="h-1.5 bg-slate-100 rounded-full overflow-hidden">
-                            <div class="h-full bg-[#4f39f6] w-[78%]"></div>
-                        </div>
-                        <div class="flex items-center justify-between pt-4 border-t border-slate-50">
-                            <div class="flex -space-x-2">
-                                <div class="w-7 h-7 rounded-full border-2 border-white overflow-hidden bg-slate-100"><img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=100&h=100&fit=crop"></div>
-                                <div class="w-7 h-7 rounded-full border-2 border-white overflow-hidden bg-slate-100"><img src="https://images.unsplash.com/photo-1599566150163-29194dcaad36?w=100&h=100&fit=crop"></div>
-                                <div class="w-7 h-7 rounded-full border-2 border-white flex items-center justify-center bg-slate-200 text-[10px] font-bold text-slate-600">+12</div>
+                    <div class="flex items-center gap-2">
+                        <div class="h-6 w-px bg-[#e2e8f0] mx-2"></div>
+                        
+                        <div class="relative">
+                            <button onclick="toggleDropdown('status-dropdown')" class="h-[36px] px-4 text-sm font-medium text-[#45556c] hover:bg-slate-50 rounded-[10px] flex items-center gap-2">
+                                All Statuses <svg class="w-4 h-4 text-[#90a1b9]" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                            </button>
+                            <div id="status-dropdown" class="absolute right-0 top-full mt-1 w-48 bg-white border border-[#e2e8f0] rounded-lg shadow-lg hidden z-10 py-1">
+                                <a href="#" class="block px-4 py-2 text-sm text-slate-700 hover:bg-slate-50">All Statuses</a>
+                                <a href="#" class="block px-4 py-2 text-sm text-slate-700 hover:bg-slate-50">Started</a>
+                                <a href="#" class="block px-4 py-2 text-sm text-slate-700 hover:bg-slate-50">Not Started</a>
+                                <a href="#" class="block px-4 py-2 text-sm text-slate-700 hover:bg-slate-50">Completed</a>
                             </div>
-                            <span class="text-[13px] font-bold text-[#4f39f6] flex items-center gap-1">
-                                Enter Project
-                                <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="m9 18 6-6-6-6"/></svg>
-                            </span>
+                        </div>
+                        
+                        <div class="relative">
+                            <button onclick="toggleDropdown('method-dropdown')" class="h-[36px] px-4 text-sm font-medium text-[#45556c] hover:bg-slate-50 rounded-[10px] flex items-center gap-2">
+                                Methodology <svg class="w-4 h-4 text-[#90a1b9]" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                            </button>
+                            <div id="method-dropdown" class="absolute right-0 top-full mt-1 w-48 bg-white border border-[#e2e8f0] rounded-lg shadow-lg hidden z-10 py-1">
+                                <a href="#" class="block px-4 py-2 text-sm text-slate-700 hover:bg-slate-50">All Methodologies</a>
+                                <a href="#" class="block px-4 py-2 text-sm text-slate-700 hover:bg-slate-50">Qualitative</a>
+                                <a href="#" class="block px-4 py-2 text-sm text-slate-700 hover:bg-slate-50">Quantitative</a>
+                            </div>
                         </div>
                     </div>
                 </div>
+
+                <!-- Recent Activity -->
+                <div class="flex flex-col gap-6">
+                    <div class="flex items-center justify-between">
+                        <h2 class="text-lg font-bold text-[#0f172b] flex items-center gap-2">
+                            <span class="w-5 h-5 rounded-full border border-[#c6d2ff] text-[#4f39f6] flex items-center justify-center text-[10px] bg-[#eef2ff] font-bold">↺</span>
+                            Recent Activity
+                        </h2>
+                        <div class="flex gap-2">
+                            <button class="w-8 h-8 rounded-full border border-[#e2e8f0] flex items-center justify-center text-[#90a1b9] hover:text-slate-600 hover:bg-slate-50 disabled:opacity-50" disabled>
+                                <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M15 18l-6-6 6-6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                            </button>
+                            <button class="w-8 h-8 rounded-full border border-[#e2e8f0] flex items-center justify-center text-[#90a1b9] hover:text-slate-600 hover:bg-slate-50">
+                                <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M9 18l6-6-6-6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <div id="projects-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                        <!-- Project Cards will be injected by JS or can be static -->
+                        <!-- Card 1 -->
+                        <div onclick="window.location.href='../html-export/project/task-allocation.html'" class="bg-white rounded-[14px] border border-[#e2e8f0] p-6 shadow-sm hover:shadow-md transition-all flex flex-col gap-6 h-full group cursor-pointer relative overflow-hidden">
+                            <div class="flex justify-between items-start gap-4">
+                                <div>
+                                    <h3 class="font-bold text-lg text-[#0f172b] leading-tight">Testing Voice LLM for Health in Senegal</h3>
+                                    <div class="flex items-center gap-2 mt-2 text-xs text-[#62748e] font-medium">
+                                        <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2" ry="2" stroke-linecap="round" stroke-linejoin="round"/><line x1="16" y1="2" x2="16" y2="6" stroke-linecap="round" stroke-linejoin="round"/><line x1="8" y1="2" x2="8" y2="6" stroke-linecap="round" stroke-linejoin="round"/><line x1="3" y1="10" x2="21" y2="10" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                                        Oct 24 - Nov 30, 2025
+                                    </div>
+                                </div>
+                                <span class="px-3 py-1 rounded-full text-xs font-bold whitespace-nowrap bg-[#dbeafe] text-[#1447e6]">Completed</span>
+                            </div>
+                            <div>
+                                <div class="flex justify-between items-end mb-2">
+                                    <span class="text-[12px] font-bold text-[#45556c] uppercase tracking-wider">Task Completion</span>
+                                    <span class="text-[14px] font-bold text-[#0f172b]">100%</span>
+                                </div>
+                                <div class="h-2 w-full bg-[#f1f5f9] rounded-full overflow-hidden">
+                                    <div class="h-full rounded-full transition-all duration-500 bg-[#4f39f6]" style="width: 100%"></div>
+                                </div>
+                                <div class="mt-2 text-[12px] text-[#62748e] text-right font-medium">
+                                    2,400 / 2,400 tasks
+                                </div>
+                            </div>
+                            <div class="flex items-center justify-between mt-auto pt-5 border-t border-[#f8fafc]">
+                                <div class="flex items-center gap-2 text-sm text-[#45556c] font-medium">
+                                    <div class="w-8 h-8 rounded-full bg-[#eef2ff] border border-[#e2e8f0] flex items-center justify-center text-[#4f39f6]">
+                                        <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="9" cy="7" r="4" stroke-linecap="round" stroke-linejoin="round"/><path d="M23 21v-2a4 4 0 0 0-3-3.87" stroke-linecap="round" stroke-linejoin="round"/><path d="M16 3.13a4 4 0 0 1 0 7.75" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                                    </div>
+                                    <span class="text-xs">0 Active Annotators</span>
+                                </div>
+                                <button class="px-3 py-2 bg-[#f8fafc] text-[#314158] hover:bg-[#eef2ff] hover:text-[#4f39f6] rounded-[10px] text-[12px] font-bold transition-colors flex items-center gap-2">
+                                    View Details <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12" stroke-linecap="round" stroke-linejoin="round"/><polyline points="12 5 19 12 12 19" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- Card 2 -->
+                        <div onclick="window.location.href='../html-export/project/task-allocation.html'" class="bg-white rounded-[14px] border border-[#e2e8f0] p-6 shadow-sm hover:shadow-md transition-all flex flex-col gap-6 h-full group cursor-pointer relative overflow-hidden">
+                            <div class="flex justify-between items-start gap-4">
+                                <div>
+                                    <h3 class="font-bold text-lg text-[#0f172b] leading-tight">Sentiment Analysis Q3</h3>
+                                    <div class="flex items-center gap-2 mt-2 text-xs text-[#62748e] font-medium">
+                                        <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2" ry="2" stroke-linecap="round" stroke-linejoin="round"/><line x1="16" y1="2" x2="16" y2="6" stroke-linecap="round" stroke-linejoin="round"/><line x1="8" y1="2" x2="8" y2="6" stroke-linecap="round" stroke-linejoin="round"/><line x1="3" y1="10" x2="21" y2="10" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                                        Nov 02 - Dec 15, 2025
+                                    </div>
+                                </div>
+                                <span class="px-3 py-1 rounded-full text-xs font-bold whitespace-nowrap bg-[#dcfce7] text-[#008236]">Started</span>
+                            </div>
+                            <div>
+                                <div class="flex justify-between items-end mb-2">
+                                    <span class="text-[12px] font-bold text-[#45556c] uppercase tracking-wider">Task Completion</span>
+                                    <span class="text-[14px] font-bold text-[#0f172b]">42%</span>
+                                </div>
+                                <div class="h-2 w-full bg-[#f1f5f9] rounded-full overflow-hidden">
+                                    <div class="h-full rounded-full transition-all duration-500 bg-[#4f39f6]" style="width: 42%"></div>
+                                </div>
+                                <div class="mt-2 text-[12px] text-[#62748e] text-right font-medium">
+                                    6,300 / 15,000 tasks
+                                </div>
+                            </div>
+                            <div class="flex items-center justify-between mt-auto pt-5 border-t border-[#f8fafc]">
+                                <div class="flex items-center gap-2 text-sm text-[#45556c] font-medium">
+                                    <div class="w-8 h-8 rounded-full bg-[#eef2ff] border border-[#e2e8f0] flex items-center justify-center text-[#4f39f6]">
+                                        <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="9" cy="7" r="4" stroke-linecap="round" stroke-linejoin="round"/><path d="M23 21v-2a4 4 0 0 0-3-3.87" stroke-linecap="round" stroke-linejoin="round"/><path d="M16 3.13a4 4 0 0 1 0 7.75" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                                    </div>
+                                    <span class="text-xs">28 Active Annotators</span>
+                                </div>
+                                <button class="px-3 py-2 bg-[#f8fafc] text-[#314158] hover:bg-[#eef2ff] hover:text-[#4f39f6] rounded-[10px] text-[12px] font-bold transition-colors flex items-center gap-2">
+                                    View Details <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12" stroke-linecap="round" stroke-linejoin="round"/><polyline points="12 5 19 12 12 19" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- Card 3 -->
+                        <div onclick="window.location.href='../html-export/project/task-allocation.html'" class="bg-white rounded-[14px] border border-[#e2e8f0] p-6 shadow-sm hover:shadow-md transition-all flex flex-col gap-6 h-full group cursor-pointer relative overflow-hidden">
+                            <div class="flex justify-between items-start gap-4">
+                                <div>
+                                    <h3 class="font-bold text-lg text-[#0f172b] leading-tight">Testing Voice LLM for Health in Rwanda</h3>
+                                    <div class="flex items-center gap-2 mt-2 text-xs text-[#62748e] font-medium">
+                                        <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2" ry="2" stroke-linecap="round" stroke-linejoin="round"/><line x1="16" y1="2" x2="16" y2="6" stroke-linecap="round" stroke-linejoin="round"/><line x1="8" y1="2" x2="8" y2="6" stroke-linecap="round" stroke-linejoin="round"/><line x1="3" y1="10" x2="21" y2="10" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                                        End Date Feb 04
+                                    </div>
+                                </div>
+                                <span class="px-3 py-1 rounded-full text-xs font-bold whitespace-nowrap bg-[#f1f5f9] text-[#45556c]">Not Started</span>
+                            </div>
+                            <div>
+                                <div class="flex justify-between items-end mb-2">
+                                    <span class="text-[12px] font-bold text-[#45556c] uppercase tracking-wider">Task Completion</span>
+                                    <span class="text-[14px] font-bold text-[#0f172b]">0%</span>
+                                </div>
+                                <div class="h-2 w-full bg-[#f1f5f9] rounded-full overflow-hidden">
+                                    <div class="h-full rounded-full transition-all duration-500 bg-[#4f39f6]" style="width: 0%"></div>
+                                </div>
+                                <div class="mt-2 text-[12px] text-[#62748e] text-right font-medium">
+                                    0 / 450 tasks
+                                </div>
+                            </div>
+                            <div class="flex items-center justify-between mt-auto pt-5 border-t border-[#f8fafc]">
+                                <div class="flex items-center gap-2 text-sm text-[#45556c] font-medium">
+                                    <div class="w-8 h-8 rounded-full bg-[#eef2ff] border border-[#e2e8f0] flex items-center justify-center text-[#4f39f6]">
+                                        <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="9" cy="7" r="4" stroke-linecap="round" stroke-linejoin="round"/><path d="M23 21v-2a4 4 0 0 0-3-3.87" stroke-linecap="round" stroke-linejoin="round"/><path d="M16 3.13a4 4 0 0 1 0 7.75" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                                    </div>
+                                    <span class="text-xs">0 Active Annotators</span>
+                                </div>
+                                <button class="px-3 py-2 bg-[#f8fafc] text-[#314158] hover:bg-[#eef2ff] hover:text-[#4f39f6] rounded-[10px] text-[12px] font-bold transition-colors flex items-center gap-2">
+                                    View Details <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12" stroke-linecap="round" stroke-linejoin="round"/><polyline points="12 5 19 12 12 19" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                                </button>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
             </div>
         </div>
-    </div>
+    </main>
+
+    <script>
+        let isSidebarExpanded = true;
+
+        function toggleSidebar() {
+            const sidebar = document.getElementById('sidebar');
+            const mainContent = document.getElementById('main-content');
+            
+            isSidebarExpanded = !isSidebarExpanded;
+
+            if (isSidebarExpanded) {
+                sidebar.classList.remove('w-20', 'items-center');
+                sidebar.classList.add('w-[215px]');
+                mainContent.classList.remove('ml-20');
+                mainContent.classList.add('ml-[215px]');
+                
+                // Show extended elements
+                document.querySelector('.logo-full').classList.remove('hidden');
+                document.querySelector('.logo-collapsed').classList.add('hidden');
+                document.querySelectorAll('.nav-label').forEach(el => el.classList.remove('hidden'));
+                document.querySelectorAll('.footer-label').forEach(el => el.classList.remove('hidden'));
+                document.querySelector('.user-info').classList.remove('hidden');
+                document.querySelector('.user-chevron').classList.remove('hidden');
+                
+                // Alignments
+                document.querySelectorAll('.sidebar-nav > a').forEach(el => {
+                    el.classList.remove('justify-center', 'rounded-xl');
+                    el.classList.add('justify-start', 'rounded-lg', 'px-3');
+                });
+                 document.querySelector('.sidebar-footer > button').classList.remove('justify-center', 'rounded-xl');
+                 document.querySelector('.sidebar-footer > button').classList.add('justify-start', 'rounded-lg', 'px-3');
+
+                 document.querySelector('.user-profile').classList.remove('justify-center');
+                 document.querySelector('.user-profile').classList.add('px-2', 'py-1');
+                 
+                 // Icons size
+                 document.querySelectorAll('.nav-icon').forEach(el => el.classList.remove('w-5', 'h-5'));
+                 document.querySelectorAll('.nav-icon').forEach(el => el.classList.add('w-4', 'h-4'));
+
+            } else {
+                sidebar.classList.add('w-20', 'items-center');
+                sidebar.classList.remove('w-[215px]');
+                mainContent.classList.add('ml-20');
+                mainContent.classList.remove('ml-[215px]');
+                
+                // Hide extended elements
+                document.querySelector('.logo-full').classList.add('hidden');
+                document.querySelector('.logo-collapsed').classList.remove('hidden');
+                document.querySelectorAll('.nav-label').forEach(el => el.classList.add('hidden'));
+                document.querySelectorAll('.footer-label').forEach(el => el.classList.add('hidden'));
+                document.querySelector('.user-info').classList.add('hidden');
+                document.querySelector('.user-chevron').classList.add('hidden');
+
+                // Alignments
+                document.querySelectorAll('.sidebar-nav > a').forEach(el => {
+                    el.classList.add('justify-center', 'rounded-xl');
+                    el.classList.remove('justify-start', 'rounded-lg', 'px-3');
+                });
+                document.querySelector('.sidebar-footer > button').classList.add('justify-center', 'rounded-xl');
+                document.querySelector('.sidebar-footer > button').classList.remove('justify-start', 'rounded-lg', 'px-3');
+
+                document.querySelector('.user-profile').classList.add('justify-center');
+                document.querySelector('.user-profile').classList.remove('px-2', 'py-1');
+
+                 // Icons size
+                 document.querySelectorAll('.nav-icon').forEach(el => el.classList.add('w-5', 'h-5'));
+                 document.querySelectorAll('.nav-icon').forEach(el => el.classList.remove('w-4', 'h-4'));
+            }
+        }
+
+        function toggleDropdown(id) {
+            const dropdown = document.getElementById(id);
+            const allDropdowns = document.querySelectorAll('[id$="-dropdown"]');
+            
+            allDropdowns.forEach(d => {
+                if (d.id !== id) d.classList.add('hidden');
+            });
+
+            if (dropdown.classList.contains('hidden')) {
+                dropdown.classList.remove('hidden');
+            } else {
+                dropdown.classList.add('hidden');
+            }
+        }
+
+        // Close dropdowns when clicking outside
+        window.addEventListener('click', function(e) {
+            if (!e.target.closest('button')) {
+                 const allDropdowns = document.querySelectorAll('[id$="-dropdown"]');
+                 allDropdowns.forEach(d => d.classList.add('hidden'));
+            }
+        });
+
+        // Search Filter Logic
+        document.getElementById('project-search').addEventListener('input', function(e) {
+            const searchTerm = e.target.value.toLowerCase();
+            const cards = document.querySelectorAll('#projects-grid > div');
+            
+            cards.forEach(card => {
+                const title = card.querySelector('h3').textContent.toLowerCase();
+                if (title.includes(searchTerm)) {
+                    card.style.display = 'flex';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+        });
+    </script>
 </body>
 </html>
