@@ -1,0 +1,848 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create New Project - Kitala</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Work+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: { 
+                        sans: ['Work Sans', 'sans-serif'],
+                        outfit: ['Outfit', 'sans-serif']
+                    },
+                    colors: {
+                        primary: '#4F39F6'
+                    },
+                    keyframes: {
+                        fadeIn: {
+                            '0%': { opacity: '0', transform: 'translateY(10px)' },
+                            '100%': { opacity: '1', transform: 'translateY(0)' },
+                        }
+                    },
+                    animation: {
+                        fadeIn: 'fadeIn 0.5s ease-out forwards',
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        /* Custom scrollbar */
+        ::-webkit-scrollbar {
+            width: 6px;
+            height: 6px;
+        }
+        ::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #cbd5e1;
+            border-radius: 3px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #94a3b8;
+        }
+        .step-transition {
+            transition: width 0.5s ease-in-out;
+        }
+    </style>
+</head>
+<body class="bg-[#f8fafc] font-sans text-slate-900 min-h-screen">
+
+    <!-- Step 0: Project Info (StartNewProject) -->
+    <div id="step-0" class="flex flex-col min-h-screen bg-white">
+        <!-- Header Step 0 -->
+        <div class="h-[49px] flex items-center justify-between px-6 border-b border-[#e4e4e7] shrink-0">
+            <div class="flex items-center gap-2">
+                 <!-- Kitala Logo -->
+                 <div class="h-[22px] w-[65px] relative">
+                    <svg class="block w-full h-full" fill="none" viewBox="0 0 79 27">
+                        <path d="M46.3369 12.8145C46.8083 12.7744 47.2828 12.7902 47.7505 12.8616C50.101 13.2058 51.5457 14.6486 52.9002 16.4716C52.7374 15.5513 52.9671 14.0681 53.032 13.0547C53.7534 13.0409 54.4748 13.0404 55.196 13.0534C55.1202 15.1448 54.7074 17.2936 54.7105 19.3353C54.7139 21.3934 55.1247 23.5095 55.1879 25.6218C54.4678 25.6319 53.7476 25.6296 53.0277 25.6157C53.001 24.7969 52.7402 22.9836 52.877 22.3417C52.7552 22.3267 52.129 23.1245 52.0217 23.2661C50.0923 26.0523 45.3112 26.8776 42.7295 24.4913C38.543 20.622 40.2641 13.3266 46.3369 12.8145Z" fill="#11056C" />
+                        <path d="M46.62 14.6168C47.2196 14.4981 48.3182 14.665 48.8865 14.8875C50.9717 15.7037 52.0544 17.3683 52.9456 19.2814C52.3223 21.2121 50.6752 23.1191 48.7433 23.8204C41.8696 25.8999 40.2799 15.3907 46.62 14.6168Z" fill="white" />
+                        <path d="M68.7212 12.8154C71.2632 12.4836 74.0271 14.3358 75.2201 16.5005C75.178 15.6321 75.3321 13.9922 75.3827 13.0586C76.1106 13.0418 76.8387 13.0407 77.5664 13.0552C77.4326 15.1622 77.153 17.2807 77.078 19.3804C77.0393 20.4615 77.2536 21.8127 77.3651 22.9038C77.4503 23.8074 77.5177 24.7124 77.5674 25.6184C76.8378 25.6341 76.108 25.6309 75.3786 25.609C75.3333 24.5656 75.213 23.4499 75.2201 22.4133L75.197 22.3506L75.126 22.3395C74.9697 22.6151 74.7645 22.8337 74.5702 23.0784C73.3583 24.6139 71.7915 25.6692 69.8129 25.8586C66.1449 26.1949 63.2353 23.7994 62.9057 20.1135C62.6102 16.8067 64.1444 13.8367 67.5074 12.9929C67.9162 12.8903 68.3002 12.8502 68.7212 12.8154Z" fill="#11056C" />
+                        <path d="M69.0098 14.6164C71.8607 14.1466 74.3638 16.8113 75.2819 19.2484C75.2322 19.517 75.1313 19.8023 75.0096 20.0466C74.171 21.7297 72.918 23.1783 71.1202 23.8192C68.1927 24.7276 65.4169 23.1224 65.0624 20.0257C64.7516 17.3124 66.1913 14.9419 69.0098 14.6164Z" fill="white" />
+                        <path d="M10.6307 8.46209L12.0529 8.46758L12.0501 22.6422C12.355 22.3396 12.7265 21.8416 13.0095 21.4968L14.6893 19.4721L20.0406 13.0375L22.5501 13.0605C21.7835 13.8397 20.7613 15.1983 19.9919 16.0685C19.5494 16.569 18.3725 17.8996 18.0173 18.397C18.635 19.2093 19.2863 20.2255 19.8633 21.0804L21.7712 23.9103C22.1251 24.4345 22.5573 25.1101 22.9415 25.5986C22.1337 25.6436 21.1966 25.6354 20.3823 25.6431C19.4689 24.0709 18.2731 22.5422 17.3201 20.9817C17.113 20.6426 16.8983 20.3508 16.7243 19.9876C15.759 20.9533 14.6813 22.4267 13.7374 23.4588C13.4885 23.7309 12.0661 25.4064 11.9339 25.6501C11.2772 25.6234 10.5634 25.626 9.90206 25.6156L9.91006 8.48739C10.1476 8.47607 10.3924 8.47033 10.6307 8.46209Z" fill="#11056C" />
+                        <path d="M31.8891 9.76271L33.1834 9.79654C33.1918 10.8782 33.1832 11.9597 33.1576 13.0409C35.1318 13.09 37.2144 13.0307 39.2095 13.0528C39.2123 13.6369 39.2075 14.2209 39.1948 14.805L33.1799 14.8024L33.1789 19.0949C33.1793 19.9825 33.1676 20.8179 33.2256 21.7151C33.3873 24.2201 35.8848 24.2792 37.7647 23.8238C38.2716 23.7011 38.7062 23.4868 39.1796 23.2552C39.2958 23.1972 39.3528 23.1756 39.4764 23.1353C39.5365 23.2221 39.5084 24.7428 39.5067 24.9528C37.3869 25.9839 34.1191 26.5142 32.2382 24.7259C30.8028 23.3609 31.0418 21.0097 31.0432 19.1921L31.0389 14.7864C30.1201 14.8033 29.2009 14.8027 28.2821 14.7847C28.2523 14.4653 28.2263 14.1458 28.2036 13.8259C28.931 13.5287 30.1576 13.3824 30.9666 13.2744C31.3614 12.1296 31.5179 10.7906 31.8891 9.76271Z" fill="#11056C" />
+                        <path d="M58.2268 8.46244C58.9278 8.44818 59.6546 8.47201 60.3578 8.48649L60.3452 20.6798L60.3541 23.9121C60.3556 24.3272 60.3805 25.2414 60.3294 25.6105C59.6286 25.6406 58.9131 25.6276 58.2107 25.6226C58.1726 24.5101 58.2031 23.2349 58.2032 22.112L58.2044 15.4623L58.2008 11.0911C58.1992 10.3064 58.1675 9.22095 58.2268 8.46244Z" fill="#11056C" />
+                        <path d="M5.4493 5.62614C6.56216 4.21378 7.74623 2.79526 8.93569 1.44915C9.037 1.33458 9.38292 1.07265 9.52512 1.07856C10.2999 1.11079 11.325 2.20332 11.6633 2.80747C11.0845 4.07887 9.4307 5.58682 8.59553 6.76271C8.51188 6.88045 7.91037 7.59498 7.83025 7.64333C7.65626 7.92208 7.091 8.60079 6.86459 8.84545C6.19151 9.57225 5.36677 10.934 4.45903 11.3195C3.90062 11.1242 3.43603 10.7844 3.00101 10.3868C2.77155 10.1769 2.43907 9.85535 2.43403 9.52448C2.42633 9.01851 4.95125 6.13012 5.4493 5.62614Z" fill="#16A2DE" />
+                        <path d="M5.44927 5.62614C6.56212 4.21378 7.74619 2.79526 8.93566 1.44915C9.03696 1.33458 9.38289 1.07265 9.52509 1.07856C10.2998 1.11079 11.325 2.20332 11.6633 2.80747C11.0845 4.07887 9.43066 5.58682 8.59549 6.76271C8.51184 6.88045 7.91033 7.59498 7.83021 7.64333C7.8278 7.61277 7.82482 7.57574 7.82129 7.53228C8.36816 6.79989 9.22898 5.81297 9.7948 5.13983C9.56115 4.96776 7.58206 3.46061 7.62816 3.46996C7.11698 3.36631 5.99303 5.48152 5.44927 5.62614Z" fill="url(#paint0_linear_logo)" />
+                        <path d="M24.4652 13.0483C25.3337 13.1096 25.7329 13.1057 26.5811 13.0401L26.575 25.6111C26.3398 25.6699 24.7729 25.6173 24.4637 25.6097L24.4652 13.0483Z" fill="#11056C" />
+                        <path d="M4.77062 1.02918C4.82586 1.03379 4.88094 1.0401 4.93581 1.04807C5.45749 1.12592 6.98476 2.20889 6.87007 2.90743C6.84851 3.039 6.59924 3.44173 6.497 3.55362C5.66719 4.46219 4.66496 6.08292 3.64324 6.73153C3.56476 6.72414 3.43558 6.69493 3.36996 6.65532C1.36117 5.44259 0.992133 4.97244 2.70389 3.18107C3.2159 2.64523 4.08696 1.2768 4.77062 1.02918Z" fill="#16A2DE" />
+                        <path d="M6.54269 10.3452C7.23343 10.381 8.31824 11.5116 8.64521 12.1077C8.32716 12.9397 6.18394 15.509 5.35987 15.9995C4.6921 15.8616 3.5667 14.8273 3.24791 14.2039C3.28181 14.1087 3.3205 14.0154 3.36384 13.9243C3.69743 13.2271 5.49201 11.1764 6.1234 10.5762C6.23394 10.4712 6.39733 10.3967 6.54269 10.3452Z" fill="#04D5DF" />
+                        <path d="M14.1542 1.07691C14.8509 1.06849 15.7758 1.94853 16.1708 2.47242C16.538 2.98549 15.8214 3.8186 15.4909 4.17527C14.7652 4.95834 14.0258 6.16776 13.1092 6.69321C12.4889 6.7021 11.2935 5.44914 10.9773 4.92491C11.2968 4.13378 13.4616 1.48367 14.1542 1.07691Z" fill="url(#paint1_linear_logo)" />
+                        <path d="M25.4069 8.454C25.8028 8.44162 26.1508 8.49827 26.4806 8.72756C26.7847 8.93673 26.9908 9.26041 27.0518 9.62439C27.1092 9.98797 27.0155 10.3592 26.7925 10.6521C26.4912 11.0503 26.1462 11.1566 25.6872 11.2206C24.9333 11.2886 24.1797 10.8378 24.036 10.0644C23.9753 9.72718 24.0526 9.37976 24.2507 9.10027C24.5533 8.66592 24.9218 8.53839 25.4069 8.454Z" fill="#11056C" />
+                        <defs>
+                            <linearGradient gradientUnits="userSpaceOnUse" id="paint0_linear_logo" x1="8.5863" x2="10.6154" y1="4.23732" y2="1.77716">
+                                <stop stopColor="#2278DD" />
+                                <stop offset="1" stopColor="#2E4EDE" />
+                            </linearGradient>
+                            <linearGradient gradientUnits="userSpaceOnUse" id="paint1_linear_logo" x1="15.3772" x2="11.9311" y1="1.81883" y2="5.84992">
+                                <stop stopColor="#3A1CDD" />
+                                <stop offset="1" stopColor="#2968DC" />
+                            </linearGradient>
+                        </defs>
+                    </svg>
+                 </div>
+            </div>
+            <a href="../../kitala-html-export/projects.html" class="flex items-center justify-center rounded-full shrink-0 size-[32px] hover:bg-slate-100 transition-colors cursor-pointer">
+                <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+                    <path d="M15 5L5 15" stroke="#62748E" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.66667" />
+                    <path d="M5 5L15 15" stroke="#62748E" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.66667" />
+                </svg>
+            </a>
+        </div>
+
+        <!-- Content Step 0 -->
+        <div class="bg-[#f6f5f8] flex-1 flex flex-col items-center justify-center py-[24px] w-full">
+            <div class="flex flex-col gap-[32px] items-center p-[24px] relative shrink-0 w-full">
+                <!-- Title Section -->
+                <div class="flex flex-col gap-[4px] items-center relative shrink-0 w-[720px] text-center">
+                    <h2 class="font-bold text-[#0f172b] text-[24px] leading-[32px]">Let's start your new project</h2>
+                    <p class="font-normal text-[#62748e] text-[16px] leading-[24px]">Give your research project a name and description.</p>
+                </div>
+
+                <!-- Main Card -->
+                <div class="bg-white flex flex-col items-start p-px relative rounded-[14px] shrink-0 w-[720px] shadow-sm border border-[rgba(0,0,0,0.1)]">
+                    <div class="flex flex-col gap-[24px] items-start p-[32px] relative w-full">
+                        <!-- Project Name -->
+                        <div class="flex flex-col gap-[8px] items-start relative shrink-0 w-full">
+                            <label class="font-medium text-[#0a0a0a] text-[14px]">Project Name</label>
+                            <div class="bg-[#f3f3f5] h-[36px] relative rounded-[8px] shrink-0 w-full flex items-center">
+                                <input type="text" id="project-name" placeholder="e.g. LLM Evaluation for Medical Advice" class="w-full h-full bg-transparent px-[12px] py-[4px] text-[#0f172b] placeholder-[#717182] text-[14px] focus:outline-none focus:ring-1 focus:ring-[#4f39f6] rounded-[8px]">
+                            </div>
+                        </div>
+
+                        <!-- Internal Description -->
+                        <div class="flex flex-col gap-[8px] items-start relative shrink-0 w-full">
+                            <label class="font-medium text-[#0a0a0a] text-[14px]">Internal Description</label>
+                            <div class="bg-[#f3f3f5] h-[100px] relative rounded-[8px] shrink-0 w-full">
+                                <textarea id="project-desc" placeholder="Briefly describe this project for you and your team..." class="w-full h-full bg-transparent px-[12px] py-[8px] text-[#0f172b] placeholder-[#717182] text-[14px] focus:outline-none focus:ring-1 focus:ring-[#4f39f6] rounded-[8px] resize-none"></textarea>
+                            </div>
+                        </div>
+
+                        <!-- Missions End Date -->
+                        <div class="flex flex-col gap-[8px] items-start relative shrink-0 w-full">
+                            <label class="font-medium text-[#0a0a0a] text-[14px]">Missions end date</label>
+                            <div class="bg-[#f3f3f5] h-[36px] relative rounded-[8px] shrink-0 w-full flex items-center px-[12px] hover:bg-[#eaeaec] transition-colors cursor-pointer">
+                                <input type="date" class="w-full bg-transparent text-[#0f172b] text-[14px] focus:outline-none border-none font-sans">
+                            </div>
+                        </div>
+
+                        <!-- Methodology -->
+                        <div class="flex flex-col gap-[8px] items-start relative shrink-0 w-full">
+                            <label class="font-medium text-[#0a0a0a] text-[14px]">Methodology</label>
+                            <div class="flex gap-[16px] items-start relative shrink-0 w-full overflow-x-auto pb-2">
+                                
+                                <!-- Card 1 -->
+                                <div onclick="selectMethodology('live-testing-text')" id="card-live-testing-text" class="relative rounded-[14px] shrink-0 w-[207px] cursor-pointer transition-all border-2 overflow-hidden bg-white bg-[rgba(238,242,255,0.5)] border-[#4f39f6]">
+                                    <div class="flex flex-col items-start p-[2px] w-full">
+                                        <div class="flex h-[183px] items-center justify-center relative shrink-0 w-full overflow-hidden">
+                                            <img src="https://images.unsplash.com/photo-1701099153587-6f28b448ff0e?w=300&h=300&fit=crop" class="object-cover w-full h-full opacity-80" alt="LLM Testing">
+                                        </div>
+                                        <div class="h-[96px] w-full p-[16px] flex flex-col gap-1">
+                                            <p class="font-bold text-[#312c85] text-[16px]">LLM Testing (Text)</p>
+                                            <p class="font-normal text-[#62748e] text-[14px]">Real-time evaluation of text outputs.</p>
+                                        </div>
+                                        <div class="absolute bg-[#4f39f6] flex items-center justify-center rounded-full w-[20px] h-[20px] top-[10px] right-[10px] shadow-sm z-10">
+                                            <svg width="9" height="7" viewBox="0 0 9 7" fill="none"><path d="M8.5 0.5L3 6L0.5 3.5" stroke="white" stroke-linecap="round" stroke-linejoin="round" /></svg>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Card 2 -->
+                                <div onclick="selectMethodology('text-annotation')" id="card-text-annotation" class="relative rounded-[14px] shrink-0 w-[207px] cursor-pointer transition-all border-2 overflow-hidden bg-white border-transparent shadow-[0_0_0_1px_#e2e8f0]">
+                                    <div class="flex flex-col items-start p-[2px] w-full">
+                                        <div class="flex h-[183px] items-center justify-center relative shrink-0 w-full overflow-hidden">
+                                            <img src="https://images.unsplash.com/photo-1634562876572-5abe57afcceb?w=300&h=300&fit=crop" class="object-cover w-full h-full opacity-80" alt="Text Annotation">
+                                        </div>
+                                        <div class="h-[96px] w-full p-[16px] flex flex-col gap-1">
+                                            <p class="font-bold text-[#0f172b] text-[16px]">Text Annotation</p>
+                                            <p class="font-normal text-[#62748e] text-[14px]">Labeling existing datasets (Q&A, Stereotypes, etc).</p>
+                                        </div>
+                                        <div class="absolute bg-[#4f39f6] hidden items-center justify-center rounded-full w-[20px] h-[20px] top-[10px] right-[10px] shadow-sm z-10 selection-check">
+                                            <svg width="9" height="7" viewBox="0 0 9 7" fill="none"><path d="M8.5 0.5L3 6L0.5 3.5" stroke="white" stroke-linecap="round" stroke-linejoin="round" /></svg>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Card 3 -->
+                                <div onclick="selectMethodology('live-testing-voice')" id="card-live-testing-voice" class="relative rounded-[14px] shrink-0 w-[207px] cursor-pointer transition-all border-2 overflow-hidden bg-white border-transparent shadow-[0_0_0_1px_#e2e8f0]">
+                                    <div class="flex flex-col items-start p-[2px] w-full">
+                                        <div class="flex h-[183px] items-center justify-center relative shrink-0 w-full overflow-hidden">
+                                            <img src="https://images.unsplash.com/photo-1659083726032-32d67d08ba64?w=300&h=300&fit=crop" class="object-cover w-full h-full opacity-80" alt="LLM Testing Voice">
+                                        </div>
+                                        <div class="h-[96px] w-full p-[16px] flex flex-col gap-1">
+                                            <p class="font-bold text-[#312c85] text-[16px]">LLM Testing (Voice)</p>
+                                            <p class="font-normal text-[#62748e] text-[14px]">Real-time evaluation of Voice outputs.</p>
+                                        </div>
+                                        <div class="absolute bg-[#4f39f6] hidden items-center justify-center rounded-full w-[20px] h-[20px] top-[10px] right-[10px] shadow-sm z-10 selection-check">
+                                            <svg width="9" height="7" viewBox="0 0 9 7" fill="none"><path d="M8.5 0.5L3 6L0.5 3.5" stroke="white" stroke-linecap="round" stroke-linejoin="round" /></svg>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+                <!-- Start Project Button -->
+                <button onclick="startWizard()" class="bg-[#410dd8] hover:bg-[#320aab] flex h-[36px] items-center justify-center px-[32px] py-[8px] rounded-[8px] transition-colors text-white font-medium text-[14px]">
+                    Start Project →
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Wizard Layout (Steps 1-5) -->
+    <div id="wizard-layout" class="hidden flex-col min-h-screen">
+        
+        <!-- Common Header -->
+        <header class="flex h-16 items-center justify-between border-b bg-white px-6 shrink-0">
+            <div class="flex items-center gap-3">
+                 <!-- Logo -->
+                 <div class="h-7 w-[79px] relative">
+                     <!-- SVG Logo Same as above -->
+                    <svg class="block w-full h-full" fill="none" viewBox="0 0 79 27">
+                        <path d="M46.3369 12.8145C46.8083 12.7744 47.2828 12.7902 47.7505 12.8616C50.101 13.2058 51.5457 14.6486 52.9002 16.4716C52.7374 15.5513 52.9671 14.0681 53.032 13.0547C53.7534 13.0409 54.4748 13.0404 55.196 13.0534C55.1202 15.1448 54.7074 17.2936 54.7105 19.3353C54.7139 21.3934 55.1247 23.5095 55.1879 25.6218C54.4678 25.6319 53.7476 25.6296 53.0277 25.6157C53.001 24.7969 52.7402 22.9836 52.877 22.3417C52.7552 22.3267 52.129 23.1245 52.0217 23.2661C50.0923 26.0523 45.3112 26.8776 42.7295 24.4913C38.543 20.622 40.2641 13.3266 46.3369 12.8145Z" fill="#11056C" />
+                        <path d="M46.62 14.6168C47.2196 14.4981 48.3182 14.665 48.8865 14.8875C50.9717 15.7037 52.0544 17.3683 52.9456 19.2814C52.3223 21.2121 50.6752 23.1191 48.7433 23.8204C41.8696 25.8999 40.2799 15.3907 46.62 14.6168Z" fill="white" />
+                        <path d="M68.7212 12.8154C71.2632 12.4836 74.0271 14.3358 75.2201 16.5005C75.178 15.6321 75.3321 13.9922 75.3827 13.0586C76.1106 13.0418 76.8387 13.0407 77.5664 13.0552C77.4326 15.1622 77.153 17.2807 77.078 19.3804C77.0393 20.4615 77.2536 21.8127 77.3651 22.9038C77.4503 23.8074 77.5177 24.7124 77.5674 25.6184C76.8378 25.6341 76.108 25.6309 75.3786 25.609C75.3333 24.5656 75.213 23.4499 75.2201 22.4133L75.197 22.3506L75.126 22.3395C74.9697 22.6151 74.7645 22.8337 74.5702 23.0784C73.3583 24.6139 71.7915 25.6692 69.8129 25.8586C66.1449 26.1949 63.2353 23.7994 62.9057 20.1135C62.6102 16.8067 64.1444 13.8367 67.5074 12.9929C67.9162 12.8903 68.3002 12.8502 68.7212 12.8154Z" fill="#11056C" />
+                        <path d="M69.0098 14.6164C71.8607 14.1466 74.3638 16.8113 75.2819 19.2484C75.2322 19.517 75.1313 19.8023 75.0096 20.0466C74.171 21.7297 72.918 23.1783 71.1202 23.8192C68.1927 24.7276 65.4169 23.1224 65.0624 20.0257C64.7516 17.3124 66.1913 14.9419 69.0098 14.6164Z" fill="white" />
+                        <path d="M10.6307 8.46209L12.0529 8.46758L12.0501 22.6422C12.355 22.3396 12.7265 21.8416 13.0095 21.4968L14.6893 19.4721L20.0406 13.0375L22.5501 13.0605C21.7835 13.8397 20.7613 15.1983 19.9919 16.0685C19.5494 16.569 18.3725 17.8996 18.0173 18.397C18.635 19.2093 19.2863 20.2255 19.8633 21.0804L21.7712 23.9103C22.1251 24.4345 22.5573 25.1101 22.9415 25.5986C22.1337 25.6436 21.1966 25.6354 20.3823 25.6431C19.4689 24.0709 18.2731 22.5422 17.3201 20.9817C17.113 20.6426 16.8983 20.3508 16.7243 19.9876C15.759 20.9533 14.6813 22.4267 13.7374 23.4588C13.4885 23.7309 12.0661 25.4064 11.9339 25.6501C11.2772 25.6234 10.5634 25.626 9.90206 25.6156L9.91006 8.48739C10.1476 8.47607 10.3924 8.47033 10.6307 8.46209Z" fill="#11056C" />
+                        <path d="M31.8891 9.76271L33.1834 9.79654C33.1918 10.8782 33.1832 11.9597 33.1576 13.0409C35.1318 13.09 37.2144 13.0307 39.2095 13.0528C39.2123 13.6369 39.2075 14.2209 39.1948 14.805L33.1799 14.8024L33.1789 19.0949C33.1793 19.9825 33.1676 20.8179 33.2256 21.7151C33.3873 24.2201 35.8848 24.2792 37.7647 23.8238C38.2716 23.7011 38.7062 23.4868 39.1796 23.2552C39.2958 23.1972 39.3528 23.1756 39.4764 23.1353C39.5365 23.2221 39.5084 24.7428 39.5067 24.9528C37.3869 25.9839 34.1191 26.5142 32.2382 24.7259C30.8028 23.3609 31.0418 21.0097 31.0432 19.1921L31.0389 14.7864C30.1201 14.8033 29.2009 14.8027 28.2821 14.7847C28.2523 14.4653 28.2263 14.1458 28.2036 13.8259C28.931 13.5287 30.1576 13.3824 30.9666 13.2744C31.3614 12.1296 31.5179 10.7906 31.8891 9.76271Z" fill="#11056C" />
+                        <path d="M58.2268 8.46244C58.9278 8.44818 59.6546 8.47201 60.3578 8.48649L60.3452 20.6798L60.3541 23.9121C60.3556 24.3272 60.3805 25.2414 60.3294 25.6105C59.6286 25.6406 58.9131 25.6276 58.2107 25.6226C58.1726 24.5101 58.2031 23.2349 58.2032 22.112L58.2044 15.4623L58.2008 11.0911C58.1992 10.3064 58.1675 9.22095 58.2268 8.46244Z" fill="#11056C" />
+                        <path d="M5.4493 5.62614C6.56216 4.21378 7.74623 2.79526 8.93569 1.44915C9.037 1.33458 9.38292 1.07265 9.52512 1.07856C10.2999 1.11079 11.325 2.20332 11.6633 2.80747C11.0845 4.07887 9.4307 5.58682 8.59553 6.76271C8.51188 6.88045 7.91037 7.59498 7.83025 7.64333C7.65626 7.92208 7.091 8.60079 6.86459 8.84545C6.19151 9.57225 5.36677 10.934 4.45903 11.3195C3.90062 11.1242 3.43603 10.7844 3.00101 10.3868C2.77155 10.1769 2.43907 9.85535 2.43403 9.52448C2.42633 9.01851 4.95125 6.13012 5.4493 5.62614Z" fill="#16A2DE" />
+                        <path d="M5.44927 5.62614C6.56212 4.21378 7.74619 2.79526 8.93566 1.44915C9.03696 1.33458 9.38289 1.07265 9.52509 1.07856C10.2998 1.11079 11.325 2.20332 11.6633 2.80747C11.0845 4.07887 9.43066 5.58682 8.59549 6.76271C8.51184 6.88045 7.91033 7.59498 7.83021 7.64333C7.8278 7.61277 7.82482 7.57574 7.82129 7.53228C8.36816 6.79989 9.22898 5.81297 9.7948 5.13983C9.56115 4.96776 7.58206 3.46061 7.62816 3.46996C7.11698 3.36631 5.99303 5.48152 5.44927 5.62614Z" fill="url(#paint0_linear_logo)" />
+                        <path d="M24.4652 13.0483C25.3337 13.1096 25.7329 13.1057 26.5811 13.0401L26.575 25.6111C26.3398 25.6699 24.7729 25.6173 24.4637 25.6097L24.4652 13.0483Z" fill="#11056C" />
+                        <path d="M4.77062 1.02918C4.82586 1.03379 4.88094 1.0401 4.93581 1.04807C5.45749 1.12592 6.98476 2.20889 6.87007 2.90743C6.84851 3.039 6.59924 3.44173 6.497 3.55362C5.66719 4.46219 4.66496 6.08292 3.64324 6.73153C3.56476 6.72414 3.43558 6.69493 3.36996 6.65532C1.36117 5.44259 0.992133 4.97244 2.70389 3.18107C3.2159 2.64523 4.08696 1.2768 4.77062 1.02918Z" fill="#16A2DE" />
+                        <path d="M6.54269 10.3452C7.23343 10.381 8.31824 11.5116 8.64521 12.1077C8.32716 12.9397 6.18394 15.509 5.35987 15.9995C4.6921 15.8616 3.5667 14.8273 3.24791 14.2039C3.28181 14.1087 3.3205 14.0154 3.36384 13.9243C3.69743 13.2271 5.49201 11.1764 6.1234 10.5762C6.23394 10.4712 6.39733 10.3967 6.54269 10.3452Z" fill="#04D5DF" />
+                        <path d="M14.1542 1.07691C14.8509 1.06849 15.7758 1.94853 16.1708 2.47242C16.538 2.98549 15.8214 3.8186 15.4909 4.17527C14.7652 4.95834 14.0258 6.16776 13.1092 6.69321C12.4889 6.7021 11.2935 5.44914 10.9773 4.92491C11.2968 4.13378 13.4616 1.48367 14.1542 1.07691Z" fill="url(#paint1_linear_logo)" />
+                        <path d="M25.4069 8.454C25.8028 8.44162 26.1508 8.49827 26.4806 8.72756C26.7847 8.93673 26.9908 9.26041 27.0518 9.62439C27.1092 9.98797 27.0155 10.3592 26.7925 10.6521C26.4912 11.0503 26.1462 11.1566 25.6872 11.2206C24.9333 11.2886 24.1797 10.8378 24.036 10.0644C23.9753 9.72718 24.0526 9.37976 24.2507 9.10027C24.5533 8.66592 24.9218 8.53839 25.4069 8.454Z" fill="#11056C" />
+                    </svg>
+                 </div>
+            </div>
+            <button onclick="exitWizard()" class="flex h-8 w-8 items-center justify-center rounded-full hover:bg-slate-100">
+                <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+                    <path d="M15 5L5 15" stroke="#62748E" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.66667" />
+                    <path d="M5 5L15 15" stroke="#62748E" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.66667" />
+                </svg>
+            </button>
+        </header>
+
+        <!-- Step Indicator -->
+        <div class="flex w-full justify-center py-6 bg-white border-b border-slate-100 shrink-0">
+            <div class="flex items-center" id="step-indicator-container">
+                <!-- Injected via JS -->
+            </div>
+        </div>
+
+        <main class="flex-1 overflow-y-auto py-8">
+            
+            <!-- Step 1: Instructions -->
+            <div id="step-1" class="hidden max-w-[1152px] mx-auto px-6 pb-24 space-y-8 animate-fadeIn">
+                <div class="space-y-1">
+                    <h2 class="text-2xl font-bold text-[#0f172b]">Instructions & Workload</h2>
+                    <p class="text-base text-[#62748e]">Describe project objective and mission to the participants</p>
+                </div>
+                <!-- Content same as InstructionsStep.tsx -->
+                <div class="flex flex-col gap-8">
+                    <div class="bg-white rounded-[14px] border border-[rgba(0,0,0,0.1)] p-6 flex flex-col gap-6 shadow-sm">
+                        <div class="space-y-2">
+                            <h3 class="text-sm font-bold text-[#314158] tracking-wide uppercase">Main Objective</h3>
+                            <p class="text-sm text-[#62748e]">What is the high-level goal of this research?</p>
+                            <textarea class="w-full h-[100px] bg-[#f3f3f5] rounded-lg p-3 text-sm text-[#0f172b] placeholder-[#717182] focus:outline-none resize-none" placeholder="e.g. Evaluate the accuracy and cultural relevance of LLM-generated medical advice..."></textarea>
+                        </div>
+                        <div class="space-y-2">
+                            <h3 class="text-sm font-bold text-[#314158] tracking-wide uppercase">Your Mission</h3>
+                            <p class="text-sm text-[#62748e]">What specifically do you want the participant to do?</p>
+                            <textarea class="w-full h-[100px] bg-[#f3f3f5] rounded-lg p-3 text-sm text-[#0f172b] placeholder-[#717182] focus:outline-none resize-none" placeholder="e.g. You will review 20 chatbot responses..."></textarea>
+                        </div>
+                        <div class="space-y-2">
+                            <h3 class="text-sm font-bold text-[#314158] tracking-wide uppercase">Tips & Tricks</h3>
+                            <p class="text-sm text-[#62748e]">Helpful advice for a successful completion.</p>
+                            <textarea class="w-full h-[100px] bg-[#f3f3f5] rounded-lg p-3 text-sm text-[#0f172b] placeholder-[#717182] focus:outline-none resize-none" placeholder="e.g. Focus on local dialect nuances..."></textarea>
+                        </div>
+                    </div>
+                    
+                    <div class="bg-white rounded-[14px] border border-[rgba(0,0,0,0.1)] p-6 flex flex-col gap-6 shadow-sm">
+                        <div class="h-8 flex items-center">
+                            <h3 class="text-sm font-bold text-[#314158] tracking-wide uppercase">Annotator Workload & Payout Per Mission</h3>
+                        </div>
+                        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                            <div class="space-y-2">
+                                <div class="flex items-center gap-2 mb-1">
+                                    <svg class="w-4 h-4 text-[#90A1B9]" fill="none" viewBox="0 0 24 24" stroke="currentColor"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+                                    <span class="text-sm font-medium text-[#45556c]">Estimated Completion Time</span>
+                                </div>
+                                <div class="relative h-[36px] w-full bg-[#f9f9f9] rounded-lg flex items-center px-3">
+                                    <input type="number" placeholder="e.g. 5" class="bg-transparent w-full text-sm text-[#0f172b] focus:outline-none">
+                                    <span class="text-sm text-[#90a1b9]">hours</span>
+                                </div>
+                            </div>
+                             <div class="space-y-2">
+                                <div class="flex items-center gap-2 mb-1">
+                                    <svg class="w-4 h-4 text-[#90A1B9]" fill="none" viewBox="0 0 24 24" stroke="currentColor"><polygon points="12 2 2 7 12 12 22 7 12 2"/><polyline points="2 17 12 22 22 17"/><polyline points="2 12 12 17 22 12"/></svg>
+                                    <span class="text-sm font-medium text-[#45556c]">Number of Tasks / Scenarios</span>
+                                </div>
+                                <div class="relative h-[36px] w-full bg-[#f9f9f9] rounded-lg flex items-center px-3">
+                                    <input type="number" placeholder="e.g. 10" class="bg-transparent w-full text-sm text-[#0f172b] focus:outline-none">
+                                </div>
+                            </div>
+                            <div class="space-y-2">
+                                <div class="flex items-center gap-2 mb-1">
+                                    <svg class="w-4 h-4 text-[#90A1B9]" fill="none" viewBox="0 0 24 24" stroke="currentColor"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+                                    <span class="text-sm font-medium text-[#45556c]">Maximum Payout</span>
+                                </div>
+                                <div class="relative h-[36px] w-full bg-[#f9f9f9] rounded-lg flex items-center px-3">
+                                    <span class="text-base text-[#62748e] mr-1">$</span>
+                                    <input type="number" placeholder="0.00" class="bg-transparent w-full text-sm text-[#0f172b] focus:outline-none">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Navigation -->
+                <div class="flex items-center justify-between pt-6 border-t border-[rgba(0,0,0,0.1)]">
+                    <button onclick="prevStep()" class="text-[#0f172b] font-medium hover:bg-slate-100 px-4 py-2 rounded-lg">← Back</button>
+                    <div class="flex items-center gap-4">
+                        <button class="text-[#62748e] font-medium hover:bg-slate-100 px-4 py-2 rounded-lg">Save Draft</button>
+                        <button onclick="nextStep()" class="bg-[#410dd8] hover:bg-[#320aab] text-white px-8 py-2 rounded-lg font-medium">Next Step →</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Step 2: LLM Configuration -->
+            <div id="step-2" class="hidden max-w-[1152px] mx-auto px-6 pb-24 space-y-8 animate-fadeIn">
+                 <div class="space-y-1">
+                    <h2 class="text-2xl font-bold text-[#0f172b]">LLM Configuration</h2>
+                    <p class="text-base text-[#62748e]">Define your model parameters and evaluation criteria.</p>
+                </div>
+                <!-- Content -->
+                <div class="bg-white rounded-[14px] border border-[rgba(0,0,0,0.1)] p-6 flex flex-col gap-6 shadow-sm">
+                    <h3 class="text-sm font-bold text-[#314158] tracking-wide uppercase">Model Configuration</h3>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-6">
+                        <div class="space-y-2">
+                             <label class="text-sm font-medium text-[#0a0a0a]">Model</label>
+                             <select class="w-full bg-[#f3f3f5] border-none rounded-lg h-[36px] px-3 text-sm focus:outline-none">
+                                 <option value="gpt-4">GPT-4 (OpenAI)</option>
+                                 <option value="gpt-3.5">GPT-3.5 Turbo</option>
+                             </select>
+                        </div>
+                        <div class="space-y-2">
+                             <label class="text-sm font-medium text-[#0a0a0a]">Transcription</label>
+                             <select class="w-full bg-[#f3f3f5] border-none rounded-lg h-[36px] px-3 text-sm focus:outline-none">
+                                 <option value="whisper-1">Whisper-1</option>
+                             </select>
+                        </div>
+                         <div class="space-y-2">
+                             <label class="text-sm font-medium text-[#0a0a0a]">Noise Reduction</label>
+                             <select class="w-full bg-[#f3f3f5] border-none rounded-lg h-[36px] px-3 text-sm focus:outline-none">
+                                 <option value="near-field">Near Field</option>
+                             </select>
+                        </div>
+                         <div class="space-y-2">
+                             <label class="text-sm font-medium text-[#0a0a0a]">Turn Taking</label>
+                             <select class="w-full bg-[#f3f3f5] border-none rounded-lg h-[36px] px-3 text-sm focus:outline-none">
+                                 <option value="automatic">Automatic</option>
+                             </select>
+                        </div>
+                    </div>
+                    <div class="space-y-2">
+                         <label class="text-sm font-medium text-[#0a0a0a]">API Key (Secure)</label>
+                         <input type="password" placeholder="sk-..." class="w-full bg-[#f3f3f5] border-none rounded-lg h-[36px] px-3 text-sm focus:outline-none">
+                         <div class="flex items-center gap-2">
+                             <div class="w-2 h-2 rounded-full bg-[#cad5e2]"></div>
+                             <span class="text-xs text-[#90a1b9]">Connection Status: Pending</span>
+                         </div>
+                    </div>
+                </div>
+
+                <div class="bg-white rounded-[14px] border border-[rgba(0,0,0,0.1)] p-6 flex flex-col gap-6 shadow-sm">
+                     <h3 class="text-sm font-bold text-[#314158] tracking-wide uppercase">System Persona</h3>
+                     <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-start">
+                         <div class="space-y-2 max-w-[300px]">
+                            <label class="text-sm font-medium text-[#0a0a0a]">Voice</label>
+                            <select class="w-full bg-[#f3f3f5] border-none rounded-lg h-[36px] px-3 text-sm focus:outline-none">
+                                 <option value="marin">Marin</option>
+                             </select>
+                         </div>
+                         <div class="flex flex-col gap-3 pt-6">
+                             <div class="flex items-center space-x-2">
+                                 <input type="radio" name="promptType" id="r1" checked class="text-[#4f39f6]">
+                                 <label for="r1" class="font-outfit text-sm">By default / Not specified</label>
+                             </div>
+                             <div class="flex items-center space-x-2">
+                                 <input type="radio" name="promptType" id="r2" class="text-[#4f39f6]">
+                                 <label for="r2" class="font-outfit text-sm">Customize System Prompt</label>
+                             </div>
+                         </div>
+                     </div>
+                     <div class="space-y-2 bg-[#f8fafc] p-4 rounded-[10px] border border-[rgba(0,0,0,0.1)]">
+                         <label class="text-xs font-semibold text-[#62748e]">System Prompt</label>
+                         <textarea class="w-full h-[100px] bg-white rounded-lg p-3 text-sm text-[#0a0a0a] placeholder-[#717182] focus:outline-none resize-none border border-[#e2e8f0]" placeholder="Enter system prompt..."></textarea>
+                     </div>
+                </div>
+                <!-- Navigation -->
+                <div class="flex items-center justify-between pt-6 border-t border-[rgba(0,0,0,0.1)]">
+                    <button onclick="prevStep()" class="text-[#0f172b] font-medium hover:bg-slate-100 px-4 py-2 rounded-lg">← Back</button>
+                    <div class="flex items-center gap-4">
+                        <button class="text-[#62748e] font-medium hover:bg-slate-100 px-4 py-2 rounded-lg">Save Draft</button>
+                        <button onclick="nextStep()" class="bg-[#410dd8] hover:bg-[#320aab] text-white px-8 py-2 rounded-lg font-medium">Next Step →</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Step 3: Scenarios & Metrics -->
+            <div id="step-3" class="hidden max-w-[1152px] mx-auto px-6 pb-24 space-y-8 animate-fadeIn">
+                 <div class="space-y-1">
+                    <h2 class="text-2xl font-bold text-[#0f172b]">Scenarios & Metrics</h2>
+                    <p class="text-base text-[#62748e]">Define your model parameters and evaluation criteria.</p>
+                </div>
+                <!-- Scenarios -->
+                <div class="bg-white rounded-[14px] border border-[rgba(0,0,0,0.1)] p-6 flex flex-col gap-6 shadow-sm">
+                    <div class="flex items-center justify-between">
+                         <h3 class="text-sm font-bold text-[#314158] tracking-wide uppercase">Test Scenarios</h3>
+                         <button class="bg-[#e0e7ff] text-[#432dd7] hover:bg-[#d0d7f7] h-[32px] px-4 rounded-lg text-sm font-medium gap-2 flex items-center">
+                             + Add Scenario
+                         </button>
+                    </div>
+                    <!-- Static Accordion Item 1 -->
+                    <div class="border border-[#e2e8f0] rounded-[10px] overflow-hidden">
+                        <button onclick="toggleAccordion('sc1')" class="w-full bg-white px-4 py-3 flex items-center justify-between hover:bg-slate-50">
+                            <span class="font-bold text-[#0f172b]">Scenario 1</span>
+                            <div class="flex items-center gap-2 text-[#90A1B9]">
+                                <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>
+                                <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/><line x1="10" y1="11" x2="10" y2="17"/><line x1="14" y1="11" x2="14" y2="17"/></svg>
+                            </div>
+                        </button>
+                        <div id="sc1" class="hidden bg-[#f8fafc] p-4 border-t border-[#f1f5f9]">
+                             <!-- Content simplified -->
+                             <p class="text-sm text-slate-500">Scenario details...</p>
+                        </div>
+                    </div>
+                     <!-- Static Accordion Item 2 (Open) -->
+                    <div class="border border-[#e2e8f0] rounded-[10px] overflow-hidden">
+                        <button onclick="toggleAccordion('sc2')" class="w-full bg-white px-4 py-3 flex items-center justify-between hover:bg-slate-50">
+                            <span class="font-bold text-[#0f172b]">Scenario 2</span>
+                            <div class="flex items-center gap-2 text-[#90A1B9]">
+                                <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>
+                                <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/><line x1="10" y1="11" x2="10" y2="17"/><line x1="14" y1="11" x2="14" y2="17"/></svg>
+                            </div>
+                        </button>
+                        <div id="sc2" class="bg-[#f8fafc] p-4 border-t border-[#f1f5f9]">
+                             <div class="flex flex-col gap-6">
+                                 <div class="grid grid-cols-2 gap-6">
+                                     <div class="space-y-2">
+                                         <label class="text-xs font-semibold text-[#45556c]">THEME / CATEGORY</label>
+                                         <select class="w-full bg-white border border-[#e2e8f0] h-[36px] rounded-lg px-2 text-sm"><option>HIV</option></select>
+                                     </div>
+                                      <div class="space-y-2">
+                                         <label class="text-xs font-semibold text-[#45556c]">MAX CHATBOT RESPONSES</label>
+                                         <input type="text" value="10" class="w-full bg-white border border-[#e2e8f0] h-[36px] rounded-lg px-2 text-sm">
+                                     </div>
+                                 </div>
+                                  <div class="space-y-2">
+                                      <label class="text-xs font-semibold text-[#45556c]">SCENARIO TITLE</label>
+                                      <input type="text" value="Postnatal Fever" class="w-full bg-white border border-[#e2e8f0] h-[36px] rounded-lg px-2 text-sm">
+                                  </div>
+                                  <div class="space-y-2">
+                                      <label class="text-xs font-semibold text-[#45556c]">INSTRUCTIONS</label>
+                                      <textarea class="w-full h-[100px] bg-white rounded-lg p-3 text-sm resize-none border border-[#e2e8f0]">Act as a worried mother...</textarea>
+                                  </div>
+                             </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Metrics -->
+                <div class="bg-white rounded-[14px] border border-[rgba(0,0,0,0.1)] p-6 flex flex-col gap-6 shadow-sm">
+                    <div class="flex items-center justify-between">
+                         <h3 class="text-sm font-bold text-[#314158] tracking-wide uppercase">Evaluation Metrics</h3>
+                         <button class="bg-[#eef2ff] text-[#4f39f6] hover:bg-[#dde4ff] h-[32px] px-4 rounded-lg text-sm font-medium gap-2 flex items-center">
+                             + Add Metric
+                         </button>
+                    </div>
+                    <div class="flex flex-col gap-4">
+                        <!-- Metric 1 -->
+                        <div class="bg-[#f8fafc] border border-[#f1f5f9] rounded-[10px] p-4 flex items-start gap-4">
+                            <div class="pt-2 text-[#CAD5E2] cursor-move">⋮⋮</div>
+                            <div class="flex-1 grid grid-cols-1 md:grid-cols-[1fr_2fr_1fr] gap-4">
+                                <div class="space-y-1">
+                                    <label class="text-[10px] font-medium text-[#62748e] uppercase">Metric Name</label>
+                                    <input value="Accuracy / Credibility" class="w-full bg-white border border-[#e2e8f0] h-[36px] rounded-lg px-2 text-sm">
+                                </div>
+                                <div class="space-y-1">
+                                    <label class="text-[10px] font-medium text-[#62748e] uppercase">Description</label>
+                                    <input value="Is the information factually correct?" class="w-full bg-white border border-[#e2e8f0] h-[36px] rounded-lg px-2 text-sm">
+                                </div>
+                                <div class="space-y-1">
+                                    <label class="text-[10px] font-medium text-[#62748e] uppercase">Assessment Scale</label>
+                                    <select class="w-full bg-white border border-[#e2e8f0] h-[36px] rounded-lg px-2 text-sm"><option>1-5 Likert</option></select>
+                                </div>
+                            </div>
+                            <button class="pt-5 text-[#90A1B9] hover:text-red-500"><svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/><line x1="10" y1="11" x2="10" y2="17"/><line x1="14" y1="11" x2="14" y2="17"/></svg></button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Navigation -->
+                 <div class="flex items-center justify-between pt-6 border-t border-[rgba(0,0,0,0.1)]">
+                    <button onclick="prevStep()" class="text-[#0f172b] font-medium hover:bg-slate-100 px-4 py-2 rounded-lg">← Back</button>
+                    <div class="flex items-center gap-4">
+                        <button class="text-[#62748e] font-medium hover:bg-slate-100 px-4 py-2 rounded-lg">Save Draft</button>
+                        <button onclick="nextStep()" class="bg-[#410dd8] hover:bg-[#320aab] text-white px-8 py-2 rounded-lg font-medium">Next Step →</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Step 4: Participants -->
+            <div id="step-4" class="hidden max-w-[1152px] mx-auto px-6 pb-24 space-y-8 animate-fadeIn">
+                <div class="space-y-1">
+                    <h2 class="text-2xl font-bold text-[#0f172b]">The Humans behind your AI Evaluation</h2>
+                    <p class="text-base text-[#62748e]">Configure the participant segments for your LLM testing.</p>
+                </div>
+                <!-- Content -->
+                <div class="bg-white rounded-[14px] border border-[#e2e8f0] p-6 flex flex-col gap-4 shadow-sm">
+                    <h3 class="text-sm font-bold text-[#0f172b] tracking-wide uppercase">Sample Size</h3>
+                    <div class="flex gap-4">
+                        <div class="flex-1 space-y-2">
+                            <label class="text-xs font-semibold text-[#0a0a0a]">Number of Segments</label>
+                            <input type="number" value="2" class="w-full bg-[#f8fafc] border-none h-[36px] px-3 rounded-lg text-sm">
+                            <p class="text-xs text-[#90a1b9]">Distinct profiles to test.</p>
+                        </div>
+                        <div class="flex-1 space-y-2">
+                            <label class="text-xs font-semibold text-[#0a0a0a]">Number of People per Segment</label>
+                            <input type="number" value="15" class="w-full bg-[#f8fafc] border-none h-[36px] px-3 rounded-lg text-sm">
+                            <p class="text-xs text-[#90a1b9]">Participants per profile.</p>
+                        </div>
+                    </div>
+                    <div class="bg-[#eef2ff] rounded-[10px] border border-[#e0e7ff] p-4 flex flex-col justify-center gap-1 mt-2">
+                        <h4 class="text-xs font-bold text-[#432dd7]">Recommended Number of Participants</h4>
+                        <div class="flex items-center gap-2">
+                            <svg class="h-5 w-5 text-[#432dd7]" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+                            <span class="text-2xl font-bold text-[#432dd7]">30</span>
+                        </div>
+                        <p class="text-[10px] text-[#7c86ff]">Calculated based on segments × people.</p>
+                    </div>
+                </div>
+
+                <div class="bg-white rounded-[14px] border border-[#e2e8f0] p-6 shadow-sm">
+                     <div class="flex items-center justify-between mb-6">
+                         <h3 class="text-sm font-bold text-[#314158] tracking-wide uppercase">Segments</h3>
+                         <div class="flex items-center gap-5">
+                             <span class="text-sm font-medium text-[#62748e]">2 Segments Defined</span>
+                             <button class="bg-[#e0e7ff] hover:bg-[#d0dbff] text-[#432dd7] h-[36px] px-3 rounded-lg font-medium text-sm gap-2 flex items-center">+ Add new segment</button>
+                         </div>
+                     </div>
+                     <!-- Accordion -->
+                     <div class="border border-[#e2e8f0] rounded-[10px] overflow-hidden">
+                        <button onclick="toggleAccordion('seg1')" class="w-full bg-white px-4 py-3 flex items-center justify-between hover:bg-slate-50">
+                            <div class="flex items-center gap-4">
+                                <span class="font-bold text-[#0f172b]">Rural R2.1</span>
+                                <span class="bg-[#dbeafe] text-[#1447e6] text-xs font-medium px-2.5 py-0.5 rounded-[8px]">GENERAL PUBLIC</span>
+                            </div>
+                             <div class="flex items-center gap-2 text-[#90A1B9]">
+                                <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>
+                                <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/><line x1="10" y1="11" x2="10" y2="17"/><line x1="14" y1="11" x2="14" y2="17"/></svg>
+                            </div>
+                        </button>
+                         <div id="seg1" class="bg-[#f8fafc] p-6 border-t border-[#f1f5f9]">
+                             <!-- Content simplified for brevity but matching UI -->
+                             <div class="flex flex-col gap-6">
+                                 <div class="space-y-2 max-w-[491px]">
+                                     <label class="text-xs font-semibold text-[#0a0a0a]">Title</label>
+                                     <input value="Rural R2.1" class="bg-white h-[42px] border-none shadow-sm w-full rounded-lg px-3">
+                                 </div>
+                                 <div class="space-y-2">
+                                     <label class="text-xs font-bold text-[#90a1b9] uppercase">Expertise Level</label>
+                                     <div class="grid grid-cols-3 gap-4 h-[76px]">
+                                         <div class="rounded-[10px] p-4 flex flex-col justify-center gap-1 cursor-pointer border bg-[#eef2ff]/50 border-[#c6d2ff]">
+                                             <div class="font-bold text-[#314158] text-base">General Public</div>
+                                         </div>
+                                         <div class="rounded-[10px] p-4 flex flex-col justify-center gap-1 cursor-pointer border bg-white border-transparent">
+                                             <div class="font-bold text-[#314158] text-base">Medium Expertise</div>
+                                         </div>
+                                         <div class="rounded-[10px] p-4 flex flex-col justify-center gap-1 cursor-pointer border bg-white border-transparent">
+                                             <div class="font-bold text-[#0f172b] text-base">High Level</div>
+                                         </div>
+                                     </div>
+                                 </div>
+                             </div>
+                         </div>
+                     </div>
+                </div>
+
+                <!-- Navigation -->
+                 <div class="flex items-center justify-between pt-6 border-t border-[rgba(0,0,0,0.1)]">
+                    <button onclick="prevStep()" class="text-[#0f172b] font-medium hover:bg-slate-100 px-4 py-2 rounded-lg">← Back</button>
+                    <div class="flex items-center gap-4">
+                        <button class="text-[#62748e] font-medium hover:bg-slate-100 px-4 py-2 rounded-lg">Save Draft</button>
+                        <button onclick="nextStep()" class="bg-[#410dd8] hover:bg-[#320aab] text-white px-8 py-2 rounded-lg font-medium">Next Step →</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Step 5: Review -->
+            <div id="step-5" class="hidden max-w-[1152px] mx-auto px-6 pb-24 space-y-8 animate-fadeIn">
+                 <div class="space-y-1 text-center">
+                    <h2 class="text-2xl font-bold text-[#0f172b]">Review & Launch</h2>
+                    <p class="text-base text-[#62748e]">Double check your configuration before launching.</p>
+                </div>
+                
+                <div class="flex flex-col gap-6">
+                    <div class="bg-white rounded-[14px] border border-[#e2e8f0] overflow-hidden shadow-sm">
+                        <!-- Sections 1-4 simplified visualization -->
+                        <div class="p-6">
+                            <div class="flex items-center justify-between mb-4">
+                                <h3 class="text-lg font-semibold text-[#0f172b] flex items-center gap-4"><span class="w-6 h-6 rounded-full bg-[#e0e7ff] flex items-center justify-center text-xs font-bold text-[#4f39f6]">1</span> Project Information</h3>
+                                <button class="text-[#4f39f6] font-medium text-sm flex gap-2 items-center">Edit</button>
+                            </div>
+                            <div class="grid grid-cols-3 pl-10 gap-6">
+                                <div><p class="text-xs font-medium text-[#62748e]">Project Name</p><p class="text-sm font-medium text-[#0f172b]">Testing Voice LLM for Health in Rwanda</p></div>
+                            </div>
+                        </div>
+                        <div class="h-px w-full bg-[#e2e8f0]/50"></div>
+                         <div class="p-6">
+                            <div class="flex items-center justify-between mb-4">
+                                <h3 class="text-lg font-semibold text-[#0f172b] flex items-center gap-4"><span class="w-6 h-6 rounded-full bg-[#e0e7ff] flex items-center justify-center text-xs font-bold text-[#4f39f6]">2</span> LLM Configuration</h3>
+                                <button class="text-[#4f39f6] font-medium text-sm flex gap-2 items-center">Edit</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="bg-[#f0fdf4] border border-[#b9f8cf] rounded-[14px] p-4 flex gap-4 items-start">
+                        <div class="bg-[#dcfce7] w-6 h-6 rounded-full flex items-center justify-center shrink-0 mt-0.5">
+                            <svg class="w-4 h-4 text-[#15803d]" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" /></svg>
+                        </div>
+                        <div class="space-y-0.5">
+                             <h4 class="text-sm font-bold text-[#15803d]">Ready to Launch</h4>
+                             <p class="text-xs font-normal text-[#15803d]">All project requirements are met. Recruitment will begin immediately after launch.</p>
+                        </div>
+                    </div>
+
+                    <div class="flex items-center justify-between mt-4">
+                         <button onclick="prevStep()" class="text-[#0f172b] font-medium hover:bg-slate-100 px-4 py-2 rounded-lg">← Back</button>
+                         <div class="flex items-center gap-4">
+                            <button class="text-[#62748e] font-medium hover:bg-slate-100 px-4 py-2 rounded-lg">Save Draft</button>
+                            <button onclick="launchProject()" id="launch-btn" class="bg-[#410dd8] hover:bg-[#320aab] text-white px-8 h-[48px] font-medium text-base gap-2 rounded-lg flex items-center">
+                                Launch Recruitment 🚀
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </main>
+    </div>
+
+    <!-- Success Overlay -->
+    <div id="success-overlay" class="hidden fixed inset-0 z-50 flex flex-col bg-white animate-fadeIn">
+        <div class="h-[49px] flex items-center justify-between px-6 border-b border-[#e4e4e7] shrink-0 bg-white">
+             <div class="flex items-center gap-2">
+                 <p class="font-medium text-[#09090b] text-[16px]">Testing Voice LLM for Health in Rwanda</p>
+             </div>
+             <button onclick="exitWizard()" class="w-8 h-8 flex items-center justify-center rounded-full hover:bg-slate-100">
+                <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+                    <path d="M15 5L5 15" stroke="#62748E" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.66667" />
+                    <path d="M5 5L15 15" stroke="#62748E" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.66667" />
+                </svg>
+             </button>
+        </div>
+        <div class="flex-1 bg-[#f6f5f8] w-full flex flex-col items-center justify-center overflow-y-auto p-6">
+             <div class="bg-white relative rounded-[32px] w-full max-w-[894px] shadow-sm p-12 flex flex-col items-center gap-9">
+                 <!-- Rocket Icon -->
+                 <div class="relative shrink-0 size-[96px]">
+                     <div class="absolute flex items-center justify-center left-[-2px] top-[-7px] size-[106px]">
+                         <div class="flex-none rotate-[357deg]">
+                             <div class="bg-[#4f46e5] flex items-center justify-center rounded-[24px] shadow-xl shadow-indigo-200 size-[100px]">
+                                 <svg width="50" height="50" viewBox="0 0 50 50" fill="none">
+                                     <!-- Simplified rocket path -->
+                                     <path d="M9.45868 34.6818C6.30579 37.3303 5.25482 45.1915 5.25482 45.1915C5.25482 45.1915 13.116 44.1405 15.7645 40.9876C17.2568 39.222 17.2358 36.5105 15.5753 34.871C14.7583 34.0912 13.6821 33.6406 12.5532 33.6057C11.4243 33.5708 10.3223 33.954 9.45868 34.6818Z" fill="white" stroke="white" stroke-width="4" stroke-linejoin="round"/>
+                                     <path d="M25.2231 31.5289L18.9174 25.2232C20.0359 22.3213 21.4443 19.5397 23.1212 16.9205C25.5703 13.0046 28.9806 9.78039 33.0276 7.55453C37.0746 5.32868 41.6238 4.17522 46.2424 4.20387C46.2424 9.92111 44.6029 19.9683 33.6309 27.3251C30.9759 29.0039 28.1592 30.4123 25.2231 31.5289Z" fill="white" stroke="white" stroke-width="4" stroke-linejoin="round"/>
+                                 </svg>
+                             </div>
+                         </div>
+                     </div>
+                 </div>
+                 
+                 <div class="text-center">
+                     <p class="font-bold text-[#0f172b] text-[30px] leading-[36px]">Recruitment Launched Successfully!</p>
+                     <p class="font-normal text-[#62748e] text-[18px] max-w-[520px] mt-2">Your participant criteria have been locked in. Our matching engine is now finding the best candidates for your project.</p>
+                 </div>
+
+                 <div class="bg-[#f8fafc] flex flex-col gap-8 p-8 rounded-[14px] w-full max-w-[798px]">
+                     <div class="flex items-center justify-between border-b border-[#e2e8f0] pb-px">
+                         <div class="text-[11px] font-bold text-[#90a1b9] uppercase tracking-[1.1px]">PROJECT SUMMARY</div>
+                         <div class="bg-[#dcfce7] rounded-[4px] px-2.5 py-1">
+                             <span class="text-[11px] font-bold text-[#15803d] uppercase tracking-[0.55px]">Active</span>
+                         </div>
+                     </div>
+                     <div class="grid grid-cols-2 gap-y-8 gap-x-12">
+                         <div class="flex flex-col gap-2">
+                             <p class="text-[#62748e] text-[12px] font-medium">Project Name</p>
+                             <p class="font-bold text-[18px] text-[#0f172b]">Testing Voice LLM for Health in Rwanda</p>
+                         </div>
+                         <div class="flex flex-col gap-2">
+                             <p class="text-[#62748e] text-[12px] font-medium">Participants Needed</p>
+                             <p class="font-bold text-[18px] text-[#0f172b]">30 People</p>
+                         </div>
+                     </div>
+                 </div>
+
+                 <button onclick="window.location.href='../../projects.html'" class="bg-[#4f46e5] hover:bg-[#4338ca] text-white h-[56px] w-[248px] rounded-[10px] flex items-center justify-center gap-2 font-semibold text-[16px] shadow-lg shadow-indigo-200 transition-colors">
+                     Go to Project Dashboard
+                     <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+                 </button>
+             </div>
+        </div>
+    </div>
+
+    <script>
+        let currentStep = 0;
+        const totalSteps = 5;
+        let selectedMethodology = 'live-testing-text';
+
+        const steps = [
+            { id: 1, label: "Instructions" },
+            { id: 2, label: "LLM Configuration" },
+            { id: 3, label: "Scenarios & Metrics" },
+            { id: 4, label: "Participants" },
+            { id: 5, label: "Review" },
+        ];
+
+        function renderStepIndicator() {
+            const container = document.getElementById('step-indicator-container');
+            container.innerHTML = '';
+
+            steps.forEach((step, index) => {
+                const isCompleted = step.id < currentStep;
+                const isCurrent = step.id === currentStep;
+                const isLast = index === steps.length - 1;
+
+                let circleClass = "flex h-8 w-8 items-center justify-center rounded-full text-sm font-medium transition-colors ";
+                if (isCompleted) {
+                    circleClass += "bg-[#4f39f6] text-white";
+                } else if (isCurrent) {
+                    circleClass += "bg-[#4f39f6] text-white shadow-md ring-2 ring-indigo-100";
+                } else {
+                    circleClass += "bg-[#f1f5f9] text-slate-500";
+                }
+
+                const labelClass = "text-sm font-medium ml-2 " + (isCompleted || isCurrent ? "text-[#4f39f6]" : "text-slate-400");
+                const lineClass = "mx-4 h-[2px] w-12 bg-[#f1f5f9] relative";
+                const lineInnerClass = "absolute top-0 left-0 h-full bg-[#4f39f6] transition-all duration-500 ease-in-out " + (isCompleted ? "w-full" : "w-0");
+
+                const stepHtml = `
+                    <div class="flex items-center">
+                        <div class="flex items-center">
+                            <div class="${circleClass}">
+                                ${isCompleted ? '<svg class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" /></svg>' : step.id}
+                            </div>
+                            <span class="${labelClass}">${step.label}</span>
+                        </div>
+                        ${!isLast ? `<div class="${lineClass}"><div class="${lineInnerClass}"></div></div>` : ''}
+                    </div>
+                `;
+                container.innerHTML += stepHtml;
+            });
+        }
+
+        function selectMethodology(id) {
+            selectedMethodology = id;
+            ['live-testing-text', 'text-annotation', 'live-testing-voice'].forEach(cardId => {
+                const card = document.getElementById('card-' + cardId);
+                const check = card.querySelector('.selection-check');
+                if (cardId === id) {
+                    card.classList.add('border-[#4f39f6]', 'bg-[rgba(238,242,255,0.5)]');
+                    card.classList.remove('border-transparent');
+                    check.classList.remove('hidden');
+                    check.classList.add('flex');
+                } else {
+                    card.classList.remove('border-[#4f39f6]', 'bg-[rgba(238,242,255,0.5)]');
+                    card.classList.add('border-transparent');
+                    check.classList.add('hidden');
+                    check.classList.remove('flex');
+                }
+            });
+        }
+
+        function startWizard() {
+            document.getElementById('step-0').classList.add('hidden');
+            document.getElementById('wizard-layout').classList.remove('hidden');
+            document.getElementById('wizard-layout').classList.add('flex');
+            currentStep = 1;
+            renderStepIndicator();
+            showStep(1);
+        }
+
+        function exitWizard() {
+            if(confirm("Are you sure you want to exit? Your progress may be lost.")) {
+                window.location.href = '../../projects.html';
+            }
+        }
+
+        function showStep(stepId) {
+            for (let i = 1; i <= totalSteps; i++) {
+                document.getElementById(`step-${i}`).classList.add('hidden');
+            }
+            document.getElementById(`step-${stepId}`).classList.remove('hidden');
+            // Scroll to top
+            document.querySelector('main').scrollTop = 0;
+        }
+
+        function nextStep() {
+            if (currentStep < totalSteps) {
+                currentStep++;
+                renderStepIndicator();
+                showStep(currentStep);
+            }
+        }
+
+        function prevStep() {
+            if (currentStep > 1) {
+                currentStep--;
+                renderStepIndicator();
+                showStep(currentStep);
+            } else {
+                // Back to Step 0
+                document.getElementById('wizard-layout').classList.add('hidden');
+                document.getElementById('wizard-layout').classList.remove('flex');
+                document.getElementById('step-0').classList.remove('hidden');
+                currentStep = 0;
+            }
+        }
+
+        function toggleAccordion(id) {
+            const content = document.getElementById(id);
+            if (content.classList.contains('hidden')) {
+                content.classList.remove('hidden');
+            } else {
+                content.classList.add('hidden');
+            }
+        }
+
+        function launchProject() {
+            const btn = document.getElementById('launch-btn');
+            const originalText = btn.innerHTML;
+            btn.innerHTML = 'Launching... <svg class="w-4 h-4 animate-spin ml-2" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg>';
+            btn.disabled = true;
+
+            setTimeout(() => {
+                document.getElementById('wizard-layout').classList.add('hidden');
+                document.getElementById('wizard-layout').classList.remove('flex');
+                document.getElementById('success-overlay').classList.remove('hidden');
+            }, 1500);
+        }
+
+        // Initialize
+        renderStepIndicator();
+
+    </script>
+</body>
+</html>
