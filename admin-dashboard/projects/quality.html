@@ -3,136 +3,376 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Kitala - Data Quality Control</title>
+    <title>Data Quality - Kitala</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Work+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Work+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <script>
         tailwind.config = {
             theme: {
                 extend: {
-                    fontFamily: { sans: ['Work Sans', 'sans-serif'] },
+                    fontFamily: { 
+                        sans: ['Work Sans', 'sans-serif'],
+                        outfit: ['Outfit', 'sans-serif']
+                    },
                     colors: {
                         primary: '#4F39F6',
-                        indigo: { 600: '#4F39F6' }
+                        'primary-hover': '#3d2cdb',
+                        sidebar: '#1E1B4B',
+                        'sidebar-active': '#4F39F6',
+                        'kitala-bg': '#F8FAFC',
+                        'text-dark': '#0F172B',
+                        'text-gray': '#62748e',
+                        'text-gray-light': '#90A1B9',
+                    },
+                    boxShadow: {
+                        'modal': '0px 10px 15px -3px rgba(0,0,0,0.1), 0px 4px 6px -4px rgba(0,0,0,0.1)',
+                        'chip': '0px 1px 2px 0px rgba(0,0,0,0.05)',
+                        'card': '0px 1px 3px 0px rgba(0, 0, 0, 0.10), 0px 1px 2px -1px rgba(0, 0, 0, 0.10)'
                     }
                 }
             }
         }
     </script>
+    <style>
+        ::-webkit-scrollbar { width: 6px; height: 6px; }
+        ::-webkit-scrollbar-track { background: transparent; }
+        ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 3px; }
+        ::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
+        .sidebar-gradient { background: linear-gradient(180deg, #2E236C 0%, #17123A 100%); }
+        .checkbox-custom {
+            appearance: none;
+            background-color: #fff;
+            margin: 0;
+            font: inherit;
+            color: currentColor;
+            width: 18px;
+            height: 18px;
+            border: 1px solid #cbd5e1;
+            border-radius: 4px;
+            display: grid;
+            place-content: center;
+            cursor: pointer;
+        }
+        .checkbox-custom::before {
+            content: "";
+            width: 10px;
+            height: 10px;
+            transform: scale(0);
+            transition: 120ms transform ease-in-out;
+            box-shadow: inset 1em 1em #4F39F6;
+            background-color: #4F39F6;
+            transform-origin: center;
+            clip-path: polygon(14% 44%, 0 65%, 50% 100%, 100% 16%, 80% 0%, 43% 62%);
+        }
+        .checkbox-custom:checked {
+            border-color: #4F39F6;
+        }
+        .checkbox-custom:checked::before {
+            transform: scale(1);
+        }
+    </style>
 </head>
-<body class="bg-[#f8fafc] text-slate-900 font-sans flex min-h-screen">
-    
+<body class="bg-kitala-bg font-sans text-text-dark min-h-screen flex overflow-hidden">
+
     <!-- Sidebar -->
-    <aside class="w-[260px] bg-[#410dd8] text-white flex flex-col p-6 fixed h-full z-20">
-        <div class="flex items-center gap-3 mb-10 px-2">
-            <div class="w-8 h-8 bg-white/20 rounded-lg flex items-center justify-center">
-                <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
-            </div>
-            <span class="font-bold text-[20px] tracking-tight">Kitala</span>
+    <aside class="w-[260px] sidebar-gradient flex-shrink-0 flex flex-col h-screen fixed left-0 top-0 z-30">
+        <div class="h-16 flex items-center px-6 shrink-0 mt-2">
+           <span class="text-white text-2xl font-bold tracking-tight">kitala</span>
         </div>
-
-        <a href="../index.html" class="flex items-center gap-3 px-3 py-2 text-white/70 hover:text-white transition-colors mb-8 group">
-            <svg class="w-4 h-4 group-hover:-translate-x-1 transition-transform" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="m15 18-6-6 6-6"/></svg>
-            <span class="text-[14px] font-medium">Back to Projects</span>
+        <a href="#" class="flex items-center gap-2 px-6 py-3 text-white/70 hover:text-white transition-colors group">
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="group-hover:-translate-x-0.5 transition-transform"><path d="M15 8H1M8 15L1 8L8 1"/></svg>
+            <span class="text-sm font-medium">Back to Projects</span>
         </a>
-
-        <nav class="flex flex-col gap-2">
-            <a href="tasks.html" class="flex items-center gap-3 px-4 py-3 text-white/60 hover:bg-white/5 hover:text-white rounded-xl font-medium text-[14px] transition-all">
-                <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
+        <div class="px-4 py-2">
+            <div class="bg-white/10 rounded-xl p-3 border border-white/10 flex items-center gap-3">
+                <div class="w-8 h-8 rounded-lg bg-indigo-500/30 flex items-center justify-center border border-white/20 shrink-0">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
+                </div>
+                <div class="flex-1 min-w-0">
+                    <p class="text-white text-xs font-bold leading-tight truncate">Testing Voice LLM</p>
+                    <p class="text-white/60 text-[10px] truncate">for Health in Rwanda</p>
+                </div>
+            </div>
+        </div>
+        <nav class="flex-1 px-3 py-4 space-y-1 overflow-y-auto">
+            <a href="project-detail-task-allocation.html" class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-white/70 hover:bg-white/5 hover:text-white transition-colors text-sm font-medium">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
                 Task Allocation
             </a>
-            <a href="quality.html" class="flex items-center gap-3 px-4 py-3 bg-white/10 rounded-xl font-bold text-[14px] transition-all">
-                <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+            <a href="project-detail-data-quality.html" class="flex items-center gap-3 px-3 py-2.5 rounded-lg bg-primary text-white text-sm font-medium shadow-sm">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="16" x2="12" y2="12"></line><line x1="12" y1="8" x2="12.01" y2="8"></line></svg>
                 Data Quality
             </a>
-            <a href="analytics.html" class="flex items-center gap-3 px-4 py-3 text-white/60 hover:bg-white/5 hover:text-white rounded-xl font-medium text-[14px] transition-all">
-                <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M18 20V10"/><path d="M12 20V4"/><path d="M6 20v-6"/></svg>
+            <a href="project-detail-research-analytics.html" class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-white/70 hover:bg-white/5 hover:text-white transition-colors text-sm font-medium">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M18 20V10"></path><path d="M12 20V4"></path><path d="M6 20v-6"></path></svg>
                 Research Analytics
             </a>
-            <a href="participants.html" class="flex items-center gap-3 px-4 py-3 text-white/60 hover:bg-white/5 hover:text-white rounded-xl font-medium text-[14px] transition-all">
-                <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+            <a href="project-detail-participants.html" class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-white/70 hover:bg-white/5 hover:text-white transition-colors text-sm font-medium">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>
                 Participants
             </a>
-            <a href="payments.html" class="flex items-center gap-3 px-4 py-3 text-white/60 hover:bg-white/5 hover:text-white rounded-xl font-medium text-[14px] transition-all">
-                <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect width="20" height="14" x="2" y="5" rx="2"/><line x1="2" x2="22" y1="10" y2="10"/></svg>
+             <a href="project-detail-payments.html" class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-white/70 hover:bg-white/5 hover:text-white transition-colors text-sm font-medium">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="5" width="20" height="14" rx="2"></rect><line x1="2" y1="10" x2="22" y2="10"></line></svg>
                 Payments
             </a>
-            <a href="settings.html" class="flex items-center gap-3 px-4 py-3 text-white/60 hover:bg-white/5 hover:text-white rounded-xl font-medium text-[14px] transition-all">
-                <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+            <a href="project-detail-project-settings.html" class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-white/70 hover:bg-white/5 hover:text-white transition-colors text-sm font-medium mt-auto">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12.22 2h-.44a2 2 0 0 0-2 2v.18a2 2 0 0 1-1 1.73l-.43.25a2 2 0 0 1-2 0l-.15-.08a2 2 0 0 0-2.73.73l-.22.38a2 2 0 0 0 .73 2.73l.15.1a2 2 0 0 1 1 1.72v.51a2 2 0 0 1-1 1.74l-.15.09a2 2 0 0 0 .73 2.73l.22.38a2 2 0 0 0-2.73-.73l-.15-.1a2 2 0 0 1-1-1.72v-.51a2 2 0 0 1 1-1.74l.15-.09a2 2 0 0 0 .73-2.73l-.22-.38a2 2 0 0 0-2.73-.73l-.15.08a2 2 0 0 1-2 0l-.43-.25a2 2 0 0 1-1-1.73V4a2 2 0 0 0-2-2z"></path><circle cx="12" cy="12" r="3"></circle></svg>
                 Project Settings
             </a>
         </nav>
     </aside>
 
-    <!-- Main Content Area -->
-    <div class="flex-1 ml-[260px]">
-        <!-- Top Bar -->
-        <header class="h-16 bg-white border-b border-slate-200 flex items-center px-10 sticky top-0 z-10">
-            <div class="flex items-center gap-3 text-[14px]">
-                <span class="text-slate-400">Projects</span>
-                <svg class="w-3.5 h-3.5 text-slate-300" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="m9 18 6-6-6-6"/></svg>
-                <span class="font-medium text-slate-900">Testing Voice LLM for Health in Rwanda</span>
+    <!-- Main Content -->
+    <main class="flex-1 flex flex-col min-w-0 lg:ml-[260px] transition-all duration-300">
+        <header class="h-14 flex items-center justify-between px-8 sticky top-0 z-10 shrink-0 bg-kitala-bg">
+            <div class="flex items-center gap-2">
+                 <button class="lg:hidden p-2 text-text-gray mr-2">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+                 </button>
+                 <div class="flex items-center gap-2 text-sm text-text-gray">
+                    <svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="12" height="12" rx="2"/><path d="M5 2V14"/></svg>
+                    <span class="text-[#71717b]">Projects</span>
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>
+                    <span class="text-text-dark font-medium">Testing Voice LLM for Health in Rwanda</span>
+                </div>
             </div>
         </header>
 
-        <main class="p-10">
-            <div class="max-w-[1400px] mx-auto flex flex-col gap-8">
-                <!-- Header -->
-                <div class="flex flex-col gap-1">
-                    <h1 class="text-[30px] font-bold text-[#0f172b] tracking-tight">Data Quality Control</h1>
-                    <p class="text-[#62748e] text-base">Verify and audit human evaluations for accuracy and bias.</p>
-                </div>
-
-                <!-- Filters & Actions -->
-                <div class="flex justify-between items-center bg-white p-4 rounded-[14px] border border-[#e2e8f0] shadow-sm">
-                    <div class="flex items-center gap-4">
-                        <div class="flex items-center gap-2 border border-slate-200 rounded-lg px-3 py-1.5 cursor-pointer hover:bg-slate-50 transition-colors">
-                            <span class="text-[13px] font-medium text-slate-600">Reviewer: <span class="font-bold text-slate-900">All</span></span>
-                            <svg class="w-4 h-4 text-slate-400" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="m6 9 6 6 6-6"/></svg>
+        <div class="flex-1 overflow-y-auto px-8 pb-8 pt-2 space-y-6">
+            <div class="flex flex-col gap-2">
+                <div class="flex justify-between items-end">
+                    <div>
+                        <h1 class="text-[30px] font-bold text-text-dark tracking-tight">Data Quality Assurance</h1>
+                        <p class="text-text-gray mt-1 text-base">Review and validate participants’ sessions</p>
+                    </div>
+                    <div class="flex gap-3">
+                        <div class="bg-white px-5 py-2.5 rounded-[8px] border border-slate-200 shadow-sm flex flex-col min-w-[140px]">
+                            <span class="text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-0.5">Reviewed</span>
+                            <div class="flex items-baseline gap-2">
+                                <span class="text-[20px] font-bold text-[#fb2c36]">24%</span>
+                                <span class="text-[11px] text-slate-500 font-medium">223 Sessions</span>
+                            </div>
                         </div>
-                        <div class="flex items-center gap-2 border border-slate-200 rounded-lg px-3 py-1.5 cursor-pointer hover:bg-slate-50 transition-colors">
-                            <span class="text-[13px] font-medium text-slate-600">Discrepancy: <span class="font-bold text-slate-900">High</span></span>
-                            <svg class="w-4 h-4 text-slate-400" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="m6 9 6 6 6-6"/></svg>
+                        <div class="bg-white px-5 py-2.5 rounded-[8px] border border-slate-200 shadow-sm flex flex-col min-w-[140px]">
+                            <span class="text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-0.5">Approved</span>
+                            <div class="flex items-baseline gap-2">
+                                <span class="text-[20px] font-bold text-[#16a34a]">82%</span>
+                                <span class="text-[11px] text-slate-500 font-medium">198 Sessions</span>
+                            </div>
                         </div>
                     </div>
-                    <div class="flex items-center gap-3">
-                        <button class="px-4 py-2 bg-[#4f39f6] text-white font-bold rounded-lg shadow-lg shadow-[#4f39f6]/20 transition-all active:scale-95">Resolve Selection</button>
-                    </div>
-                </div>
-
-                <!-- Audit Table -->
-                <div class="bg-white rounded-[14px] border border-[#e2e8f0] shadow-sm overflow-hidden">
-                    <table class="w-full">
-                        <thead class="bg-[#f8fafc] border-b border-slate-100 text-[11px] font-bold text-[#62748e] uppercase tracking-[0.6px]">
-                            <tr>
-                                <th class="px-8 py-4 text-left w-10"><input type="checkbox" class="w-4 h-4 rounded border-slate-300"></th>
-                                <th class="px-6 py-4 text-left">Audit ID</th>
-                                <th class="px-6 py-4 text-left">Task Scenario</th>
-                                <th class="px-6 py-4 text-left">Annotator Score</th>
-                                <th class="px-6 py-4 text-left">Reviewer Score</th>
-                                <th class="px-6 py-4 text-left">Discrepancy</th>
-                                <th class="px-6 py-4 text-right pr-10">Actions</th>
-                            </tr>
-                        </thead>
-                        <tbody class="divide-y divide-slate-100">
-                            <tr class="hover:bg-slate-50 transition-colors">
-                                <td class="px-8 py-4"><input type="checkbox" class="w-4 h-4 rounded border-slate-300"></td>
-                                <td class="px-6 py-4 text-[13px] font-bold text-[#4f39f6]">#AUD-9912</td>
-                                <td class="px-6 py-4 text-[14px] font-bold text-[#0f172b]">Maternal Health Advice</td>
-                                <td class="px-6 py-4 text-[14px] text-slate-600">4.5 / 5.0</td>
-                                <td class="px-6 py-4 text-[14px] text-slate-600">3.0 / 5.0</td>
-                                <td class="px-6 py-4">
-                                    <span class="px-2 py-0.5 bg-red-100 text-red-700 rounded-full text-[11px] font-bold uppercase">High (1.5)</span>
-                                </td>
-                                <td class="px-6 py-4 text-right pr-10">
-                                    <button class="text-[#4f39f6] text-[13px] font-bold hover:underline">Verify Response</button>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
                 </div>
             </div>
-        </main>
-    </div>
+
+            <!-- Main Content Card -->
+            <div class="bg-white rounded-[14px] border border-[#e2e8f0] shadow-sm flex flex-col overflow-hidden">
+                
+                <!-- Toolbar -->
+                <div class="p-6 border-b border-[#e2e8f0] flex flex-col gap-4">
+                    <div class="flex flex-col sm:flex-row justify-between items-center gap-4">
+                        <h2 class="text-xl font-bold text-text-gray">Sessions to Review</h2>
+                        
+                        <div class="flex items-center gap-3">
+                            <div class="relative">
+                                <svg class="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-[#90A1B9]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+                                <input 
+                                    type="text"
+                                    placeholder="Search scenario or batch..." 
+                                    class="pl-10 h-10 w-[240px] bg-white border border-slate-200 rounded-[8px] text-sm focus:outline-none focus:border-primary transition-colors"
+                                >
+                            </div>
+                            
+                            <button class="h-10 px-4 flex items-center gap-2 border border-slate-200 rounded-[8px] text-slate-600 text-sm font-medium hover:bg-slate-50">
+                                <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3"></polygon></svg>
+                                Filters
+                            </button>
+                            
+                            <button class="h-10 px-4 flex items-center gap-2 border border-slate-200 rounded-[8px] text-slate-600 text-sm font-medium hover:bg-slate-50">
+                                <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m21 16-4 4-4-4"></path><path d="M17 20V4"></path><path d="m3 8 4-4 4 4"></path><path d="M7 4v16"></path></svg>
+                                Sort
+                            </button>
+
+                            <button class="h-10 px-4 flex items-center gap-2 bg-[#f8fafc] text-[#94a3b8] border border-slate-200 hover:bg-slate-100 font-semibold rounded-[8px] text-sm transition-all cursor-not-allowed">
+                                <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="8.5" cy="7" r="4"></circle><line x1="20" y1="8" x2="20" y2="14"></line><line x1="23" y1="11" x2="17" y2="11"></line></svg>
+                                Assign Reviewer
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Table Content -->
+                <div class="w-full overflow-x-auto">
+                    <div class="min-w-[1000px]">
+                        <!-- Table Header -->
+                        <div class="grid grid-cols-[48px_100px_2fr_1.5fr_160px_200px_140px] bg-[#f8fafc] border-b border-slate-100 text-[11px] font-bold text-text-gray uppercase tracking-wider">
+                            <div class="flex items-center justify-center py-4">
+                                <input type="checkbox" class="checkbox-custom">
+                            </div>
+                            <div class="flex items-center px-4 py-4">Batch ID</div>
+                            <div class="flex items-center px-4 py-4">Sessions</div>
+                            <div class="flex items-center px-4 py-4">Participants</div>
+                            <div class="flex items-center px-4 py-4">QA Status</div>
+                            <div class="flex items-center px-4 py-4">QA Assigned To</div>
+                            <div class="flex items-center px-4 py-4"></div>
+                        </div>
+
+                        <!-- Table Body -->
+                        <div class="divide-y divide-slate-100 min-h-[300px] bg-white">
+                            <!-- Row 1 -->
+                            <div class="grid grid-cols-[48px_100px_2fr_1.5fr_160px_200px_140px] hover:bg-slate-50 transition-colors group items-center h-[88px]">
+                                <div class="flex items-center justify-center py-4">
+                                    <input type="checkbox" class="checkbox-custom">
+                                </div>
+                                <div class="flex items-center px-4 py-4 font-medium text-slate-600 text-sm">B-004</div>
+                                <div class="flex flex-col justify-center px-4 py-4 gap-1.5">
+                                    <div class="font-bold text-slate-900 text-sm">PrEP Consultation</div>
+                                    <div class="flex items-center gap-2">
+                                        <span class="rounded bg-[#fce7f3] px-1.5 py-0.5 text-[10px] font-bold text-[#be185d]">HIV / AIDS</span>
+                                        <span class="text-xs text-slate-400">Submitted Oct 24, 2025</span>
+                                    </div>
+                                </div>
+                                <div class="flex items-center px-4 py-4">
+                                    <div class="flex -space-x-2">
+                                        <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=100&h=100&fit=crop" class="w-8 h-8 rounded-full border-2 border-white ring-1 ring-slate-100 object-cover" />
+                                        <img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=100&h=100&fit=crop" class="w-8 h-8 rounded-full border-2 border-white ring-1 ring-slate-100 object-cover" />
+                                        <div class="w-8 h-8 rounded-full border-2 border-white bg-slate-100 flex items-center justify-center text-[10px] font-bold text-slate-500 ring-1 ring-slate-100">+2</div>
+                                    </div>
+                                </div>
+                                <div class="flex items-center px-4 py-4">
+                                    <div class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-[11px] font-bold border bg-[#fffbeb] text-[#d97706] border-[#fef3c7]">
+                                        <div class="w-1.5 h-1.5 rounded-full bg-[#d97706] opacity-60"></div>
+                                        Pending Review
+                                    </div>
+                                </div>
+                                <div class="flex items-center px-4 py-4">
+                                    <div class="flex items-center gap-2">
+                                        <img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=100&h=100&fit=crop" class="w-6 h-6 rounded-full object-cover" />
+                                        <span class="text-sm font-medium text-slate-700">Alex A. (You)</span>
+                                    </div>
+                                </div>
+                                <div class="flex items-center justify-end px-4 py-4 pr-6">
+                                    <a href="project-detail-data-quality-session-review.html" class="h-8 px-4 flex items-center justify-center text-xs font-bold bg-[#4f39f6] hover:bg-[#3d2cdb] text-white rounded-[6px] transition-colors shadow-sm">Start Review</a>
+                                </div>
+                            </div>
+
+                            <!-- Row 2 -->
+                            <div class="grid grid-cols-[48px_100px_2fr_1.5fr_160px_200px_140px] hover:bg-slate-50 transition-colors group items-center h-[88px]">
+                                <div class="flex items-center justify-center py-4">
+                                    <input type="checkbox" class="checkbox-custom">
+                                </div>
+                                <div class="flex items-center px-4 py-4 font-medium text-slate-600 text-sm">B-004</div>
+                                <div class="flex flex-col justify-center px-4 py-4 gap-1.5">
+                                    <div class="font-bold text-slate-900 text-sm">Third Trimester Diet</div>
+                                    <div class="flex items-center gap-2">
+                                        <span class="rounded bg-[#fef2f2] px-1.5 py-0.5 text-[10px] font-bold text-[#b91c1c]">Pregnancy</span>
+                                        <span class="text-xs text-slate-400">Submitted Oct 23, 2025</span>
+                                    </div>
+                                </div>
+                                <div class="flex items-center px-4 py-4">
+                                    <div class="flex -space-x-2">
+                                        <img src="https://images.unsplash.com/photo-1531427186611-ecfd6d936c79?w=100&h=100&fit=crop" class="w-8 h-8 rounded-full border-2 border-white ring-1 ring-slate-100 object-cover" />
+                                        <div class="w-8 h-8 rounded-full border-2 border-white bg-slate-100 flex items-center justify-center text-[10px] font-bold text-slate-500 ring-1 ring-slate-100">+1</div>
+                                    </div>
+                                </div>
+                                <div class="flex items-center px-4 py-4">
+                                    <div class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-[11px] font-bold border bg-[#f0fdf4] text-[#16a34a] border-[#dcfce7]">
+                                        <div class="w-1.5 h-1.5 rounded-full bg-[#16a34a] opacity-60"></div>
+                                        Approved
+                                    </div>
+                                </div>
+                                <div class="flex items-center px-4 py-4 justify-between">
+                                    <div class="flex items-center gap-2">
+                                        <div class="w-6 h-6 rounded-full bg-slate-100 flex items-center justify-center text-[10px] font-bold text-slate-600">A</div>
+                                        <span class="text-sm font-medium text-slate-700">Alisha K.</span>
+                                    </div>
+                                    <svg class="w-4 h-4 text-slate-400 cursor-pointer hover:text-slate-600" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m11.83 12 8.5-8.5"/><path d="M14 3h7v7"/><path d="M20.88 18.09A5 5 0 0 0 18 9h-1.26A8 8 0 1 0 3 16.29"/></svg>
+                                </div>
+                                <div class="flex items-center justify-end px-4 py-4 pr-6">
+                                    <a href="project-detail-data-quality-session-detail.html" class="h-8 px-4 flex items-center justify-center text-xs font-bold text-[#4f39f6] border border-[#e2e8f0] bg-white hover:bg-[#eef2ff] hover:border-[#c6d2ff] rounded-[6px] transition-colors shadow-sm">See Session</a>
+                                </div>
+                            </div>
+
+                            <!-- Row 3 -->
+                            <div class="grid grid-cols-[48px_100px_2fr_1.5fr_160px_200px_140px] hover:bg-slate-50 transition-colors group items-center h-[88px]">
+                                <div class="flex items-center justify-center py-4">
+                                    <input type="checkbox" class="checkbox-custom">
+                                </div>
+                                <div class="flex items-center px-4 py-4 font-medium text-slate-600 text-sm">B-005</div>
+                                <div class="flex flex-col justify-center px-4 py-4 gap-1.5">
+                                    <div class="font-bold text-slate-900 text-sm">Anxiety Management</div>
+                                    <div class="flex items-center gap-2">
+                                        <span class="rounded bg-[#f1f5f9] px-1.5 py-0.5 text-[10px] font-bold text-[#334155]">Mental Health</span>
+                                        <span class="text-xs text-slate-400">Submitted Oct 22, 2025</span>
+                                    </div>
+                                </div>
+                                <div class="flex items-center px-4 py-4">
+                                    <div class="flex -space-x-2">
+                                        <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=100&h=100&fit=crop" class="w-8 h-8 rounded-full border-2 border-white ring-1 ring-slate-100 object-cover" />
+                                        <img src="https://images.unsplash.com/photo-1527980965255-d3b416303d12?w=100&h=100&fit=crop" class="w-8 h-8 rounded-full border-2 border-white ring-1 ring-slate-100 object-cover" />
+                                        <div class="w-8 h-8 rounded-full border-2 border-white bg-slate-100 flex items-center justify-center text-[10px] font-bold text-slate-500 ring-1 ring-slate-100">+2</div>
+                                    </div>
+                                </div>
+                                <div class="flex items-center px-4 py-4">
+                                    <div class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-[11px] font-bold border bg-[#fef2f2] text-[#ef4444] border-[#fee2e2]">
+                                        <div class="w-1.5 h-1.5 rounded-full bg-[#ef4444] opacity-60"></div>
+                                        Rejected
+                                    </div>
+                                </div>
+                                <div class="flex items-center px-4 py-4">
+                                    <div class="flex items-center gap-2">
+                                        <img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=100&h=100&fit=crop" class="w-6 h-6 rounded-full object-cover" />
+                                        <span class="text-sm font-medium text-slate-700">Alex A. (You)</span>
+                                    </div>
+                                </div>
+                                <div class="flex items-center justify-end px-4 py-4 pr-6">
+                                    <a href="project-detail-data-quality-session-detail.html" class="h-8 px-4 flex items-center justify-center text-xs font-bold text-[#4f39f6] border border-[#e2e8f0] bg-white hover:bg-[#eef2ff] hover:border-[#c6d2ff] rounded-[6px] transition-colors shadow-sm">See Session</a>
+                                </div>
+                            </div>
+
+                            <!-- Row 4 -->
+                            <div class="grid grid-cols-[48px_100px_2fr_1.5fr_160px_200px_140px] hover:bg-slate-50 transition-colors group items-center h-[88px]">
+                                <div class="flex items-center justify-center py-4">
+                                    <input type="checkbox" class="checkbox-custom">
+                                </div>
+                                <div class="flex items-center px-4 py-4 font-medium text-slate-600 text-sm">B-006</div>
+                                <div class="flex flex-col justify-center px-4 py-4 gap-1.5">
+                                    <div class="font-bold text-slate-900 text-sm">Diabetes Meal Plan</div>
+                                    <div class="flex items-center gap-2">
+                                        <span class="rounded bg-[#ffedd5] px-1.5 py-0.5 text-[10px] font-bold text-[#c2410c]">Chronic Disease</span>
+                                        <span class="text-xs text-slate-400">Submitted Oct 21, 2025</span>
+                                    </div>
+                                </div>
+                                <div class="flex items-center px-4 py-4">
+                                    <span class="text-sm text-slate-400 italic">Unassigned</span>
+                                </div>
+                                <div class="flex items-center px-4 py-4">
+                                    <div class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-[11px] font-bold border bg-[#fffbeb] text-[#d97706] border-[#fef3c7]">
+                                        <div class="w-1.5 h-1.5 rounded-full bg-[#d97706] opacity-60"></div>
+                                        Pending Review
+                                    </div>
+                                </div>
+                                <div class="flex items-center px-4 py-4">
+                                    <button class="text-xs font-bold text-[#4f39f6] hover:underline">+ Assign Reviewer</button>
+                                </div>
+                                <div class="flex items-center justify-end px-4 py-4 pr-6">
+                                    <button class="h-8 px-4 text-xs font-bold text-[#94a3b8] bg-[#f1f5f9] border border-[#e2e8f0] rounded-[6px] cursor-not-allowed">Start Review</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Pagination -->
+                <div class="p-4 border-t border-slate-100 flex items-center justify-between text-sm text-slate-500">
+                    <div>Showing 1-4 of 120 sessions</div>
+                    <div class="flex gap-2">
+                        <button class="h-8 px-3 border border-slate-200 rounded-[6px] disabled:opacity-50 hover:bg-slate-50" disabled>Previous</button>
+                        <button class="h-8 px-3 border border-slate-200 rounded-[6px] hover:bg-slate-50">Next</button>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </main>
 </body>
 </html>
