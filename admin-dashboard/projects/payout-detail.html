@@ -1,128 +1,297 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Kitala - Request Payout Detail</title>
+    <title>Request Payout - Kitala</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Work+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Work+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <script>
         tailwind.config = {
             theme: {
                 extend: {
-                    fontFamily: { sans: ['Work Sans', 'sans-serif'] },
+                    fontFamily: { 
+                        sans: ['Work Sans', 'sans-serif'],
+                        outfit: ['Outfit', 'sans-serif']
+                    },
                     colors: {
                         primary: '#4F39F6',
-                        indigo: { 600: '#4F39F6' }
+                        'primary-hover': '#3d2cdb',
+                        sidebar: '#1E1B4B',
+                        'sidebar-active': '#4F39F6',
+                        'kitala-bg': '#F8FAFC',
+                        'text-dark': '#0F172B',
+                        'text-gray': '#62748e',
+                        'text-gray-light': '#90A1B9',
                     }
                 }
             }
         }
     </script>
+    <style>
+        ::-webkit-scrollbar { width: 6px; height: 6px; }
+        ::-webkit-scrollbar-track { background: transparent; }
+        ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 3px; }
+        ::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
+        .sidebar-gradient { background: linear-gradient(180deg, #2E236C 0%, #17123A 100%); }
+    </style>
 </head>
-<body class="bg-[#f8fafc] text-slate-900 font-sans p-8 animate-in fade-in duration-500">
-    <div class="max-w-[1200px] mx-auto flex flex-col gap-8">
-        
-        <!-- Header Navigation -->
-        <div class="flex items-center justify-between">
-            <div class="flex items-center gap-4">
-                <a href="payments.html" class="p-2 hover:bg-white rounded-full transition-colors border border-transparent hover:border-slate-200">
-                    <svg class="w-5 h-5 text-slate-600" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="m15 18-6-6 6-6"/></svg>
-                </a>
-                <h1 class="text-[24px] font-bold text-[#0f172b] tracking-tight">Request Payout</h1>
-            </div>
-            <div class="bg-[#fffbeb] px-3 py-1.5 rounded-full border border-[#fef3c7] flex items-center gap-2">
-                <div class="w-1.5 h-1.5 rounded-full bg-[#d97706]"></div>
-                <span class="text-[12px] font-bold text-[#d97706] uppercase tracking-wider">● Pending</span>
+<body class="bg-kitala-bg font-sans text-text-dark min-h-screen flex overflow-hidden">
+
+    <!-- Sidebar -->
+    <aside class="w-[260px] sidebar-gradient flex-shrink-0 flex flex-col h-screen fixed left-0 top-0 z-30">
+        <div class="h-16 flex items-center px-6 shrink-0 mt-2">
+           <span class="text-white text-2xl font-bold tracking-tight">kitala</span>
+        </div>
+        <a href="#" class="flex items-center gap-2 px-6 py-3 text-white/70 hover:text-white transition-colors group">
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="group-hover:-translate-x-0.5 transition-transform"><path d="M15 8H1M8 15L1 8L8 1"/></svg>
+            <span class="text-sm font-medium">Back to Projects</span>
+        </a>
+        <div class="px-4 py-2">
+            <div class="bg-white/10 rounded-xl p-3 border border-white/10 flex items-center gap-3">
+                <div class="w-8 h-8 rounded-lg bg-indigo-500/30 flex items-center justify-center border border-white/20 shrink-0">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
+                </div>
+                <div class="flex-1 min-w-0">
+                    <p class="text-white text-xs font-bold leading-tight truncate">Testing Voice LLM</p>
+                    <p class="text-white/60 text-[10px] truncate">for Health in Rwanda</p>
+                </div>
             </div>
         </div>
+        <nav class="flex-1 px-3 py-4 space-y-1 overflow-y-auto">
+            <a href="project-detail-task-allocation.html" class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-white/70 hover:bg-white/5 hover:text-white transition-colors text-sm font-medium">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
+                Task Allocation
+            </a>
+            <a href="project-detail-data-quality.html" class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-white/70 hover:bg-white/5 hover:text-white transition-colors text-sm font-medium">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="16" x2="12" y2="12"></line><line x1="12" y1="8" x2="12.01" y2="8"></line></svg>
+                Data Quality
+            </a>
+            <a href="project-detail-research-analytics.html" class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-white/70 hover:bg-white/5 hover:text-white transition-colors text-sm font-medium">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M18 20V10"></path><path d="M12 20V4"></path><path d="M6 20v-6"></path></svg>
+                Research Analytics
+            </a>
+            <a href="project-detail-participants.html" class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-white/70 hover:bg-white/5 hover:text-white transition-colors text-sm font-medium">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>
+                Participants
+            </a>
+             <a href="project-detail-payments.html" class="flex items-center gap-3 px-3 py-2.5 rounded-lg bg-primary text-white text-sm font-medium shadow-sm">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="5" width="20" height="14" rx="2"></rect><line x1="2" y1="10" x2="22" y2="10"></line></svg>
+                Payments
+            </a>
+            <a href="project-detail-project-settings.html" class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-white/70 hover:bg-white/5 hover:text-white transition-colors text-sm font-medium mt-auto">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12.22 2h-.44a2 2 0 0 0-2 2v.18a2 2 0 0 1-1 1.73l-.43.25a2 2 0 0 1-2 0l-.15-.08a2 2 0 0 0-2.73.73l-.22.38a2 2 0 0 0 .73 2.73l.15.1a2 2 0 0 1 1 1.72v.51a2 2 0 0 1-1 1.74l-.15.09a2 2 0 0 0 .73 2.73l.22.38a2 2 0 0 0-2.73-.73l-.15-.1a2 2 0 0 1-1-1.72v-.51a2 2 0 0 1 1-1.74l.15-.09a2 2 0 0 0 .73-2.73l-.22-.38a2 2 0 0 0-2.73-.73l-.15.08a2 2 0 0 1-2 0l-.43-.25a2 2 0 0 1-1-1.73V4a2 2 0 0 0-2-2z"></path><circle cx="12" cy="12" r="3"></circle></svg>
+                Project Settings
+            </a>
+        </nav>
+    </aside>
 
-        <div class="grid grid-cols-1 lg:grid-cols-[1fr_320px] gap-8 items-start">
-            
-            <!-- Left Column: Transaction Details -->
-            <div class="flex flex-col gap-8">
-                <div class="bg-white rounded-[14px] border border-[#e2e8f0] shadow-sm overflow-hidden min-h-[480px]">
-                    <!-- Section Header -->
-                    <div class="bg-[#f8fafc]/50 p-6 border-b border-[#f1f5f9] flex items-center gap-3">
-                        <svg class="w-4 h-4 text-[#94a3b8]" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect width="20" height="14" x="2" y="5" rx="2"/><line x1="2" x2="22" y1="10" y2="10"/></svg>
-                        <span class="text-[12px] font-bold text-[#62748e] uppercase tracking-[1px]">Transaction Details</span>
-                    </div>
+    <!-- Main Content -->
+    <main class="flex-1 flex flex-col min-w-0 lg:ml-[260px] transition-all duration-300">
+        <!-- Header -->
+        <header class="h-14 flex items-center justify-between px-8 bg-white border-b border-slate-200 sticky top-0 z-10 shrink-0">
+            <div class="flex items-center gap-4">
+                 <button class="lg:hidden p-2 text-text-gray mr-2">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+                 </button>
+                 <div class="flex items-center gap-2 text-sm text-[#71717b]">
+                    <svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="12" height="12" rx="2"/><path d="M5 2V14"/></svg>
+                    <span>Projects</span>
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>
+                    <span class="text-text-dark font-medium">Testing Voice LLM for Health in Rwanda</span>
+                </div>
+            </div>
+        </header>
 
-                    <div class="p-10 flex flex-col items-start text-left">
-                        <span class="text-[#62748e] text-[15px] font-medium">Total Payout Amount</span>
-                        <div class="mt-2 mb-10">
-                            <h2 class="text-[56px] font-bold text-[#0f172b] tracking-tight leading-tight">$500.00</h2>
+        <div class="flex-1 overflow-y-auto px-8 pb-8 pt-6 space-y-6">
+            <!-- Back & Title -->
+            <div class="flex justify-between items-center">
+                <div class="flex items-center gap-4">
+                    <a href="project-detail-payments.html" class="p-1 hover:bg-slate-100 rounded-full transition-colors text-slate-500">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>
+                    </a>
+                    <h1 class="text-[24px] font-bold text-[#0f172b]">Request Payout</h1>
+                </div>
+                <div class="flex items-center gap-1.5 px-3 py-1 rounded-full border border-[#ffedd5] bg-[#fff7ed] text-[#c2410c] text-[12px] font-bold">
+                    <div class="w-1.5 h-1.5 rounded-full bg-[#f97316]"></div>
+                    Pending
+                </div>
+            </div>
+
+            <div class="flex flex-col lg:flex-row gap-6">
+                <!-- Left: Transaction Details -->
+                <div class="flex-1 space-y-6">
+                    <div class="bg-white rounded-[16px] border border-slate-200 p-6 shadow-sm">
+                        <div class="flex items-center gap-2 text-[#64748b] text-[12px] font-bold uppercase tracking-wider mb-6">
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="5" width="20" height="14" rx="2"></rect><line x1="2" y1="10" x2="22" y2="10"></line></svg>
+                            Transaction Details
                         </div>
 
-                        <div class="flex items-center gap-4 mb-12">
-                            <button class="h-[44px] px-6 rounded-[8px] flex items-center gap-2 text-[#0f172b] font-bold border border-[#e2e8f0] hover:bg-slate-50 transition-all active:scale-95 shadow-sm">
-                                <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect width="4" height="16" x="6" y="4"/><rect width="4" height="16" x="14" y="4"/></svg>
+                        <div class="mb-6">
+                            <div class="text-[14px] text-[#64748b] font-medium mb-1">Total Payout Amount</div>
+                            <div class="text-[40px] font-bold text-[#0f172b] tracking-tight">$500.00</div>
+                        </div>
+
+                        <div class="flex gap-3 mb-8 pb-8 border-b border-slate-100">
+                            <button class="flex items-center gap-2 px-4 h-10 border border-slate-200 rounded-[8px] text-[#45556c] font-bold text-sm hover:bg-slate-50 transition-colors">
+                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="10" y1="15" x2="10" y2="9"></line><line x1="14" y1="15" x2="14" y2="9"></line></svg>
                                 Hold Payment
                             </button>
-                            <button class="h-[44px] px-6 rounded-[8px] flex items-center gap-2 text-[#ef4444] font-bold border border-[#fee2e2] hover:bg-red-50 transition-all active:scale-95 shadow-sm">
-                                <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M18 6 6 18M6 6l12 12"/></svg>
+                            <button class="flex items-center gap-2 px-4 h-10 border border-[#fee2e2] rounded-[8px] text-[#ef4444] font-bold text-sm hover:bg-[#fef2f2] transition-colors">
+                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="15" y1="9" x2="9" y2="15"></line><line x1="9" y1="9" x2="15" y2="15"></line></svg>
                                 Reject
                             </button>
-                            <button onclick="this.innerHTML='<div class=\'w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin\'></div> Processing...'; setTimeout(() => { document.getElementById('success-overlay').classList.remove('hidden'); }, 1000);" class="h-[44px] px-8 rounded-[8px] flex items-center gap-2 bg-[#4f39f6] hover:bg-[#3d2cdb] text-white font-bold shadow-lg shadow-[#4f39f6]/20 transition-all active:scale-95">
-                                <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></svg>
+                            <a href="project-detail-payments-approved.html" class="flex items-center gap-2 px-4 h-10 bg-[#4f39f6] rounded-[8px] text-white font-bold text-sm hover:bg-[#3d2cdb] transition-colors ml-auto shadow-sm shadow-indigo-200">
+                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
                                 Approve & Pay
-                            </button>
+                            </a>
                         </div>
 
-                        <div class="w-full h-px bg-[#f1f5f9] mb-10"></div>
-
-                        <div class="grid grid-cols-1 sm:grid-cols-3 gap-x-12 gap-y-10 w-full">
-                            <div class="flex flex-col gap-2">
-                                <div class="flex items-center gap-2">
-                                    <svg class="w-4 h-4 text-[#94a3b8]" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect width="18" height="18" x="3" y="4" rx="2" ry="2"/><line x1="16" x2="16" y1="2" y2="6"/><line x1="8" x2="8" y1="2" y2="6"/><line x1="3" x2="21" y1="10" y2="10"/></svg>
-                                    <span class="text-[11px] font-bold text-[#94a3b8] uppercase tracking-[1px]">Request Date</span>
-                                </div>
-                                <span class="text-[15px] font-bold text-[#0f172b] pl-6">Oct 24, 2023</span>
+                        <div class="grid grid-cols-2 gap-y-6 gap-x-8">
+                            <div>
+                                <div class="text-[10px] font-bold text-[#94a3b8] uppercase tracking-wider mb-1">REQUEST DATE</div>
+                                <div class="text-[14px] font-bold text-[#0f172b]">Oct 24, 2023</div>
                             </div>
-                            
-                            <div class="flex flex-col gap-2">
-                                <div class="flex items-center gap-2">
-                                    <svg class="w-4 h-4 text-[#94a3b8]" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"/><polyline points="14 2 14 8 20 8"/></svg>
-                                    <span class="text-[11px] font-bold text-[#94a3b8] uppercase tracking-[1px]">Reference Ref</span>
-                                </div>
-                                <span class="text-[15px] font-bold text-[#0f172b] pl-6">MP-8829-XJ92</span>
+                            <div>
+                                <div class="text-[10px] font-bold text-[#94a3b8] uppercase tracking-wider mb-1">REFERENCE REF</div>
+                                <div class="text-[14px] font-bold text-[#0f172b]">MP-8829-XJ92</div>
                             </div>
-
-                            <div class="flex flex-col gap-2">
-                                <div class="flex items-center gap-2">
-                                    <span class="text-[11px] font-bold text-[#94a3b8] uppercase tracking-[1px]">Processing Fee</span>
-                                </div>
-                                <span class="text-[15px] font-bold text-[#0f172b]">$12.50</span>
+                            <div>
+                                <div class="text-[10px] font-bold text-[#94a3b8] uppercase tracking-wider mb-1">CREATED AT</div>
+                                <div class="text-[14px] font-bold text-[#0f172b]">October 24, 2023 at 10:42 AM</div>
+                            </div>
+                            <div>
+                                <div class="text-[10px] font-bold text-[#94a3b8] uppercase tracking-wider mb-1">PAYMENT METHOD</div>
+                                <div class="text-[14px] font-bold text-[#0f172b]">Mobile Money (mpesa)</div>
+                            </div>
+                            <div>
+                                <div class="text-[10px] font-bold text-[#94a3b8] uppercase tracking-wider mb-1">PROCESSING FEE</div>
+                                <div class="text-[14px] font-bold text-[#0f172b]">$12.50</div>
                             </div>
                         </div>
                     </div>
                 </div>
 
-                <!-- History -->
-                <div class="bg-white rounded-[14px] border border-[#e2e8f0] shadow-sm overflow-hidden">
-                    <div class="p-6 border-b border-[#f1f5f9] flex items-center justify-between bg-[#f8fafc]/30">
-                        <span class="text-[12px] font-bold text-[#62748e] uppercase tracking-[1px]">Payout History: SARAH JENKINS</span>
-                        <button class="text-[13px] font-bold text-[#4f39f6] flex items-center gap-1.5 hover:underline">
-                            View Full History
-                            <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" x2="21" y1="14" y2="3"/></svg>
+                <!-- Right: Beneficiary -->
+                <div class="w-full lg:w-[360px] flex flex-col gap-6">
+                    <div class="bg-white rounded-[16px] border border-slate-200 p-6 shadow-sm h-full">
+                        <div class="flex items-center gap-2 text-[#64748b] text-[12px] font-bold uppercase tracking-wider mb-6">
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
+                            Beneficiary
+                        </div>
+
+                        <div class="flex flex-col items-center text-center">
+                            <div class="w-20 h-20 rounded-full border-4 border-white shadow-md overflow-hidden mb-3">
+                                <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=200&h=200&fit=crop" class="w-full h-full object-cover">
+                            </div>
+                            <h3 class="text-[18px] font-bold text-[#0f172b]">Sarah Jenkins</h3>
+                            <div class="flex items-center gap-1 text-[#64748b] text-[13px] mt-1">
+                                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
+                                Rwanda
+                            </div>
+                        </div>
+
+                        <div class="grid grid-cols-2 gap-3 mt-6 mb-6">
+                            <div class="bg-[#f8fafc] rounded-[8px] p-3 text-center">
+                                <div class="text-[18px] font-bold text-[#0f172b]">18</div>
+                                <div class="text-[10px] font-bold text-[#94a3b8] uppercase tracking-wider">SESSIONS</div>
+                            </div>
+                            <div class="bg-[#fffbeb] rounded-[8px] p-3 text-center border border-[#fef3c7]">
+                                <div class="text-[18px] font-bold text-[#0f172b] flex items-center justify-center gap-1">
+                                    <svg width="14" height="14" viewBox="0 0 24 24" fill="#fbbf24" stroke="#fbbf24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+                                    4.6
+                                </div>
+                                <div class="text-[10px] font-bold text-[#d97706] uppercase tracking-wider">PROJECT RATING</div>
+                            </div>
+                        </div>
+
+                        <button class="w-full h-10 border border-slate-200 rounded-[8px] text-[#45556c] font-bold text-sm hover:bg-slate-50 transition-colors">
+                            View Full Profile
                         </button>
                     </div>
-                    <table class="w-full">
-                        <thead class="bg-[#f8fafc]/50 border-b border-[#f1f5f9]">
+                </div>
+            </div>
+
+            <!-- Bottom: Payout History -->
+            <div class="bg-white rounded-[16px] border border-slate-200 shadow-sm overflow-hidden">
+                <div class="p-6 border-b border-slate-100 flex justify-between items-center">
+                    <div class="text-[12px] font-bold text-[#94a3b8] uppercase tracking-wider">PAYOUT HISTORY: SARAH JENKINS</div>
+                    <a href="#" class="text-[13px] font-bold text-[#4f39f6] flex items-center gap-1 hover:underline">
+                        View Full History 
+                        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
+                    </a>
+                </div>
+
+                <div class="overflow-x-auto">
+                    <table class="w-full text-left">
+                        <thead class="bg-[#f8fafc] text-[11px] font-bold text-[#94a3b8] uppercase tracking-[0.6px]">
                             <tr>
-                                <th class="px-8 py-4 text-left text-[11px] font-bold text-[#94a3b8] uppercase tracking-wider">Request ID</th>
-                                <th class="px-8 py-4 text-left text-[11px] font-bold text-[#94a3b8] uppercase tracking-wider">Amount</th>
-                                <th class="px-8 py-4 text-right text-[11px] font-bold text-[#94a3b8] uppercase tracking-wider">Status</th>
+                                <th class="px-6 py-4">REQUEST ID</th>
+                                <th class="px-4 py-4">AMOUNT</th>
+                                <th class="px-4 py-4">PAYOUT METHOD</th>
+                                <th class="px-4 py-4">DATE</th>
+                                <th class="px-4 py-4 text-right">STATUS</th>
                             </tr>
                         </thead>
-                        <tbody class="divide-y divide-slate-50">
-                            <tr>
-                                <td class="px-8 py-5 text-[14px] font-bold text-[#4f39f6]">#REQ-8104</td>
-                                <td class="px-8 py-5 text-[14px] font-bold text-[#0f172b]">$320.50</td>
-                                <td class="px-8 py-5 text-right">
-                                    <div class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[11px] font-bold border bg-[#f0fdf4] text-[#10b981] border-[#dcfce7]">
-                                        <div class="w-1.5 h-1.5 rounded-full bg-[#10b981]"></div>
+                        <tbody class="divide-y divide-slate-100 text-[#0F172B]">
+                            <tr class="bg-[#f1f5f9] hover:bg-[#e2e8f0] transition-colors">
+                                <td class="px-6 py-4 text-[13px] font-bold text-[#4f39f6]">#REQ-8291</td>
+                                <td class="px-4 py-4 text-[14px] font-bold">$500.00</td>
+                                <td class="px-4 py-4 text-[13px] text-[#64748b] flex items-center gap-2">
+                                    <svg class="w-3.5 h-3.5 text-[#94a3b8]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="2" width="14" height="20" rx="2" ry="2"></rect><line x1="12" y1="18" x2="12.01" y2="18"></line></svg>
+                                    Mobile Money
+                                </td>
+                                <td class="px-4 py-4 text-[13px] text-[#64748b]">Oct 24, 2023</td>
+                                <td class="px-4 py-4 text-right">
+                                    <div class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full border border-[#ffedd5] bg-[#fff7ed] text-[#c2410c] text-[11px] font-bold">
+                                        <div class="w-1.5 h-1.5 rounded-full bg-[#f97316]"></div>
+                                        Pending
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr class="hover:bg-slate-50 transition-colors">
+                                <td class="px-6 py-4 text-[13px] font-bold text-[#0f172b]">#REQ-8104</td>
+                                <td class="px-4 py-4 text-[14px] font-bold">$320.50</td>
+                                <td class="px-4 py-4 text-[13px] text-[#64748b] flex items-center gap-2">
+                                    <svg class="w-3.5 h-3.5 text-[#94a3b8]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="2" width="14" height="20" rx="2" ry="2"></rect><line x1="12" y1="18" x2="12.01" y2="18"></line></svg>
+                                    Mobile Money
+                                </td>
+                                <td class="px-4 py-4 text-[13px] text-[#64748b]">Sep 15, 2023</td>
+                                <td class="px-4 py-4 text-right">
+                                    <div class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full border border-[#dcfce7] bg-[#f0fdf4] text-[#15803d] text-[11px] font-bold">
+                                        <div class="w-1.5 h-1.5 rounded-full bg-[#16a34a]"></div>
                                         Paid
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr class="hover:bg-slate-50 transition-colors">
+                                <td class="px-6 py-4 text-[13px] font-bold text-[#0f172b]">#REQ-7882</td>
+                                <td class="px-4 py-4 text-[14px] font-bold">$150.00</td>
+                                <td class="px-4 py-4 text-[13px] text-[#64748b] flex items-center gap-2">
+                                    <svg class="w-3.5 h-3.5 text-[#94a3b8]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="2" width="14" height="20" rx="2" ry="2"></rect><line x1="12" y1="18" x2="12.01" y2="18"></line></svg>
+                                    Mobile Money
+                                </td>
+                                <td class="px-4 py-4 text-[13px] text-[#64748b]">Aug 02, 2023</td>
+                                <td class="px-4 py-4 text-right">
+                                    <div class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full border border-[#dcfce7] bg-[#f0fdf4] text-[#15803d] text-[11px] font-bold">
+                                        <div class="w-1.5 h-1.5 rounded-full bg-[#16a34a]"></div>
+                                        Paid
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr class="hover:bg-slate-50 transition-colors">
+                                <td class="px-6 py-4 text-[13px] font-bold text-[#0f172b]">#REQ-7540</td>
+                                <td class="px-4 py-4 text-[14px] font-bold">$75.00</td>
+                                <td class="px-4 py-4 text-[13px] text-[#64748b] flex items-center gap-2">
+                                    <svg class="w-3.5 h-3.5 text-[#94a3b8]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21h18"/><path d="M5 21v-7"/><path d="M19 21v-7"/><path d="M9 10a3 3 0 1 0 6 0"/></svg>
+                                    Bank Transfer
+                                </td>
+                                <td class="px-4 py-4 text-[13px] text-[#64748b]">Jul 10, 2023</td>
+                                <td class="px-4 py-4 text-right">
+                                    <div class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full border border-[#fee2e2] bg-[#fef2f2] text-[#ef4444] text-[11px] font-bold">
+                                        <div class="w-1.5 h-1.5 rounded-full bg-[#ef4444]"></div>
+                                        Cancelled
                                     </div>
                                 </td>
                             </tr>
@@ -130,72 +299,7 @@
                     </table>
                 </div>
             </div>
-
-            <!-- Right Column: Beneficiary -->
-            <div class="bg-white rounded-[14px] border border-[#e2e8f0] shadow-sm overflow-hidden flex flex-col items-center min-h-[480px]">
-                <div class="w-full bg-[#f8fafc]/50 p-6 border-b border-[#f1f5f9] flex items-center gap-3">
-                    <svg class="w-4 h-4 text-[#94a3b8]" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
-                    <span class="text-[12px] font-bold text-[#62748e] uppercase tracking-[1px]">Beneficiary</span>
-                </div>
-
-                <div class="p-8 flex flex-col items-center w-full">
-                    <div class="relative mt-4 mb-6">
-                        <div class="w-[100px] h-[100px] rounded-full border-4 border-white shadow-xl ring-1 ring-slate-100 overflow-hidden">
-                            <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=200&h=200&fit=crop" class="w-full h-full object-cover">
-                        </div>
-                    </div>
-
-                    <h3 class="text-[22px] font-bold text-[#0f172b] mb-1">Sarah Jenkins</h3>
-                    <div class="flex items-center gap-1.5 text-slate-500 mb-10 text-[14px] font-medium">
-                        <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
-                        Rwanda
-                    </div>
-
-                    <div class="grid grid-cols-2 gap-3 w-full mb-10">
-                        <div class="bg-[#f8fafc] rounded-[12px] p-5 flex flex-col items-center justify-center border border-[#f1f5f9] shadow-sm">
-                            <span class="text-[22px] font-bold text-[#0f172b]">18</span>
-                            <span class="text-[10px] font-bold text-slate-400 uppercase tracking-wider mt-1">Sessions</span>
-                        </div>
-                        <div class="bg-[#f8fafc] rounded-[12px] p-5 flex flex-col items-center justify-center border border-[#f1f5f9] shadow-sm">
-                            <div class="flex items-center gap-1.5 text-[22px] font-bold text-[#0f172b]">
-                                <svg class="w-4 h-4 fill-[#FDC700] text-[#FDC700]" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
-                                4.6
-                            </div>
-                            <span class="text-[10px] font-bold text-slate-400 uppercase tracking-wider mt-1">Project Rating</span>
-                        </div>
-                    </div>
-
-                    <button class="w-full h-12 rounded-[10px] text-[#0f172b] font-bold border border-[#e2e8f0] hover:bg-slate-50 text-[15px] shadow-sm transition-colors">
-                        View Full Profile
-                    </button>
-                </div>
-            </div>
         </div>
-    </div>
-
-    <!-- Success Overlay -->
-    <div id="success-overlay" class="fixed inset-0 z-50 flex items-center justify-center bg-black/20 backdrop-blur-sm hidden">
-        <div class="bg-white rounded-[14px] shadow-2xl w-full max-w-[620px] overflow-hidden transform transition-all scale-100 opacity-100">
-            <div class="h-1.5 bg-[#4f39f6] w-full"></div>
-            <div class="p-12 flex flex-col items-center text-center">
-                <div class="w-20 h-20 rounded-full bg-[#ecfdf5] flex items-center justify-center mb-8 relative">
-                    <div class="absolute inset-0 rounded-full bg-[#10b981]/10 animate-ping opacity-20"></div>
-                    <div class="w-12 h-12 rounded-full bg-[#10b981] flex items-center justify-center text-white">
-                        <svg class="w-7 h-7" fill="none" stroke="currentColor" stroke-width="3" viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></svg>
-                    </div>
-                </div>
-                <h2 class="text-[28px] font-bold text-[#0f172b] mb-4">Payment Approved!</h2>
-                <p class="text-[#64748b] text-[16px] leading-relaxed mb-10 max-w-[440px]">The payment has been successfully approved and queued for processing.</p>
-                <div class="w-full bg-[#f8fafc] border border-[#f1f5f9] rounded-[12px] p-8 mb-10">
-                    <div class="flex justify-between items-center mb-6">
-                        <span class="text-[#64748b] text-[15px] font-medium">Amount to Receive</span>
-                        <span class="text-[28px] font-bold text-[#4f39f6]">$487.50</span>
-                    </div>
-                </div>
-                <button onclick="window.location.href='payments.html'" class="h-12 px-10 bg-[#4f39f6] hover:bg-[#3d2cdb] text-white font-bold rounded-[10px] shadow-lg shadow-[#4f39f6]/20 transition-all active:scale-95">Return to Payments</button>
-            </div>
-        </div>
-    </div>
-
+    </main>
 </body>
 </html>
