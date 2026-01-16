@@ -3,236 +3,1061 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Kitala - Task Allocation</title>
+    <title>Task Allocation & Progress - Kitala</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Work+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Work+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <script>
         tailwind.config = {
             theme: {
                 extend: {
-                    fontFamily: { sans: ['Work Sans', 'sans-serif'] },
+                    fontFamily: { 
+                        sans: ['Work Sans', 'sans-serif'],
+                        outfit: ['Outfit', 'sans-serif']
+                    },
                     colors: {
                         primary: '#4F39F6',
-                        indigo: { 600: '#4F39F6' }
+                        'primary-hover': '#3d2cdb',
+                        sidebar: '#1E1B4B',
+                        'sidebar-active': '#4F39F6',
+                        'kitala-bg': '#F8FAFC',
+                        'text-dark': '#0F172B',
+                        'text-gray': '#62748e',
+                        'text-gray-light': '#90A1B9',
+                        'success-bg': '#DCFCE7',
+                        'success-text': '#166534',
+                        'warning-bg': '#FEF3C7',
+                        'warning-text': '#B45309',
+                        'error-bg': '#FEE2E2',
+                        'error-text': '#991B1B',
+                        'tag-pink-bg': '#FCE7F3',
+                        'tag-pink-text': '#BE185D',
+                        'tag-blue-bg': '#E0F2FE',
+                        'tag-blue-text': '#0369A1',
+                        'tag-orange-bg': '#FFEDD5',
+                        'tag-orange-text': '#C2410C',
+                        'tag-gray-bg': '#F1F5F9',
+                        'tag-gray-text': '#475569',
+                    },
+                    boxShadow: {
+                        'modal': '0px 10px 15px -3px rgba(0,0,0,0.1), 0px 4px 6px -4px rgba(0,0,0,0.1)',
+                        'chip': '0px 1px 2px 0px rgba(0,0,0,0.05)',
+                        'card': '0px 1px 3px 0px rgba(0, 0, 0, 0.10), 0px 1px 2px -1px rgba(0, 0, 0, 0.10)'
                     }
                 }
             }
         }
     </script>
+    <style>
+        ::-webkit-scrollbar { width: 6px; height: 6px; }
+        ::-webkit-scrollbar-track { background: transparent; }
+        ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 3px; }
+        ::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
+        .sidebar-gradient { background: linear-gradient(180deg, #2E236C 0%, #17123A 100%); }
+        .checkbox-custom {
+            appearance: none;
+            background-color: #fff;
+            margin: 0;
+            font: inherit;
+            color: currentColor;
+            width: 18px;
+            height: 18px;
+            border: 1px solid #cbd5e1;
+            border-radius: 4px;
+            display: grid;
+            place-content: center;
+            cursor: pointer;
+        }
+        .checkbox-custom::before {
+            content: "";
+            width: 10px;
+            height: 10px;
+            transform: scale(0);
+            transition: 120ms transform ease-in-out;
+            box-shadow: inset 1em 1em #4F39F6;
+            background-color: #4F39F6;
+            transform-origin: center;
+            clip-path: polygon(14% 44%, 0 65%, 50% 100%, 100% 16%, 80% 0%, 43% 62%);
+        }
+        .checkbox-custom:checked {
+            border-color: #4F39F6;
+        }
+        .checkbox-custom:checked::before {
+            transform: scale(1);
+        }
+        
+        /* Slide-over panel animation */
+        .panel-slide-enter { transform: translateX(100%); }
+        .panel-slide-enter-active { transform: translateX(0); transition: transform 300ms ease-out; }
+        .panel-slide-exit { transform: translateX(0); }
+        .panel-slide-exit-active { transform: translateX(100%); transition: transform 300ms ease-in; }
+    </style>
 </head>
-<body class="bg-[#f8fafc] text-slate-900 font-sans flex min-h-screen">
-    
+<body class="bg-kitala-bg font-sans text-text-dark min-h-screen flex overflow-hidden">
+
     <!-- Sidebar -->
-    <aside class="w-[260px] bg-[#410dd8] text-white flex flex-col p-6 fixed h-full z-20">
-        <div class="flex items-center gap-3 mb-10 px-2">
-            <div class="w-8 h-8 bg-white/20 rounded-lg flex items-center justify-center">
-                <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
-            </div>
-            <span class="font-bold text-[20px] tracking-tight">Kitala</span>
+    <aside class="w-[260px] sidebar-gradient flex-shrink-0 flex flex-col h-screen fixed left-0 top-0 z-30">
+        <div class="h-16 flex items-center px-6 shrink-0 mt-2">
+           <span class="text-white text-2xl font-bold tracking-tight">kitala</span>
         </div>
-
-        <a href="../index.html" class="flex items-center gap-3 px-3 py-2 text-white/70 hover:text-white transition-colors mb-8 group">
-            <svg class="w-4 h-4 group-hover:-translate-x-1 transition-transform" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="m15 18-6-6 6-6"/></svg>
-            <span class="text-[14px] font-medium">Back to Projects</span>
+        <a href="#" class="flex items-center gap-2 px-6 py-3 text-white/70 hover:text-white transition-colors group">
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="group-hover:-translate-x-0.5 transition-transform"><path d="M15 8H1M8 15L1 8L8 1"/></svg>
+            <span class="text-sm font-medium">Back to Projects</span>
         </a>
-
-        <nav class="flex flex-col gap-2">
-            <a href="tasks.html" class="flex items-center gap-3 px-4 py-3 bg-white/10 rounded-xl font-bold text-[14px] transition-all">
-                <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
+        <div class="px-4 py-2">
+            <div class="bg-white/10 rounded-xl p-3 border border-white/10 flex items-center gap-3">
+                <div class="w-8 h-8 rounded-lg bg-indigo-500/30 flex items-center justify-center border border-white/20 shrink-0">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
+                </div>
+                <div class="flex-1 min-w-0">
+                    <p class="text-white text-xs font-bold leading-tight truncate">Testing Voice LLM</p>
+                    <p class="text-white/60 text-[10px] truncate">for Health in Rwanda</p>
+                </div>
+            </div>
+        </div>
+        <nav class="flex-1 px-3 py-4 space-y-1 overflow-y-auto">
+            <a href="project-detail-task-allocation.html" class="flex items-center gap-3 px-3 py-2.5 rounded-lg bg-primary text-white text-sm font-medium shadow-sm">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
                 Task Allocation
             </a>
-            <a href="quality.html" class="flex items-center gap-3 px-4 py-3 text-white/60 hover:bg-white/5 hover:text-white rounded-xl font-medium text-[14px] transition-all">
-                <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+            <a href="project-detail-data-quality.html" class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-white/70 hover:bg-white/5 hover:text-white transition-colors text-sm font-medium">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="16" x2="12" y2="12"></line><line x1="12" y1="8" x2="12.01" y2="8"></line></svg>
                 Data Quality
             </a>
-            <a href="analytics.html" class="flex items-center gap-3 px-4 py-3 text-white/60 hover:bg-white/5 hover:text-white rounded-xl font-medium text-[14px] transition-all">
-                <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M18 20V10"/><path d="M12 20V4"/><path d="M6 20v-6"/></svg>
+            <a href="project-detail-research-analytics.html" class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-white/70 hover:bg-white/5 hover:text-white transition-colors text-sm font-medium">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M18 20V10"></path><path d="M12 20V4"></path><path d="M6 20v-6"></path></svg>
                 Research Analytics
             </a>
-            <a href="participants.html" class="flex items-center gap-3 px-4 py-3 text-white/60 hover:bg-white/5 hover:text-white rounded-xl font-medium text-[14px] transition-all">
-                <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+            <a href="project-detail-participants.html" class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-white/70 hover:bg-white/5 hover:text-white transition-colors text-sm font-medium">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>
                 Participants
             </a>
-            <a href="payments.html" class="flex items-center gap-3 px-4 py-3 text-white/60 hover:bg-white/5 hover:text-white rounded-xl font-medium text-[14px] transition-all">
-                <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect width="20" height="14" x="2" y="5" rx="2"/><line x1="2" x2="22" y1="10" y2="10"/></svg>
+             <a href="project-detail-payments.html" class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-white/70 hover:bg-white/5 hover:text-white transition-colors text-sm font-medium">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="5" width="20" height="14" rx="2"></rect><line x1="2" y1="10" x2="22" y2="10"></line></svg>
                 Payments
             </a>
-            <a href="settings.html" class="flex items-center gap-3 px-4 py-3 text-white/60 hover:bg-white/5 hover:text-white rounded-xl font-medium text-[14px] transition-all">
-                <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+            <a href="project-detail-project-settings.html" class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-white/70 hover:bg-white/5 hover:text-white transition-colors text-sm font-medium mt-auto">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12.22 2h-.44a2 2 0 0 0-2 2v.18a2 2 0 0 1-1 1.73l-.43.25a2 2 0 0 1-2 0l-.15-.08a2 2 0 0 0-2.73.73l-.22.38a2 2 0 0 0 .73 2.73l.15.1a2 2 0 0 1 1 1.72v.51a2 2 0 0 1-1 1.74l-.15.09a2 2 0 0 0 .73 2.73l.22.38a2 2 0 0 0-2.73-.73l-.15.08a2 2 0 0 1-2 0l-.43-.25a2 2 0 0 1-1-1.73V4a2 2 0 0 0-2-2z"></path><circle cx="12" cy="12" r="3"></circle></svg>
                 Project Settings
             </a>
         </nav>
     </aside>
 
-    <!-- Main Content Area -->
-    <div class="flex-1 ml-[260px]">
-        <!-- Top Bar -->
-        <header class="h-16 bg-white border-b border-slate-200 flex items-center px-10 sticky top-0 z-10">
-            <div class="flex items-center gap-3 text-[14px]">
-                <span class="text-slate-400">Projects</span>
-                <svg class="w-3.5 h-3.5 text-slate-300" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="m9 18 6-6-6-6"/></svg>
-                <span class="font-medium text-slate-900">Testing Voice LLM for Health in Rwanda</span>
+    <!-- Main Content -->
+    <main class="flex-1 flex flex-col min-w-0 lg:ml-[260px] transition-all duration-300">
+        <header class="h-14 flex items-center justify-between px-8 sticky top-0 z-10 shrink-0 bg-kitala-bg">
+            <div class="flex items-center gap-2">
+                 <button class="lg:hidden p-2 text-text-gray mr-2">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+                 </button>
+                 <div class="flex items-center gap-2 text-sm text-text-gray">
+                    <svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="12" height="12" rx="2"/><path d="M5 2V14"/></svg>
+                    <span class="text-[#71717b]">Projects</span>
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>
+                    <span class="text-text-dark font-medium">Testing Voice LLM for Health in Rwanda</span>
+                </div>
             </div>
+            <!-- <div class="text-text-gray text-base">Oct 12-Feb 29</div> -->
         </header>
 
-        <main class="p-10">
-            <div class="max-w-[1400px] mx-auto flex flex-col gap-8">
-                <!-- Header -->
-                <div class="flex flex-col gap-1">
-                    <div class="flex items-center gap-4">
-                        <h1 class="text-[30px] font-bold text-[#0f172b] tracking-tight">Task Allocation & Progress</h1>
-                        <div class="bg-[#dcfce7] px-3 py-1 rounded-full flex items-center">
-                            <span class="text-[12px] font-bold text-[#008236]">Active</span>
-                        </div>
+        <div class="flex-1 overflow-y-auto px-8 pb-8 pt-2 space-y-6">
+            <div class="space-y-1 flex justify-between items-start">
+                <div>
+                    <div class="flex items-center gap-2">
+                        <h1 class="text-[30px] font-bold text-text-dark tracking-tight leading-[36px]">Task Allocation & Progress</h1>
                     </div>
-                    <p class="text-[#62748e] text-base">Monitor Progress and Allocate Tasks to Participants</p>
+                    <p class="text-[#62748e] text-base leading-6 mt-1">Monitor Progress and Allocate Tasks to Participants</p>
                 </div>
+                <div class="flex flex-col items-end gap-1">
+                    <div class="bg-success-bg text-success-text px-2.5 py-0.5 rounded-full text-xs font-bold leading-4">Started</div>
+                    <div class="text-[#62748e] text-sm">Oct 12-Feb 29</div>
+                </div>
+            </div>
 
-                <!-- Stats Cards -->
-                <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-                    <!-- Project Progress -->
-                    <div class="bg-white p-6 rounded-[14px] border border-[#e2e8f0] shadow-sm flex flex-col gap-6">
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                <!-- Card 1: Project Progress -->
+                <div class="bg-white rounded-[14px] p-6 shadow-card border border-slate-200 flex flex-col h-[234px] relative overflow-hidden group hover:shadow-md transition-shadow">
+                    <div class="flex items-start justify-between mb-6">
                         <div class="flex items-center gap-3">
-                            <div class="w-10 h-10 bg-[#eef2ff] rounded-[10px] flex items-center justify-center">
-                                <svg class="w-5 h-5 text-[#4F39F6]" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>
+                            <div class="w-10 h-10 rounded-[10px] bg-[#eef2ff] text-primary flex items-center justify-center shrink-0">
+                                <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M3.75 13.75C2.5 14.8 2.08333 17.9167 2.08333 17.9167C2.08333 17.9167 5.2 17.5 6.25 16.25C6.84167 15.55 6.83333 14.475 6.175 13.825C5.85109 13.5158 5.42441 13.3372 4.97685 13.3234C4.5293 13.3095 4.0924 13.4614 3.75 13.75Z" stroke="#4F39F6" stroke-width="1.66667" stroke-linecap="round" stroke-linejoin="round"/><path d="M10 12.5L7.5 10C7.94345 8.84953 8.50184 7.74672 9.16667 6.70834C10.1377 5.15583 11.4897 3.87754 13.0942 2.99508C14.6986 2.11261 16.5022 1.65531 18.3333 1.66667C18.3333 3.93334 17.6833 7.91667 13.3333 10.8333C12.2807 11.4989 11.164 12.0573 10 12.5Z" stroke="#4F39F6" stroke-width="1.66667" stroke-linecap="round" stroke-linejoin="round"/><path d="M7.5 10H3.33333C3.33333 10 3.79167 7.475 5 6.66667C6.35 5.76667 9.16667 6.66667 9.16667 6.66667" stroke="#4F39F6" stroke-width="1.66667" stroke-linecap="round" stroke-linejoin="round"/><path d="M10 12.5V16.6667C10 16.6667 12.525 16.2083 13.3333 15C14.2333 13.65 13.3333 10.8333 13.3333 10.8333" stroke="#4F39F6" stroke-width="1.66667" stroke-linecap="round" stroke-linejoin="round"/></svg>
                             </div>
                             <div>
-                                <div class="text-[14px] font-bold text-[#0f172b]">Project Progress</div>
-                                <div class="text-[10px] font-bold text-[#62748e] uppercase tracking-wider">Sessions Completed</div>
+                                <h3 class="font-bold text-text-dark text-base">Project Progress</h3>
+                                <p class="text-[#62748e] text-[10px] font-bold tracking-[0.6px] uppercase mt-0.5">SESSIONS COMPLETED</p>
                             </div>
-                        </div>
-                        <div class="flex flex-col gap-2">
-                            <div class="flex justify-between items-end">
-                                <span class="text-[32px] font-bold text-[#0f172b]">78%</span>
-                                <span class="text-[14px] font-medium text-[#62748e] mb-1">223 / 350 Sessions</span>
-                            </div>
-                            <div class="h-2 bg-slate-100 rounded-full overflow-hidden">
-                                <div class="h-full bg-[#4F39F6] w-[78%]"></div>
-                            </div>
-                        </div>
-                        <div class="flex items-center gap-1.5">
-                            <svg class="w-3.5 h-3.5 text-[#fb2c36]" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-2h2v2zm0-4h-2V7h2v6z"/></svg>
-                            <span class="text-[12px] font-medium text-[#fb2c36]">1,454 Task not assigned yet</span>
                         </div>
                     </div>
-
-                    <!-- Participants -->
-                    <div class="bg-white p-6 rounded-[14px] border border-[#e2e8f0] shadow-sm flex flex-col gap-6">
-                        <div class="flex items-center gap-3">
-                            <div class="w-10 h-10 bg-[#e4fcfb] rounded-[10px] flex items-center justify-center">
-                                <svg class="w-5 h-5 text-[#3C918D]" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
-                            </div>
-                            <div>
-                                <div class="text-[14px] font-bold text-[#0f172b]">Participants</div>
-                                <div class="text-[10px] font-bold text-[#62748e] uppercase tracking-wider">Project Team</div>
-                            </div>
-                        </div>
-                        <div class="flex flex-col gap-2">
-                            <div class="flex justify-between items-end">
-                                <span class="text-[32px] font-bold text-[#0f172b]">50%</span>
-                                <span class="text-[14px] font-medium text-[#62748e] mb-1">12 active / 24 Recruited</span>
-                            </div>
-                            <div class="h-2 bg-slate-100 rounded-full overflow-hidden">
-                                <div class="h-full bg-[#90a1b9] w-[50%]"></div>
-                            </div>
-                        </div>
-                        <div class="flex justify-between items-center">
-                            <div class="flex items-center gap-1.5">
-                                <svg class="w-3.5 h-3.5 text-[#fb2c36]" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-2h2v2zm0-4h-2V7h2v6z"/></svg>
-                                <span class="text-[12px] font-medium text-[#fb2c36]">6 people are dormant</span>
-                            </div>
-                            <button class="px-3 py-1 bg-[#eef2ff] rounded-md text-[11px] font-bold text-[#432dd7]">View Participants</button>
-                        </div>
+                    <div class="flex items-center mb-4 relative h-10">
+                        <span class="text-[36px] font-bold text-text-dark leading-[40px] absolute left-0 top-0">78%</span>
+                        <span class="text-[#62748e] text-[14px] font-medium absolute right-0 top-[16px]">223 / 450 Sessions</span>
                     </div>
-
-                    <!-- QA Progress -->
-                    <div class="bg-white p-6 rounded-[14px] border border-[#e2e8f0] shadow-sm flex flex-col gap-6">
-                        <div class="flex items-center gap-3">
-                            <div class="w-10 h-10 bg-[#fff2ea] rounded-[10px] flex items-center justify-center">
-                                <svg class="w-5 h-5 text-[#FFA263]" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
-                            </div>
-                            <div>
-                                <div class="text-[14px] font-bold text-[#0f172b]">QA Progress</div>
-                                <div class="text-[10px] font-bold text-[#62748e] uppercase tracking-wider">Quality Control</div>
-                            </div>
-                        </div>
-                        <div class="flex flex-col gap-2">
-                            <div class="flex justify-between items-end">
-                                <span class="text-[32px] font-bold text-[#0f172b]">28%</span>
-                                <span class="text-[14px] font-medium text-[#62748e] mb-1">203 / 223 Reviewed</span>
-                            </div>
-                            <div class="h-2 bg-slate-100 rounded-full overflow-hidden">
-                                <div class="h-full bg-[#ffb07a] w-[28%]"></div>
-                            </div>
-                        </div>
-                        <div class="flex justify-between items-center">
-                            <div class="flex items-center gap-1.5">
-                                <svg class="w-3.5 h-3.5 text-[#fb2c36]" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-2h2v2zm0-4h-2V7h2v6z"/></svg>
-                                <span class="text-[12px] font-medium text-[#fb2c36]">20 Sessions to Review</span>
-                            </div>
-                            <button class="px-3 py-1 bg-[#eef2ff] rounded-md text-[11px] font-bold text-[#432dd7]">Check data quality</button>
-                        </div>
+                    <div class="h-2 w-full bg-[#f1f5f9] rounded-full overflow-hidden mb-6">
+                        <div class="h-full bg-primary w-[78%] rounded-full"></div>
+                    </div>
+                    <div class="mt-auto flex items-center gap-1 text-[#fb2c36] text-[12px] font-medium">
+                         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+                        1,454 Task not assigned yet
                     </div>
                 </div>
 
-                <!-- Table Card -->
-                <div class="bg-white rounded-[14px] border border-[#e2e8f0] shadow-sm overflow-hidden pb-8">
-                    <!-- Toolbar -->
-                    <div class="p-6 border-b border-[#e2e8f0] flex flex-col gap-4">
-                        <div class="flex justify-between items-center">
-                            <h2 class="text-[20px] font-bold text-[#62748e]">Sessions to Assign</h2>
-                            <div class="flex items-center gap-3">
-                                <div class="relative">
-                                    <svg class="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-[#90A1B9]" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
-                                    <input type="text" placeholder="Search tasks..." class="pl-10 pr-4 h-9 w-[240px] bg-white border border-[#e2e8f0] rounded-[8px] text-sm focus:outline-none focus:border-[#4f39f6] transition-colors">
-                                </div>
-                                <button class="h-9 px-4 flex items-center gap-2 text-[#45556c] font-medium border border-[#e2e8f0] rounded-[8px] hover:bg-slate-50 transition-colors">
-                                    <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M22 3H2l8 9.46V19l4 2v-8.54L22 3z"/></svg>
-                                    Filters
-                                </button>
-                                <div class="h-6 w-px bg-[#e2e8f0] mx-1"></div>
-                                <button class="h-9 px-4 flex items-center gap-2 bg-[#4f39f6] text-white font-bold rounded-[8px] shadow-lg shadow-[#4f39f6]/20 transition-all active:scale-95 disabled:opacity-50" disabled>
-                                    Assign Selection
-                                </button>
+                <!-- Card 2: Participants -->
+                <div class="bg-white rounded-[14px] p-6 shadow-card border border-slate-200 flex flex-col h-[234px] relative overflow-hidden group hover:shadow-md transition-shadow">
+                    <div class="flex items-start justify-between mb-6">
+                        <div class="flex items-center gap-3">
+                            <div class="w-10 h-10 rounded-[10px] bg-[#e4fcfb] text-[#3C918D] flex items-center justify-center shrink-0">
+                                <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M13.3333 17.5V15.8333C13.3333 14.9493 12.9821 14.1014 12.357 13.4763C11.7319 12.8512 10.8841 12.5 10 12.5H5C4.11595 12.5 3.2681 12.8512 2.64298 13.4763C2.01786 14.1014 1.66667 14.9493 1.66667 15.8333V17.5" stroke="#3C918D" stroke-width="1.66667" stroke-linecap="round" stroke-linejoin="round"/><path d="M7.5 9.16667C9.34095 9.16667 10.8333 7.67428 10.8333 5.83333C10.8333 3.99238 9.34095 2.5 7.5 2.5C5.65905 2.5 4.16667 3.99238 4.16667 5.83333C4.16667 7.67428 5.65905 9.16667 7.5 9.16667Z" stroke="#3C918D" stroke-width="1.66667" stroke-linecap="round" stroke-linejoin="round"/><path d="M18.3333 17.5V15.8333C18.3328 15.0948 18.087 14.3773 17.6345 13.7936C17.182 13.2099 16.5484 12.793 15.8333 12.6083" stroke="#3C918D" stroke-width="1.66667" stroke-linecap="round" stroke-linejoin="round"/><path d="M13.3333 2.60834C14.0503 2.79192 14.6859 3.20892 15.1397 3.7936C15.5935 4.37827 15.8399 5.09736 15.8399 5.8375C15.8399 6.57765 15.5935 7.29674 15.1397 7.88141C14.6859 8.46609 14.0503 8.88309 13.3333 9.06667" stroke="#3C918D" stroke-width="1.66667" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                            </div>
+                            <div>
+                                <h3 class="font-bold text-text-dark text-base">Participants</h3>
+                                <p class="text-[#62748e] text-[10px] font-bold tracking-[0.6px] uppercase mt-0.5">PROJECT TEAM</p>
                             </div>
                         </div>
                     </div>
+                    <div class="flex items-center mb-4 relative h-10">
+                        <span class="text-[36px] font-bold text-text-dark leading-[40px] absolute left-0 top-0">50%</span>
+                        <span class="text-[#62748e] text-[14px] font-medium absolute right-0 top-[16px]">12 active / 24 Recruited</span>
+                    </div>
+                    <div class="h-2 w-full bg-[#f1f5f9] rounded-full overflow-hidden mb-6">
+                        <div class="h-full bg-[#90a1b9] w-[50%] rounded-full"></div>
+                    </div>
+                    <div class="mt-auto flex items-center justify-between">
+                         <div class="flex items-center gap-1 text-[#fb2c36] text-[12px] font-medium">
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+                            6 people are dormant
+                        </div>
+                        <a href="project-detail-participants.html" class="bg-[#eef2ff] hover:bg-[#e0e7ff] text-[#432dd7] px-3 py-1.5 rounded-[8px] text-[12px] font-bold transition-colors">
+                            Go To Participants
+                        </a>
+                    </div>
+                </div>
 
-                    <!-- Table -->
-                    <div class="overflow-x-auto">
-                        <table class="w-full min-w-[1200px]">
-                            <thead class="bg-[#f8fafc] border-b border-slate-100 text-[11px] font-bold text-[#62748e] uppercase tracking-[0.6px]">
-                                <tr>
-                                    <th class="px-6 py-4 text-left w-10"><input type="checkbox" class="w-4 h-4 rounded"></th>
-                                    <th class="px-6 py-4 text-left">Batch ID</th>
-                                    <th class="px-6 py-4 text-left">Session Theme</th>
-                                    <th class="px-6 py-4 text-left">Scenario</th>
-                                    <th class="px-6 py-4 text-left">Status</th>
-                                    <th class="px-6 py-4 text-left">Participants</th>
-                                    <th class="px-6 py-4 text-right pr-10">QA Status</th>
-                                </tr>
-                            </thead>
-                            <tbody class="divide-y divide-slate-100">
-                                <tr class="hover:bg-slate-50 transition-colors">
-                                    <td class="px-6 py-4"><input type="checkbox" class="w-4 h-4 rounded"></td>
-                                    <td class="px-6 py-4 text-[13px] font-bold text-slate-500">B-004</td>
-                                    <td class="px-6 py-4"><span class="px-2 py-1 bg-[#fff1f2] text-[#e11d48] rounded-[6px] text-[11px] font-bold uppercase">HIV / AIDS</span></td>
-                                    <td class="px-6 py-4 text-[13px] font-bold text-[#0f172b]">PrEP Consultation</td>
-                                    <td class="px-6 py-4"><span class="px-2.5 py-1 bg-[#f0fdf4] text-[#008236] border border-[#dcfce7] rounded-full text-[11px] font-bold">Completed</span></td>
-                                    <td class="px-6 py-4">
-                                        <div class="flex -space-x-2">
-                                            <div class="w-7 h-7 rounded-full border-2 border-white overflow-hidden bg-slate-100 shadow-sm"><img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=100&h=100&fit=crop"></div>
-                                            <div class="w-7 h-7 rounded-full border-2 border-white overflow-hidden bg-slate-100 shadow-sm"><img src="https://images.unsplash.com/photo-1599566150163-29194dcaad36?w=100&h=100&fit=crop"></div>
-                                        </div>
-                                    </td>
-                                    <td class="px-6 py-4 text-right pr-10"><span class="px-2.5 py-1 bg-green-100 text-green-700 rounded-full text-[11px] font-bold">Verified</span></td>
-                                </tr>
-                            </tbody>
-                        </table>
+                <!-- Card 3: QA Progress -->
+                <div class="bg-white rounded-[14px] p-6 shadow-card border border-slate-200 flex flex-col h-[234px] relative overflow-hidden group hover:shadow-md transition-shadow">
+                    <div class="flex items-start justify-between mb-6">
+                        <div class="flex items-center gap-3">
+                            <div class="w-10 h-10 rounded-[10px] bg-[#fff2ea] text-[#FFA263] flex items-center justify-center shrink-0">
+                                <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M17.5 12.5C17.5 12.942 17.3244 13.366 17.0118 13.6785C16.6993 13.9911 16.2754 14.1667 15.8333 14.1667H5.83333L2.5 17.5V4.16667C2.5 3.72464 2.67559 3.30072 2.98816 2.98816C3.30072 2.67559 3.72464 2.5 4.16667 2.5H15.8333C16.2754 2.5 16.6993 2.67559 17.0118 2.98816C17.3244 3.30072 17.5 3.72464 17.5 4.16667V12.5Z" stroke="#FFA263" stroke-width="1.66667" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                            </div>
+                            <div>
+                                <h3 class="font-bold text-text-dark text-base">QA Progress</h3>
+                                <p class="text-[#62748e] text-[10px] font-bold tracking-[0.6px] uppercase mt-0.5">QUALITY CONTROL</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="flex items-center mb-4 relative h-10">
+                        <span class="text-[36px] font-bold text-text-dark leading-[40px] absolute left-0 top-0">28%</span>
+                        <span class="text-[#62748e] text-[14px] font-medium absolute right-0 top-[16px]">203/223 Reviewed</span>
+                    </div>
+                    <div class="h-2 w-full bg-[#f1f5f9] rounded-full overflow-hidden mb-6">
+                        <div class="h-full bg-[#ffb07a] w-[28%] rounded-full"></div>
+                    </div>
+                    <div class="mt-auto flex items-center justify-between">
+                         <div class="flex items-center gap-1 text-[#fb2c36] text-[12px] font-medium">
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+                            20 Sessions to Review
+                        </div>
+                        <a href="project-detail-data-quality.html" class="bg-[#eef2ff] hover:bg-[#e0e7ff] text-[#432dd7] px-3 py-1.5 rounded-[8px] text-[12px] font-bold transition-colors">
+                            Go To Data Quality
+                        </a>
                     </div>
                 </div>
             </div>
-        </main>
+
+            <!-- Table Section -->
+            <div class="bg-white border border-[#e2e8f0] rounded-[14px] shadow-sm overflow-hidden">
+                <div class="p-6 border-b border-[#f1f5f9] flex items-center justify-between">
+                    <div class="h-[36px] bg-white rounded-[14px] flex items-center">
+                         <span class="text-[#62748e] text-[20px] font-bold">Sessions to Assign</span>
+                    </div>
+                    
+                    <div class="flex items-center gap-3">
+                         <!-- Search -->
+                         <div class="relative">
+                            <svg class="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-[#90A1B9]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+                            <input 
+                                type="text" 
+                                placeholder="Search tasks..." 
+                                class="pl-10 pr-4 h-9 w-[240px] bg-white border border-slate-200 rounded-[8px] text-sm focus:outline-none focus:border-primary transition-colors"
+                            >
+                        </div>
+                        
+                        <button class="h-9 px-4 flex items-center gap-2 border border-slate-200 rounded-[8px] text-[#45556c] font-medium text-[14px] hover:bg-slate-50 transition-colors">
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3"></polygon></svg>
+                            Filters
+                        </button>
+
+                        <button class="h-9 px-4 flex items-center gap-2 border border-slate-200 rounded-[8px] text-[#45556c] font-medium text-[14px] hover:bg-slate-50 transition-colors">
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m21 16-4 4-4-4"></path><path d="M17 20V4"></path><path d="m3 8 4-4 4 4"></path><path d="M7 4v16"></path></svg>
+                            Sort By
+                        </button>
+
+                        <div class="h-6 w-px bg-slate-200 mx-1 hidden sm:block"></div>
+
+                        <button id="assign-btn" onclick="openModal('assign-modal')" class="h-9 px-4 flex items-center gap-2 font-bold transition-all border border-slate-200 rounded-[8px] bg-[#f8fafc] text-[#90A1B9] hover:bg-[#f1f5f9] cursor-not-allowed">
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+                            Assign Participant
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="overflow-x-auto">
+                    <table class="w-full text-left border-collapse">
+                        <thead class="bg-[#f8fafc] border-b border-[#f1f5f9]">
+                            <tr>
+                                <th class="p-4 w-[48px]"><input type="checkbox" class="checkbox-custom" onclick="toggleAllMain(this)"></th>
+                                <th class="p-4 text-[#62748e] font-bold text-[11px] tracking-[0.6px] uppercase">Batch</th>
+                                <th class="p-4 text-[#62748e] font-bold text-[11px] tracking-[0.6px] uppercase">Sessions</th>
+                                <th class="p-4 text-[#62748e] font-bold text-[11px] tracking-[0.6px] uppercase">Assigned To</th>
+                                <th class="p-4 text-[#62748e] font-bold text-[11px] tracking-[0.6px] uppercase">Status</th>
+                                <th class="p-4 text-[#62748e] font-bold text-[11px] tracking-[0.6px] uppercase">QA Assigned To</th>
+                                <th class="p-4"></th>
+                            </tr>
+                        </thead>
+                        <tbody class="divide-y divide-[#f1f5f9] bg-white text-text-dark">
+                             <!-- Row 1 -->
+                             <tr class="hover:bg-slate-50 group h-[72px]">
+                                <td class="p-4"><input type="checkbox" class="checkbox-custom main-checkbox" onclick="updateAssignButton()"></td>
+                                <td class="p-4 text-[#62748e] font-medium text-[14px]">B-004</td>
+                                <td class="p-4">
+                                    <div class="font-bold text-[14px] mb-1">PrEP Consultation</div>
+                                    <span class="inline-block px-1.5 py-0.5 rounded bg-tag-pink-bg text-tag-pink-text text-[10px] font-bold">HIV / AIDS</span>
+                                </td>
+                                <td class="p-4">
+                                    <div class="flex -space-x-2 items-center">
+                                        <div class="w-8 h-8 rounded-full border-2 border-white bg-slate-200 flex items-center justify-center overflow-hidden">
+                                             <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=100&h=100&fit=crop" class="w-full h-full object-cover" />
+                                        </div>
+                                        <div class="w-8 h-8 rounded-full border-2 border-white bg-slate-200 flex items-center justify-center overflow-hidden">
+                                            <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=100&h=100&fit=crop" class="w-full h-full object-cover" />
+                                       </div>
+                                       <div class="w-8 h-8 rounded-full border-2 border-white bg-slate-200 flex items-center justify-center overflow-hidden">
+                                        <img src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?w=100&h=100&fit=crop" class="w-full h-full object-cover" />
+                                       </div>
+                                        <button onclick="openModal('assign-modal')" class="w-8 h-8 rounded-full bg-[#f1f5f9] border-2 border-white flex items-center justify-center text-[#62748e] hover:bg-slate-200 text-xs font-medium transition-colors hover:z-10 relative">
+                                            +
+                                        </button>
+                                    </div>
+                                </td>
+                                <td class="p-4">
+                                    <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-[#f0fdf4] text-[#15803d] text-[12px] font-bold border border-[#dcfce7]">
+                                        <span class="w-1.5 h-1.5 rounded-full bg-[#15803d] opacity-60"></span>
+                                        Completed
+                                    </span>
+                                </td>
+                                <td class="p-4">
+                                    <div class="flex items-center gap-2">
+                                        <div class="w-6 h-6 rounded-full overflow-hidden">
+                                            <img src="https://images.unsplash.com/photo-1649257602071-70e2840d249f?w=100&h=100&fit=crop" class="w-full h-full object-cover" />
+                                        </div>
+                                        <span class="font-medium text-[14px] text-text-dark">Alisha K.</span>
+                                    </div>
+                                </td>
+                                <td class="p-4 text-right">
+                                    <button onclick="openPanel('details-panel')" class="h-8 px-3 border border-[#e2e8f0] rounded-[8px] text-[12px] font-medium text-[#4f39f6] bg-white hover:bg-[#eef2ff] hover:border-[#c6d2ff] transition-all">See Details</button>
+                                </td>
+                            </tr>
+
+                            <!-- Row 2 -->
+                            <tr class="hover:bg-slate-50 group h-[72px]">
+                                <td class="p-4"><input type="checkbox" class="checkbox-custom main-checkbox" onclick="updateAssignButton()"></td>
+                                <td class="p-4 text-[#62748e] font-medium text-[14px]">B-004</td>
+                                <td class="p-4">
+                                    <div class="font-bold text-[14px] mb-1">PrEP Consultation</div>
+                                    <span class="inline-block px-1.5 py-0.5 rounded bg-tag-pink-bg text-tag-pink-text text-[10px] font-bold">HIV / AIDS</span>
+                                </td>
+                                <td class="p-4">
+                                    <div class="flex -space-x-2 items-center">
+                                        <div class="w-8 h-8 rounded-full border-2 border-white bg-slate-200 flex items-center justify-center overflow-hidden">
+                                             <img src="https://images.unsplash.com/photo-1655249493799-9cee4fe983bb?w=100&h=100&fit=crop" class="w-full h-full object-cover" />
+                                        </div>
+                                        <button onclick="openModal('assign-modal')" class="w-8 h-8 rounded-full bg-[#f1f5f9] border-2 border-white flex items-center justify-center text-[#62748e] hover:bg-slate-200 text-xs font-medium transition-colors hover:z-10 relative">
+                                            +
+                                        </button>
+                                    </div>
+                                </td>
+                                <td class="p-4">
+                                    <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-[#fef2f2] text-[#991B1B] text-[12px] font-bold border border-[#fee2e2]">
+                                        <span class="w-1.5 h-1.5 rounded-full bg-[#991B1B] opacity-60"></span>
+                                        Not Started
+                                    </span>
+                                </td>
+                                <td class="p-4">
+                                    <span class="text-[14px] text-[#90A1B9] italic">Unassigned</span>
+                                </td>
+                                <td class="p-4 text-right">
+                                    <button onclick="openPanel('details-panel')" class="h-8 px-3 border border-[#e2e8f0] rounded-[8px] text-[12px] font-medium text-[#4f39f6] bg-white hover:bg-[#eef2ff] hover:border-[#c6d2ff] transition-all">See Details</button>
+                                </td>
+                            </tr>
+
+                            <!-- Row 3 -->
+                            <tr class="hover:bg-slate-50 group h-[72px]">
+                                <td class="p-4"><input type="checkbox" class="checkbox-custom main-checkbox" onclick="updateAssignButton()"></td>
+                                <td class="p-4 text-[#62748e] font-medium text-[14px]">B-005</td>
+                                <td class="p-4">
+                                    <div class="font-bold text-[14px] mb-1">Third Trimester Diet</div>
+                                    <span class="inline-block px-1.5 py-0.5 rounded bg-[#fef2f2] text-[#b91c1c] text-[10px] font-bold">Pregnancy</span>
+                                </td>
+                                <td class="p-4">
+                                    <button onclick="openModal('assign-modal')" class="text-primary text-[14px] font-medium hover:underline">+ Assign</button>
+                                </td>
+                                <td class="p-4">
+                                    <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-[#f1f5f9] text-[#64748b] text-[12px] font-bold border border-[#e2e8f0]">
+                                        <span class="w-1.5 h-1.5 rounded-full bg-[#64748b] opacity-60"></span>
+                                        Unassigned
+                                    </span>
+                                </td>
+                                <td class="p-4">
+                                    <span class="text-[14px] text-[#90A1B9] italic">Unassigned</span>
+                                </td>
+                                <td class="p-4 text-right">
+                                    <button onclick="openPanel('details-panel')" class="h-8 px-3 border border-[#e2e8f0] rounded-[8px] text-[12px] font-medium text-[#4f39f6] bg-white hover:bg-[#eef2ff] hover:border-[#c6d2ff] transition-all">See Details</button>
+                                </td>
+                            </tr>
+
+                            <!-- Row 4 -->
+                            <tr class="hover:bg-slate-50 group h-[72px]">
+                                <td class="p-4"><input type="checkbox" class="checkbox-custom main-checkbox" onclick="updateAssignButton()"></td>
+                                <td class="p-4 text-[#62748e] font-medium text-[14px]">B-006</td>
+                                <td class="p-4">
+                                    <div class="font-bold text-[14px] mb-1">Anxiety Management</div>
+                                    <span class="inline-block px-1.5 py-0.5 rounded bg-[#f1f5f9] text-[#334155] text-[10px] font-bold">Mental Health</span>
+                                </td>
+                                <td class="p-4">
+                                    <div class="flex -space-x-2 items-center">
+                                        <div class="w-8 h-8 rounded-full border-2 border-white bg-slate-200 flex items-center justify-center overflow-hidden">
+                                             <img src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=100&h=100&fit=crop" class="w-full h-full object-cover" />
+                                        </div>
+                                        <div class="w-8 h-8 rounded-full border-2 border-white bg-slate-200 flex items-center justify-center overflow-hidden">
+                                            <img src="https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?w=100&h=100&fit=crop" class="w-full h-full object-cover" />
+                                       </div>
+                                       <div class="w-8 h-8 rounded-full border-2 border-white bg-slate-200 flex items-center justify-center overflow-hidden">
+                                        <img src="https://images.unsplash.com/photo-1570295999919-56ceb5ecca61?w=100&h=100&fit=crop" class="w-full h-full object-cover" />
+                                       </div>
+                                        <button onclick="openModal('assign-modal')" class="w-8 h-8 rounded-full bg-[#f1f5f9] border-2 border-white flex items-center justify-center text-[#62748e] hover:bg-slate-200 text-xs font-medium transition-colors hover:z-10 relative">
+                                            +
+                                        </button>
+                                    </div>
+                                </td>
+                                <td class="p-4">
+                                    <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-[#fffbeb] text-[#d97706] text-[12px] font-bold border border-[#fef3c7]">
+                                        <span class="w-1.5 h-1.5 rounded-full bg-[#d97706] opacity-60"></span>
+                                        Ongoing
+                                    </span>
+                                </td>
+                                <td class="p-4">
+                                    <div class="flex items-center gap-2">
+                                        <div class="w-6 h-6 rounded-full overflow-hidden">
+                                            <img src="https://images.unsplash.com/photo-1531427186611-ecfd6d936c79?w=100&h=100&fit=crop" class="w-full h-full object-cover" />
+                                        </div>
+                                        <span class="font-medium text-[14px] text-text-dark">Chris P.</span>
+                                    </div>
+                                </td>
+                                <td class="p-4 text-right">
+                                    <button onclick="openPanel('details-panel')" class="h-8 px-3 border border-[#e2e8f0] rounded-[8px] text-[12px] font-medium text-[#4f39f6] bg-white hover:bg-[#eef2ff] hover:border-[#c6d2ff] transition-all">See Details</button>
+                                </td>
+                            </tr>
+
+                            <!-- Row 5 -->
+                            <tr class="hover:bg-slate-50 group h-[72px]">
+                                <td class="p-4"><input type="checkbox" class="checkbox-custom main-checkbox" onclick="updateAssignButton()"></td>
+                                <td class="p-4 text-[#62748e] font-medium text-[14px]">B-007</td>
+                                <td class="p-4">
+                                    <div class="font-bold text-[14px] mb-1">Diabetes Meal Plan</div>
+                                    <span class="inline-block px-1.5 py-0.5 rounded bg-[#FFEDD5] text-[#C2410C] text-[10px] font-bold">Chronic Disease</span>
+                                </td>
+                                <td class="p-4">
+                                    <div class="flex -space-x-2 items-center">
+                                        <div class="w-8 h-8 rounded-full border-2 border-white bg-slate-200 flex items-center justify-center overflow-hidden">
+                                             <img src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=100&h=100&fit=crop" class="w-full h-full object-cover" />
+                                        </div>
+                                        <div class="w-8 h-8 rounded-full border-2 border-white bg-slate-200 flex items-center justify-center overflow-hidden">
+                                            <img src="https://images.unsplash.com/photo-1544725176-7c40e5a71c5e?w=100&h=100&fit=crop" class="w-full h-full object-cover" />
+                                       </div>
+                                       <div class="w-8 h-8 rounded-full border-2 border-white bg-slate-200 flex items-center justify-center overflow-hidden">
+                                        <img src="https://images.unsplash.com/photo-1649257602071-70e2840d249f?w=100&h=100&fit=crop" class="w-full h-full object-cover" />
+                                       </div>
+                                        <button onclick="openModal('assign-modal')" class="w-8 h-8 rounded-full bg-[#f1f5f9] border-2 border-white flex items-center justify-center text-[#62748e] hover:bg-slate-200 text-xs font-medium transition-colors hover:z-10 relative">
+                                            +
+                                        </button>
+                                    </div>
+                                </td>
+                                <td class="p-4">
+                                    <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-[#fefce8] text-[#a16207] text-[12px] font-bold border border-[#fef9c3]">
+                                        <span class="w-1.5 h-1.5 rounded-full bg-[#a16207] opacity-60"></span>
+                                        In review
+                                    </span>
+                                </td>
+                                <td class="p-4">
+                                    <div class="flex items-center gap-2">
+                                        <div class="w-6 h-6 rounded-full overflow-hidden">
+                                            <img src="https://images.unsplash.com/photo-1542206391-5f1e62775364?w=100&h=100&fit=crop" class="w-full h-full object-cover" />
+                                        </div>
+                                        <span class="font-medium text-[14px] text-text-dark">Chloe M.</span>
+                                    </div>
+                                </td>
+                                <td class="p-4 text-right">
+                                    <button onclick="openPanel('details-panel')" class="h-8 px-3 border border-[#e2e8f0] rounded-[8px] text-[12px] font-medium text-[#4f39f6] bg-white hover:bg-[#eef2ff] hover:border-[#c6d2ff] transition-all">See Details</button>
+                                </td>
+                            </tr>
+
+                            <!-- Row 6 -->
+                            <tr class="hover:bg-slate-50 group h-[72px]">
+                                <td class="p-4"><input type="checkbox" class="checkbox-custom main-checkbox" onclick="updateAssignButton()"></td>
+                                <td class="p-4 text-[#62748e] font-medium text-[14px]">B-008</td>
+                                <td class="p-4">
+                                    <div class="font-bold text-[14px] mb-1">Diabetes Meal Plan</div>
+                                    <span class="inline-block px-1.5 py-0.5 rounded bg-[#FFEDD5] text-[#C2410C] text-[10px] font-bold">Chronic Disease</span>
+                                </td>
+                                <td class="p-4">
+                                    <div class="flex -space-x-2 items-center">
+                                        <div class="w-8 h-8 rounded-full border-2 border-white bg-slate-200 flex items-center justify-center overflow-hidden">
+                                             <img src="https://images.unsplash.com/photo-1500917293891-ef795e70e1f6?w=100&h=100&fit=crop" class="w-full h-full object-cover" />
+                                        </div>
+                                        <div class="w-8 h-8 rounded-full border-2 border-white bg-slate-200 flex items-center justify-center overflow-hidden">
+                                            <img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=100&h=100&fit=crop" class="w-full h-full object-cover" />
+                                       </div>
+                                       <div class="w-8 h-8 rounded-full border-2 border-white bg-slate-200 flex items-center justify-center overflow-hidden">
+                                        <img src="https://images.unsplash.com/photo-1522529599102-193c0d76b5b6?w=100&h=100&fit=crop" class="w-full h-full object-cover" />
+                                       </div>
+                                        <button onclick="openModal('assign-modal')" class="w-8 h-8 rounded-full bg-[#f1f5f9] border-2 border-white flex items-center justify-center text-[#62748e] hover:bg-slate-200 text-xs font-medium transition-colors hover:z-10 relative">
+                                            +
+                                        </button>
+                                    </div>
+                                </td>
+                                <td class="p-4">
+                                    <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-[#eff6ff] text-[#2563eb] text-[12px] font-bold border border-[#dbeafe]">
+                                        <span class="w-1.5 h-1.5 rounded-full bg-[#2563eb] opacity-60"></span>
+                                        Reviewed
+                                    </span>
+                                </td>
+                                <td class="p-4">
+                                    <div class="flex items-center gap-2">
+                                        <div class="w-6 h-6 rounded-full overflow-hidden">
+                                            <img src="https://images.unsplash.com/photo-1542206391-5f1e62775364?w=100&h=100&fit=crop" class="w-full h-full object-cover" />
+                                        </div>
+                                        <span class="font-medium text-[14px] text-text-dark">Chloe M.</span>
+                                    </div>
+                                </td>
+                                <td class="p-4 text-right">
+                                    <button onclick="openPanel('details-panel')" class="h-8 px-3 border border-[#e2e8f0] rounded-[8px] text-[12px] font-medium text-[#4f39f6] bg-white hover:bg-[#eef2ff] hover:border-[#c6d2ff] transition-all">See Details</button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Overlay -->
+    <div id="overlay" class="fixed inset-0 bg-black/50 z-40 hidden opacity-0 transition-opacity duration-200 backdrop-blur-sm" onclick="closeAll()"></div>
+
+    <!-- ASSIGN MODAL -->
+    <div id="assign-modal" class="fixed inset-0 z-50 hidden flex items-center justify-center pointer-events-none">
+        <div class="bg-white rounded-[15px] shadow-modal w-[922px] max-h-[85vh] flex flex-col pointer-events-auto transform scale-95 opacity-0 transition-all duration-200" id="assign-modal-content">
+            
+            <!-- Modal Header -->
+            <div class="p-8 pb-4">
+                 <div class="flex items-start justify-between mb-1">
+                    <div class="space-y-1">
+                        <h2 class="text-[20px] font-bold text-[#140d1b] leading-[30px] tracking-[-0.5px]">Assign Participants</h2>
+                        <p class="text-[#6b7280] text-[14px] leading-[21px]">Select participants from your pool and define task distribution.</p>
+                    </div>
+                    <button onclick="closeAll()" class="w-9 h-9 flex items-center justify-center rounded-full hover:bg-slate-100 text-[#90A1B9]">
+                        <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.33" stroke-linecap="round" stroke-linejoin="round"><path d="M12 4L4 12"/><path d="M4 4L12 12"/></svg>
+                    </button>
+                </div>
+                
+                <!-- Filters Row -->
+                <div class="flex items-center gap-5 mt-6">
+                    <span class="text-[14px] font-medium text-[#0f172b]">Filter BY:</span>
+                    <div class="flex flex-wrap gap-2">
+                        <!-- Segments Filter -->
+                        <div class="flex items-center h-8 px-3 bg-white border border-[#e2e8f0] rounded-[10px] shadow-chip cursor-pointer hover:border-primary transition-colors">
+                            <svg class="mr-2.5 text-[#45556c]" width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M13.3333 4L6 11.3333L2.66667 8" stroke="currentColor" stroke-width="1.33" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                            <span class="text-[12px] text-[#45556c] font-medium mr-1">Segments:</span>
+                            <span class="text-[12px] text-[#45556c] font-bold mr-3">Rural, Urban</span>
+                            <button class="opacity-50 hover:opacity-100"><svg width="10" height="10" viewBox="0 0 10 10" fill="none" stroke="#45556C" stroke-width="1.33" stroke-linecap="round"><path d="M9 1L1 9M1 1l8 8"/></svg></button>
+                        </div>
+
+                         <!-- Age Filter -->
+                         <div class="flex items-center h-8 px-3 bg-white border border-[#e2e8f0] rounded-[10px] shadow-chip cursor-pointer hover:border-primary transition-colors">
+                            <svg class="mr-2.5 text-[#45556c]" width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M13.3333 4L6 11.3333L2.66667 8" stroke="currentColor" stroke-width="1.33" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                            <span class="text-[12px] text-[#45556c] font-medium mr-1">Age:</span>
+                            <span class="text-[12px] text-[#45556c] font-bold mr-3">Any</span>
+                            <button class="opacity-50 hover:opacity-100"><svg width="10" height="10" viewBox="0 0 10 10" fill="none" stroke="#45556C" stroke-width="1.33" stroke-linecap="round"><path d="M9 1L1 9M1 1l8 8"/></svg></button>
+                        </div>
+
+                        <!-- Country Filter -->
+                        <div class="flex items-center h-8 px-3 bg-white border border-[#e2e8f0] rounded-[10px] shadow-chip cursor-pointer hover:border-primary transition-colors">
+                            <svg class="mr-2.5 text-[#45556c]" width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M13.3333 4L6 11.3333L2.66667 8" stroke="currentColor" stroke-width="1.33" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                            <span class="text-[12px] text-[#45556c] font-medium mr-1">Country:</span>
+                            <span class="text-[12px] text-[#45556c] font-bold mr-3">Any</span>
+                            <button class="opacity-50 hover:opacity-100"><svg width="10" height="10" viewBox="0 0 10 10" fill="none" stroke="#45556C" stroke-width="1.33" stroke-linecap="round"><path d="M9 1L1 9M1 1l8 8"/></svg></button>
+                        </div>
+
+                        <!-- Language Filter -->
+                        <div class="flex items-center h-8 px-3 bg-white border border-[#e2e8f0] rounded-[10px] shadow-chip cursor-pointer hover:border-primary transition-colors">
+                            <svg class="mr-2.5 text-[#45556c]" width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M13.3333 4L6 11.3333L2.66667 8" stroke="currentColor" stroke-width="1.33" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                            <span class="text-[12px] text-[#45556c] font-medium mr-1">Language:</span>
+                            <span class="text-[12px] text-[#45556c] font-bold mr-3">Any</span>
+                            <button class="opacity-50 hover:opacity-100"><svg width="10" height="10" viewBox="0 0 10 10" fill="none" stroke="#45556C" stroke-width="1.33" stroke-linecap="round"><path d="M9 1L1 9M1 1l8 8"/></svg></button>
+                        </div>
+
+                        <!-- Add Filter -->
+                        <button class="flex items-center gap-1 ml-2 text-[#4f39f6] text-[14px] font-medium hover:underline">
+                            <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.33" stroke-linecap="round" stroke-linejoin="round"><path d="M3.33 8h9.34"/><path d="M8 3.33v9.34"/></svg>
+                            Add Filter
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- List Content -->
+            <div class="flex-1 overflow-y-auto px-8 pb-8">
+                <div class="flex justify-between items-center mb-2">
+                    <div class="text-[14px] text-[#0f172b] font-bold">
+                        <span id="selected-count">0</span> selected of 5 eligible
+                    </div>
+                </div>
+                
+                <div class="border border-[#f1f5f9] rounded-[15px] overflow-hidden shadow-sm mt-2">
+                     <table class="w-full text-left">
+                        <thead class="bg-[#f8fafc] h-[55px] border-b border-[#f1f5f9]">
+                            <tr>
+                                <th class="pl-4 w-[48px]"><input type="checkbox" class="checkbox-custom"></th>
+                                <th class="px-2 py-4 text-[12px] font-bold text-[#62748e] tracking-[0.6px] uppercase w-[227px]">Name & LAST ACTIVE</th>
+                                <th class="px-2 py-4 text-[12px] font-bold text-[#62748e] tracking-[0.6px] uppercase w-[151px]">Sessions COMPLETED</th>
+                                <th class="px-2 py-4 text-[12px] font-bold text-[#62748e] tracking-[0.6px] uppercase w-[126px]">Segment</th>
+                                <th class="px-2 py-4 text-[12px] font-bold text-[#62748e] tracking-[0.6px] uppercase w-[126px]">Other info</th>
+                                <th class="px-2 py-4 text-[12px] font-bold text-[#62748e] tracking-[0.6px] uppercase text-right pr-6">Rating</th>
+                            </tr>
+                        </thead>
+                        <tbody class="divide-y divide-[#f1f5f9] bg-white">
+                            <!-- Sarah Ndiaye -->
+                            <tr class="h-[64px] hover:bg-slate-50 cursor-pointer" onclick="toggleSelection(this)">
+                                <td class="pl-4"><input type="checkbox" class="checkbox-custom person-checkbox"></td>
+                                <td class="px-2">
+                                    <div class="flex items-center gap-3">
+                                        <div class="w-9 h-9 rounded-full bg-[#e0e7ff] text-[#4f39f6] flex items-center justify-center font-bold text-[11px]">SN</div>
+                                        <div>
+                                            <div class="font-bold text-[#0f172b] text-[14px]">Sarah Ndiaye</div>
+                                            <div class="text-[11px] text-[#62748e]">1 day ago</div>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td class="px-2">
+                                    <div class="flex items-center gap-2 bg-[#eef2ff] px-2 h-[26px] w-fit rounded-[6px]">
+                                        <div class="w-1.5 h-1.5 rounded-full bg-[#6366f1]"></div>
+                                        <span class="text-[12px] font-bold text-[#4338ca]">12 / 25</span>
+                                    </div>
+                                </td>
+                                <td class="px-2 text-[14px] font-medium text-[#0f172b]">Rural R2.1</td>
+                                <td class="px-2 text-[14px] font-medium text-[#0f172b]">PhD student</td>
+                                <td class="px-2 pr-6">
+                                    <div class="flex items-center justify-end gap-1">
+                                        <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M7.683 1.53c.03-.06.075-.11.13-.144.056-.035.12-.053.187-.053.066 0 .13.018.186.053.056.035.101.084.13.144l1.54 3.12c.1.204.25.382.436.516.185.135.4.223.626.256l3.444.504c.065.01.127.037.177.08.05.042.088.098.108.16.02.063.023.13.007.194a.34.34 0 0 1-.096.169l-2.49 2.425c-.165.16-.288.358-.359.576-.07.218-.087.45-.049.676l.588 3.427c.012.065.005.132-.02.193a.333.333 0 0 1-.12.154c-.053.039-.117.062-.183.066a.347.347 0 0 1-.19-.04L8.657 12.39a2.38 2.38 0 0 0-.658-.163 2.38 2.38 0 0 0-.657.163l-3.078 1.619c-.058.03-.124.045-.19.04-.066-.005-.13-.028-.183-.066a.335.335 0 0 1-.12.154.345.345 0 0 1-.02-.193l.588-3.427c.038-.226.021-.458-.05-.676a2.33 2.33 0 0 0-.358-.576L1.44 6.53a.338.338 0 0 1-.097-.168.352.352 0 0 1 .007-.194c.02-.063.058-.119.108-.161.05-.043.112-.07.178-.08l3.443-.504c.227-.033.442-.12.627-.255.186-.135.336-.312.437-.517l1.54-3.12z" fill="#FDC700" stroke="#FDC700" stroke-width="1.33" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                                        <span class="text-[14px] font-bold text-[#334155]">4.5</span>
+                                    </div>
+                                </td>
+                            </tr>
+                            
+                            <!-- Jean-Claude -->
+                            <tr class="h-[64px] hover:bg-slate-50 cursor-pointer" onclick="toggleSelection(this)">
+                                <td class="pl-4"><input type="checkbox" class="checkbox-custom person-checkbox"></td>
+                                <td class="px-2">
+                                    <div class="flex items-center gap-3">
+                                        <div class="w-9 h-9 rounded-full bg-[#E0F2FE] text-[#0369A1] flex items-center justify-center font-bold text-[11px]">JC</div>
+                                        <div>
+                                            <div class="font-bold text-[#0f172b] text-[14px]">Jean-Claude</div>
+                                            <div class="text-[11px] text-[#62748e]">3 days ago</div>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td class="px-2">
+                                    <div class="flex items-center gap-2 bg-[#eef2ff] px-2 h-[26px] w-fit rounded-[6px]">
+                                        <div class="w-1.5 h-1.5 rounded-full bg-[#6366f1]"></div>
+                                        <span class="text-[12px] font-bold text-[#4338ca]">8 / 25</span>
+                                    </div>
+                                </td>
+                                <td class="px-2 text-[14px] font-medium text-[#0f172b]">Chronic (TB)</td>
+                                <td class="px-2 text-[14px] font-medium text-[#0f172b]">Nurse</td>
+                                <td class="px-2 pr-6">
+                                    <div class="flex items-center justify-end gap-1">
+                                        <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M7.683 1.53c.03-.06.075-.11.13-.144.056-.035.12-.053.187-.053.066 0 .13.018.186.053.056.035.101.084.13.144l1.54 3.12c.1.204.25.382.436.516.185.135.4.223.626.256l3.444.504c.065.01.127.037.177.08.05.042.088.098.108.16.02.063.023.13.007.194a.34.34 0 0 1-.096.169l-2.49 2.425c-.165.16-.288.358-.359.576-.07.218-.087.45-.049.676l.588 3.427c.012.065.005.132-.02.193a.333.333 0 0 1-.12.154c-.053.039-.117.062-.183.066a.347.347 0 0 1-.19-.04L8.657 12.39a2.38 2.38 0 0 0-.658-.163 2.38 2.38 0 0 0-.657.163l-3.078 1.619c-.058.03-.124.045-.19.04-.066-.005-.13-.028-.183-.066a.335.335 0 0 1-.12.154.345.345 0 0 1-.02-.193l.588-3.427c.038-.226.021-.458-.05-.676a2.33 2.33 0 0 0-.358-.576L1.44 6.53a.338.338 0 0 1-.097-.168.352.352 0 0 1 .007-.194c.02-.063.058-.119.108-.161.05-.043.112-.07.178-.08l3.443-.504c.227-.033.442-.12.627-.255.186-.135.336-.312.437-.517l1.54-3.12z" fill="#FDC700" stroke="#FDC700" stroke-width="1.33" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                                        <span class="text-[14px] font-bold text-[#334155]">4.6</span>
+                                    </div>
+                                </td>
+                            </tr>
+
+                             <!-- Awa S. -->
+                             <tr class="h-[64px] hover:bg-slate-50 cursor-pointer" onclick="toggleSelection(this)">
+                                <td class="pl-4"><input type="checkbox" class="checkbox-custom person-checkbox"></td>
+                                <td class="px-2">
+                                    <div class="flex items-center gap-3">
+                                        <div class="w-9 h-9 rounded-full bg-[#f1f5f9] text-[#45556c] flex items-center justify-center font-bold text-[11px]">AS</div>
+                                        <div>
+                                            <div class="font-bold text-[#0f172b] text-[14px]">Awa S.</div>
+                                            <div class="text-[11px] text-[#62748e]">Not active yet</div>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td class="px-2">
+                                     <span class="text-[12px] italic text-[#90a1b9]">None Assigned</span>
+                                </td>
+                                <td class="px-2 text-[12px] italic text-[#90a1b9]">None Assigned</td>
+                                <td class="px-2 text-[12px] italic text-[#90a1b9]">None</td>
+                                <td class="px-2 pr-6">
+                                    <div class="flex items-center justify-end gap-1">
+                                        <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M7.683 1.53c.03-.06.075-.11.13-.144.056-.035.12-.053.187-.053.066 0 .13.018.186.053.056.035.101.084.13.144l1.54 3.12c.1.204.25.382.436.516.185.135.4.223.626.256l3.444.504c.065.01.127.037.177.08.05.042.088.098.108.16.02.063.023.13.007.194a.34.34 0 0 1-.096.169l-2.49 2.425c-.165.16-.288.358-.359.576-.07.218-.087.45-.049.676l.588 3.427c.012.065.005.132-.02.193a.333.333 0 0 1-.12.154c-.053.039-.117.062-.183.066a.347.347 0 0 1-.19-.04L8.657 12.39a2.38 2.38 0 0 0-.658-.163 2.38 2.38 0 0 0-.657.163l-3.078 1.619c-.058.03-.124.045-.19.04-.066-.005-.13-.028-.183-.066a.335.335 0 0 1-.12.154.345.345 0 0 1-.02-.193l.588-3.427c.038-.226.021-.458-.05-.676a2.33 2.33 0 0 0-.358-.576L1.44 6.53a.338.338 0 0 1-.097-.168.352.352 0 0 1 .007-.194c.02-.063.058-.119.108-.161.05-.043.112-.07.178-.08l3.443-.504c.227-.033.442-.12.627-.255.186-.135.336-.312.437-.517l1.54-3.12z" fill="#FDC700" stroke="#FDC700" stroke-width="1.33" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                                        <span class="text-[14px] font-bold text-[#90a1b9]">0.0</span>
+                                    </div>
+                                </td>
+                            </tr>
+
+                            <!-- Emmanuel R. -->
+                            <tr class="h-[64px] hover:bg-slate-50 cursor-pointer" onclick="toggleSelection(this)">
+                                <td class="pl-4"><input type="checkbox" class="checkbox-custom person-checkbox"></td>
+                                <td class="px-2">
+                                    <div class="flex items-center gap-3">
+                                        <div class="w-9 h-9 rounded-full bg-[#F3E8FF] text-[#9810FA] flex items-center justify-center font-bold text-[11px]">ER</div>
+                                        <div>
+                                            <div class="font-bold text-[#0f172b] text-[14px]">Emmanuel R.</div>
+                                            <div class="text-[11px] text-[#62748e]">3 days ago</div>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td class="px-2">
+                                     <div class="flex items-center gap-2 bg-[#eef2ff] px-2 h-[26px] w-fit rounded-[6px]">
+                                        <div class="w-1.5 h-1.5 rounded-full bg-[#6366f1]"></div>
+                                        <span class="text-[12px] font-bold text-[#4338ca]">22 / 25</span>
+                                    </div>
+                                </td>
+                                <td class="px-2 text-[14px] font-medium text-[#0f172b]">Father</td>
+                                <td class="px-2 text-[14px] font-medium text-[#0f172b]">Mother of 2</td>
+                                <td class="px-2 pr-6">
+                                    <div class="flex items-center justify-end gap-1">
+                                        <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M7.683 1.53c.03-.06.075-.11.13-.144.056-.035.12-.053.187-.053.066 0 .13.018.186.053.056.035.101.084.13.144l1.54 3.12c.1.204.25.382.436.516.185.135.4.223.626.256l3.444.504c.065.01.127.037.177.08.05.042.088.098.108.16.02.063.023.13.007.194a.34.34 0 0 1-.096.169l-2.49 2.425c-.165.16-.288.358-.359.576-.07.218-.087.45-.049.676l.588 3.427c.012.065.005.132-.02.193a.333.333 0 0 1-.12.154c-.053.039-.117.062-.183.066a.347.347 0 0 1-.19-.04L8.657 12.39a2.38 2.38 0 0 0-.658-.163 2.38 2.38 0 0 0-.657.163l-3.078 1.619c-.058.03-.124.045-.19.04-.066-.005-.13-.028-.183-.066a.335.335 0 0 1-.12.154.345.345 0 0 1-.02-.193l.588-3.427c.038-.226.021-.458-.05-.676a2.33 2.33 0 0 0-.358-.576L1.44 6.53a.338.338 0 0 1-.097-.168.352.352 0 0 1 .007-.194c.02-.063.058-.119.108-.161.05-.043.112-.07.178-.08l3.443-.504c.227-.033.442-.12.627-.255.186-.135.336-.312.437-.517l1.54-3.12z" fill="#FDC700" stroke="#FDC700" stroke-width="1.33" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                                        <span class="text-[14px] font-bold text-[#334155]">4.3</span>
+                                    </div>
+                                </td>
+                            </tr>
+                            <!-- Sarah M. -->
+                             <tr class="h-[64px] hover:bg-slate-50 cursor-pointer" onclick="toggleSelection(this)">
+                                <td class="pl-4"><input type="checkbox" class="checkbox-custom person-checkbox"></td>
+                                <td class="px-2">
+                                    <div class="flex items-center gap-3">
+                                        <div class="w-9 h-9 rounded-full bg-[#fce7f3] text-[#db2777] flex items-center justify-center font-bold text-[11px]">SM</div>
+                                        <div>
+                                            <div class="font-bold text-[#0f172b] text-[14px]">Sarah M.</div>
+                                            <div class="text-[11px] text-[#62748e]">3 days ago</div>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td class="px-2">
+                                     <div class="flex items-center gap-2 bg-[#eef2ff] px-2 h-[26px] w-fit rounded-[6px]">
+                                        <div class="w-1.5 h-1.5 rounded-full bg-[#6366f1]"></div>
+                                        <span class="text-[12px] font-bold text-[#4338ca]">15 / 30</span>
+                                    </div>
+                                </td>
+                                <td class="px-2 text-[14px] font-medium text-[#0f172b]">Health Worker</td>
+                                <td class="px-2 text-[14px] font-medium text-[#0f172b]">Diabetic</td>
+                                <td class="px-2 pr-6">
+                                    <div class="flex items-center justify-end gap-1">
+                                        <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M7.683 1.53c.03-.06.075-.11.13-.144.056-.035.12-.053.187-.053.066 0 .13.018.186.053.056.035.101.084.13.144l1.54 3.12c.1.204.25.382.436.516.185.135.4.223.626.256l3.444.504c.065.01.127.037.177.08.05.042.088.098.108.16.02.063.023.13.007.194a.34.34 0 0 1-.096.169l-2.49 2.425c-.165.16-.288.358-.359.576-.07.218-.087.45-.049.676l.588 3.427c.012.065.005.132-.02.193a.333.333 0 0 1-.12.154c-.053.039-.117.062-.183.066a.347.347 0 0 1-.19-.04L8.657 12.39a2.38 2.38 0 0 0-.658-.163 2.38 2.38 0 0 0-.657.163l-3.078 1.619c-.058.03-.124.045-.19.04-.066-.005-.13-.028-.183-.066a.335.335 0 0 1-.12.154.345.345 0 0 1-.02-.193l.588-3.427c.038-.226.021-.458-.05-.676a2.33 2.33 0 0 0-.358-.576L1.44 6.53a.338.338 0 0 1-.097-.168.352.352 0 0 1 .007-.194c.02-.063.058-.119.108-.161.05-.043.112-.07.178-.08l3.443-.504c.227-.033.442-.12.627-.255.186-.135.336-.312.437-.517l1.54-3.12z" fill="#FDC700" stroke="#FDC700" stroke-width="1.33" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                                        <span class="text-[14px] font-bold text-[#334155]">4.2</span>
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Modal Footer -->
+            <div class="p-8 pt-4 flex justify-end gap-3 border-t border-[#f1f5f9] mt-auto">
+                <button onclick="closeAll()" class="px-4 py-2 text-[#62748e] font-medium hover:bg-slate-50 rounded-lg text-[14px] h-[36px] transition-colors">Cancel</button>
+                <button id="assign-btn-modal" class="px-4 py-2 bg-[#f4f4f5] text-[#a1a1a1] font-bold rounded-[8px] text-[14px] h-[38px] w-[160px] cursor-not-allowed transition-colors">Assign Session</button>
+            </div>
+        </div>
     </div>
+
+    <!-- DETAILS SIDE PANEL -->
+    <div id="details-panel" class="fixed inset-y-0 right-0 z-50 w-[450px] bg-white shadow-2xl transform translate-x-full transition-transform duration-300 flex flex-col">
+        <!-- Panel Header -->
+        <div class="px-6 py-5 border-b border-slate-100 flex items-start justify-between bg-white shrink-0">
+             <div>
+                <div class="flex items-center gap-2 mb-1">
+                    <span class="text-[#62748e] font-bold text-[10px] uppercase tracking-wide bg-slate-100 px-1.5 py-0.5 rounded">B-004</span>
+                    <span class="text-tag-pink-text font-bold text-[10px] uppercase tracking-wide bg-tag-pink-bg px-1.5 py-0.5 rounded">HIV / AIDS</span>
+                </div>
+                <h2 class="text-[20px] font-bold text-[#0F172B]">PrEP Consultation</h2>
+                <div class="flex items-center gap-1.5 mt-1">
+                    <span class="text-[#62748e] text-[12px] font-medium">General Public</span>
+                    <span class="w-1 h-1 bg-[#d1d5db] rounded-full"></span>
+                    <span class="text-[#62748e] text-[12px] font-medium">Max 10 LLM Responses</span>
+                </div>
+             </div>
+             <button onclick="closeAll()" class="p-1 hover:bg-slate-100 rounded-full transition-colors">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#94a3b8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+             </button>
+        </div>
+
+        <!-- Panel Content -->
+        <div class="flex-1 overflow-y-auto p-6 space-y-6">
+             <!-- Instruction Box -->
+             <div class="bg-white border border-slate-200 rounded-[12px] p-4 shadow-sm">
+                <div class="flex items-center gap-2 mb-2">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#62748e" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>
+                    <span class="text-[11px] font-bold text-[#62748e] uppercase tracking-wider">INSTRUCTION</span>
+                </div>
+                <p class="text-[14px] text-[#0f172b] leading-[22px]">
+                    Your are a patient and asks about the efficacy and side effects of taking aspirin + weed at the same time while driving
+                </p>
+             </div>
+
+             <!-- Assigned To Section -->
+             <div>
+                <div class="flex items-center justify-between mb-3">
+                    <div class="flex items-center gap-2">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#62748e" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>
+                        <span class="text-[11px] font-bold text-[#62748e] uppercase tracking-wider">ASSIGNED TO</span>
+                    </div>
+                    <button class="bg-[#4F39F6] hover:bg-[#3d2cdb] text-white text-[12px] font-bold px-3 py-1.5 rounded-[6px] transition-colors flex items-center gap-1.5">
+                        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+                        Assign Participants
+                    </button>
+                </div>
+                <div class="text-[12px] text-[#62748e] font-medium mb-3 ml-1 bg-slate-50 inline-block px-2 py-0.5 rounded border border-slate-100">1/3 Completed</div>
+
+                <!-- Cards List -->
+                <div class="space-y-3">
+                    <!-- Eva G. -->
+                    <div class="border border-slate-200 rounded-[12px] p-4 bg-white shadow-sm">
+                        <div class="flex justify-between items-start mb-3">
+                            <div class="flex gap-3">
+                                <div class="w-10 h-10 rounded-full border-2 border-white ring-1 ring-slate-100 overflow-hidden relative">
+                                    <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=100&h=100&fit=crop" class="w-full h-full object-cover" />
+                                    <div class="absolute bottom-0 right-0 w-2.5 h-2.5 bg-[#22c55e] border-2 border-white rounded-full"></div>
+                                </div>
+                                <div>
+                                    <div class="font-bold text-[#0f172b] text-[14px]">Eva G.</div>
+                                    <div class="text-[11px] text-[#62748e]">Active 2 days ago</div>
+                                </div>
+                            </div>
+                            <div class="bg-[#f0fdf4] text-[#15803d] px-2 py-0.5 rounded-full text-[10px] font-bold flex items-center gap-1 border border-[#dcfce7]">
+                                <div class="w-1 h-1 bg-[#15803d] rounded-full"></div>
+                                Completed
+                            </div>
+                        </div>
+                        <div class="mb-4">
+                             <div class="flex justify-between text-[11px] font-bold text-[#62748e] mb-1.5">
+                                <span>Task Progress</span>
+                                <span class="text-[#0f172b]">100%</span>
+                             </div>
+                             <div class="h-1.5 w-full bg-[#f1f5f9] rounded-full overflow-hidden">
+                                <div class="h-full bg-[#22c55e] w-full rounded-full"></div>
+                             </div>
+                        </div>
+                        <div class="bg-[#f8fafc] rounded-[8px] p-3 border border-[#f1f5f9] flex items-center justify-between">
+                            <div class="flex items-center gap-2">
+                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#62748e" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+                                <div>
+                                    <div class="text-[10px] font-bold text-[#94a3b8] uppercase">QA REVIEW</div>
+                                    <div class="text-[12px] text-[#0f172b] font-medium">Reviewed by <span class="font-bold">Alisha K.</span></div>
+                                </div>
+                            </div>
+                            <span class="text-[10px] font-bold text-[#d97706] bg-[#fffbeb] px-2 py-1 rounded border border-[#fef3c7]">PENDING REVIEW</span>
+                        </div>
+                    </div>
+
+                    <!-- Ken J. Not Started -->
+                    <div class="border border-slate-200 rounded-[12px] p-4 bg-white shadow-sm">
+                        <div class="flex justify-between items-start mb-3">
+                            <div class="flex gap-3">
+                                <div class="w-10 h-10 rounded-full border-2 border-white ring-1 ring-slate-100 overflow-hidden relative">
+                                    <img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=100&h=100&fit=crop" class="w-full h-full object-cover" />
+                                </div>
+                                <div>
+                                    <div class="font-bold text-[#0f172b] text-[14px]">Ken J.</div>
+                                    <div class="text-[11px] text-[#62748e]">Not active yet</div>
+                                </div>
+                            </div>
+                            <div class="flex items-center gap-2">
+                                <div class="bg-[#fef2f2] text-[#991B1B] px-2 py-0.5 rounded-full text-[10px] font-bold flex items-center gap-1 border border-[#fee2e2]">
+                                    <div class="w-1 h-1 bg-[#991B1B] rounded-full"></div>
+                                    Not Started
+                                </div>
+                                <button class="text-[#ef4444] hover:bg-[#fef2f2] p-1 rounded transition-colors">
+                                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path></svg>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="mb-4">
+                             <div class="flex justify-between text-[11px] font-bold text-[#62748e] mb-1.5">
+                                <span>Task Progress</span>
+                                <span class="text-[#0f172b]">0%</span>
+                             </div>
+                             <div class="h-1.5 w-full bg-[#f1f5f9] rounded-full overflow-hidden">
+                                <div class="h-full bg-[#3b82f6] w-[1%] rounded-full"></div>
+                             </div>
+                        </div>
+                        <div class="bg-[#f8fafc] rounded-[8px] p-3 border border-[#f1f5f9] flex items-center justify-between">
+                            <div class="flex items-center gap-2">
+                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#62748e" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+                                <div>
+                                    <div class="text-[10px] font-bold text-[#94a3b8] uppercase">QA REVIEW</div>
+                                    <div class="text-[12px] text-[#94a3b8] font-medium italic">Waiting for reviewer...</div>
+                                </div>
+                            </div>
+                            <span class="text-[10px] font-medium text-[#94a3b8] italic">Waiting...</span>
+                        </div>
+                    </div>
+
+                    <!-- Ken J. Ongoing -->
+                    <div class="border border-slate-200 rounded-[12px] p-4 bg-white shadow-sm">
+                        <div class="flex justify-between items-start mb-3">
+                            <div class="flex gap-3">
+                                <div class="w-10 h-10 rounded-full border-2 border-white ring-1 ring-slate-100 overflow-hidden relative">
+                                    <img src="https://images.unsplash.com/photo-1547425260-76bcadfb4f2c?w=100&h=100&fit=crop" class="w-full h-full object-cover" />
+                                </div>
+                                <div>
+                                    <div class="font-bold text-[#0f172b] text-[14px]">Ken J.</div>
+                                    <div class="text-[11px] text-[#62748e]">Medical Student</div>
+                                </div>
+                            </div>
+                            <div class="bg-[#fffbeb] text-[#d97706] px-2 py-0.5 rounded-full text-[10px] font-bold flex items-center gap-1 border border-[#fef3c7]">
+                                <div class="w-1 h-1 bg-[#d97706] rounded-full"></div>
+                                Ongoing
+                            </div>
+                        </div>
+                        <div class="mb-4">
+                             <div class="flex justify-between text-[11px] font-bold text-[#62748e] mb-1.5">
+                                <span>Task Progress</span>
+                                <span class="text-[#0f172b]">75%</span>
+                             </div>
+                             <div class="h-1.5 w-full bg-[#f1f5f9] rounded-full overflow-hidden">
+                                <div class="h-full bg-[#3b82f6] w-[75%] rounded-full"></div>
+                             </div>
+                        </div>
+                        <div class="bg-[#f8fafc] rounded-[8px] p-3 border border-[#f1f5f9] flex items-center justify-between">
+                            <div class="flex items-center gap-2">
+                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#62748e" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+                                <div>
+                                    <div class="text-[10px] font-bold text-[#94a3b8] uppercase">QA REVIEW</div>
+                                    <div class="text-[12px] text-[#0f172b] font-medium">Reviewed by <span class="font-bold">Alisha K.</span></div>
+                                </div>
+                            </div>
+                            <span class="text-[10px] font-medium text-[#94a3b8] italic">Waiting...</span>
+                        </div>
+                    </div>
+                </div>
+             </div>
+        </div>
+
+        <!-- Panel Footer -->
+        <div class="p-6 border-t border-slate-100 bg-white shrink-0">
+            <a href="project-detail-data-quality.html" class="flex items-center justify-center w-full h-[44px] border border-primary text-primary font-bold rounded-[8px] hover:bg-[#eef2ff] transition-colors gap-2 text-[14px]">
+                Go To Data Quality
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+            </a>
+        </div>
+    </div>
+
+    <script>
+        function openModal(id) {
+            const modal = document.getElementById(id);
+            const content = document.getElementById(id + '-content');
+            const overlay = document.getElementById('overlay');
+            
+            modal.classList.remove('hidden');
+            overlay.classList.remove('hidden');
+            void overlay.offsetWidth; // Trigger reflow
+            
+            overlay.classList.remove('opacity-0');
+            content.classList.remove('scale-95', 'opacity-0');
+            content.classList.add('scale-100', 'opacity-100');
+            
+            document.body.style.overflow = 'hidden';
+        }
+
+        function openPanel(id) {
+            const panel = document.getElementById(id);
+            const overlay = document.getElementById('overlay');
+
+            overlay.classList.remove('hidden');
+            void overlay.offsetWidth;
+            overlay.classList.remove('opacity-0');
+
+            panel.classList.remove('translate-x-full');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeAll() {
+            const overlay = document.getElementById('overlay');
+            const modal = document.getElementById('assign-modal');
+            const modalContent = document.getElementById('assign-modal-content');
+            const panel = document.getElementById('details-panel');
+            
+            // Close Modal
+            if (modalContent && !modal.classList.contains('hidden')) {
+                modalContent.classList.remove('scale-100', 'opacity-100');
+                modalContent.classList.add('scale-95', 'opacity-0');
+                setTimeout(() => {
+                    modal.classList.add('hidden');
+                }, 200);
+            }
+
+            // Close Panel
+            if (panel) {
+                panel.classList.add('translate-x-full');
+            }
+            
+            overlay.classList.add('opacity-0');
+            setTimeout(() => {
+                overlay.classList.add('hidden');
+            }, 300);
+            
+            document.body.style.overflow = '';
+        }
+
+        // Toggle Person Selection in Modal
+        function toggleSelection(row) {
+            const checkbox = row.querySelector('.person-checkbox');
+            checkbox.checked = !checkbox.checked;
+            
+            const selectedCount = document.querySelectorAll('.person-checkbox:checked').length;
+            document.getElementById('selected-count').innerText = selectedCount;
+            
+            const btn = document.getElementById('assign-btn-modal');
+            if(selectedCount > 0) {
+                btn.classList.remove('bg-[#f4f4f5]', 'text-[#a1a1a1]', 'cursor-not-allowed');
+                btn.classList.add('bg-[#4F39F6]', 'text-white', 'hover:bg-[#3d2cdb]', 'cursor-pointer');
+            } else {
+                btn.classList.add('bg-[#f4f4f5]', 'text-[#a1a1a1]', 'cursor-not-allowed');
+                btn.classList.remove('bg-[#4F39F6]', 'text-white', 'hover:bg-[#3d2cdb]', 'cursor-pointer');
+            }
+        }
+
+        // Main Table Logic
+        function toggleAllMain(source) {
+            const checkboxes = document.querySelectorAll('.main-checkbox');
+            checkboxes.forEach(cb => cb.checked = source.checked);
+            updateAssignButton();
+        }
+
+        function updateAssignButton() {
+            const checkedCount = document.querySelectorAll('.main-checkbox:checked').length;
+            const btn = document.getElementById('assign-btn');
+            
+            if (checkedCount > 0) {
+                btn.classList.remove('bg-[#f8fafc]', 'text-[#90A1B9]', 'cursor-not-allowed', 'hover:bg-[#f1f5f9]');
+                btn.classList.add('bg-[#eef2ff]', 'text-[#4F39F6]', 'hover:bg-[#e0e7ff]', 'cursor-pointer', 'border-[#c6d2ff]');
+            } else {
+                btn.classList.add('bg-[#f8fafc]', 'text-[#90A1B9]', 'cursor-not-allowed', 'hover:bg-[#f1f5f9]');
+                btn.classList.remove('bg-[#eef2ff]', 'text-[#4F39F6]', 'hover:bg-[#e0e7ff]', 'cursor-pointer', 'border-[#c6d2ff]');
+            }
+        }
+    </script>
 </body>
 </html>
