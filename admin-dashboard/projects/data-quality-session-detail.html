@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Viewing Task - Kitala</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Work+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: { 
+                        sans: ['Work Sans', 'sans-serif'],
+                        outfit: ['Outfit', 'sans-serif']
+                    },
+                    colors: {
+                        primary: '#4F39F6',
+                        'primary-hover': '#3d2cdb',
+                        sidebar: '#1E1B4B',
+                        'sidebar-active': '#4F39F6',
+                        'kitala-bg': '#F8FAFC',
+                        'text-dark': '#0F172B',
+                        'text-gray': '#62748e',
+                        'text-gray-light': '#90A1B9',
+                    },
+                    boxShadow: {
+                        'card': '0px 1px 3px 0px rgba(0, 0, 0, 0.10), 0px 1px 2px -1px rgba(0, 0, 0, 0.10)'
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        ::-webkit-scrollbar { width: 6px; height: 6px; }
+        ::-webkit-scrollbar-track { background: transparent; }
+        ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 3px; }
+        ::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
+        .sidebar-gradient { background: linear-gradient(180deg, #2E236C 0%, #17123A 100%); }
+    </style>
+</head>
+<body class="bg-kitala-bg font-sans text-text-dark min-h-screen flex overflow-hidden">
+
+    <!-- Sidebar -->
+    <aside class="w-[260px] sidebar-gradient flex-shrink-0 flex flex-col h-screen fixed left-0 top-0 z-30">
+        <div class="h-16 flex items-center px-6 shrink-0 mt-2">
+           <span class="text-white text-2xl font-bold tracking-tight">kitala</span>
+        </div>
+        <a href="#" class="flex items-center gap-2 px-6 py-3 text-white/70 hover:text-white transition-colors group">
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="group-hover:-translate-x-0.5 transition-transform"><path d="M15 8H1M8 15L1 8L8 1"/></svg>
+            <span class="text-sm font-medium">Back to Projects</span>
+        </a>
+        <div class="px-4 py-2">
+            <div class="bg-white/10 rounded-xl p-3 border border-white/10 flex items-center gap-3">
+                <div class="w-8 h-8 rounded-lg bg-indigo-500/30 flex items-center justify-center border border-white/20 shrink-0">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
+                </div>
+                <div class="flex-1 min-w-0">
+                    <p class="text-white text-xs font-bold leading-tight truncate">Testing Voice LLM</p>
+                    <p class="text-white/60 text-[10px] truncate">for Health in Rwanda</p>
+                </div>
+            </div>
+        </div>
+        <nav class="flex-1 px-3 py-4 space-y-1 overflow-y-auto">
+            <a href="project-detail-task-allocation.html" class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-white/70 hover:bg-white/5 hover:text-white transition-colors text-sm font-medium">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
+                Task Allocation
+            </a>
+            <a href="project-detail-data-quality.html" class="flex items-center gap-3 px-3 py-2.5 rounded-lg bg-primary text-white text-sm font-medium shadow-sm">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="16" x2="12" y2="12"></line><line x1="12" y1="8" x2="12.01" y2="8"></line></svg>
+                Data Quality
+            </a>
+            <a href="project-detail-research-analytics.html" class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-white/70 hover:bg-white/5 hover:text-white transition-colors text-sm font-medium">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M18 20V10"></path><path d="M12 20V4"></path><path d="M6 20v-6"></path></svg>
+                Research Analytics
+            </a>
+            <a href="project-detail-participants.html" class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-white/70 hover:bg-white/5 hover:text-white transition-colors text-sm font-medium">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>
+                Participants
+            </a>
+             <a href="project-detail-payments.html" class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-white/70 hover:bg-white/5 hover:text-white transition-colors text-sm font-medium">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="5" width="20" height="14" rx="2"></rect><line x1="2" y1="10" x2="22" y2="10"></line></svg>
+                Payments
+            </a>
+            <a href="project-detail-project-settings.html" class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-white/70 hover:bg-white/5 hover:text-white transition-colors text-sm font-medium mt-auto">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12.22 2h-.44a2 2 0 0 0-2 2v.18a2 2 0 0 1-1 1.73l-.43.25a2 2 0 0 1-2 0l-.15-.08a2 2 0 0 0-2.73.73l-.22.38a2 2 0 0 0 .73 2.73l.15.1a2 2 0 0 1 1 1.72v.51a2 2 0 0 1-1 1.74l-.15.09a2 2 0 0 0 .73 2.73l.22.38a2 2 0 0 0-2.73-.73l-.15-.1a2 2 0 0 1-1-1.72v-.51a2 2 0 0 1 1-1.74l.15-.09a2 2 0 0 0 .73-2.73l-.22-.38a2 2 0 0 0-2.73-.73l-.15.08a2 2 0 0 1-2 0l-.43-.25a2 2 0 0 1-1-1.73V4a2 2 0 0 0-2-2z"></path><circle cx="12" cy="12" r="3"></circle></svg>
+                Project Settings
+            </a>
+        </nav>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="flex-1 flex flex-col min-w-0 lg:ml-[260px] transition-all duration-300 h-screen">
+        <!-- Top Bar -->
+        <header class="h-14 flex items-center justify-between px-8 bg-white border-b border-slate-200 shrink-0">
+            <div class="flex items-center gap-4">
+                 <button onclick="window.history.back()" class="text-slate-400 hover:text-slate-600 transition-colors">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>
+                 </button>
+                 <div class="h-4 w-px bg-slate-200"></div>
+                 <div class="flex items-center gap-2 text-sm font-bold text-slate-400 uppercase tracking-wider">
+                    Viewing Task
+                 </div>
+                 <div class="flex items-center gap-2">
+                    <span class="bg-[#eef2ff] text-[#4f39f6] px-2 py-0.5 rounded font-bold text-sm">Postnatal Fever</span>
+                    <span class="border border-slate-200 text-slate-500 px-2 py-0.5 rounded font-medium text-xs">B-004</span>
+                 </div>
+            </div>
+            <div class="flex flex-col items-end">
+                <span class="text-[10px] font-bold text-slate-400 uppercase tracking-wider">Duration</span>
+                <span class="text-sm font-bold text-slate-900">0:24</span>
+            </div>
+        </header>
+
+        <div class="flex-1 flex overflow-hidden">
+            <!-- Left Content Area -->
+            <div class="flex-1 overflow-y-auto p-8 space-y-6">
+                
+                <!-- Audio Player Card -->
+                <div class="bg-white rounded-[16px] border border-slate-200 p-6 shadow-sm">
+                    <!-- Player Viz -->
+                    <div class="h-[64px] bg-[#f8fafc] rounded-[12px] flex items-center px-4 gap-4 mb-6">
+                        <button class="w-8 h-8 rounded-full bg-[#0f172b] flex items-center justify-center text-white hover:bg-slate-700 transition-colors">
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" stroke="none"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>
+                        </button>
+                        <div class="flex-1 h-8 flex items-center gap-0.5">
+                            <!-- Mock Waveform -->
+                            <div class="w-1 h-3 bg-[#4f39f6] rounded-full"></div>
+                            <div class="w-1 h-5 bg-[#4f39f6] rounded-full"></div>
+                            <div class="w-1 h-4 bg-[#4f39f6] rounded-full"></div>
+                            <div class="w-1 h-6 bg-[#4f39f6] rounded-full"></div>
+                            <div class="w-1 h-3 bg-[#4f39f6] rounded-full"></div>
+                            <div class="w-1 h-5 bg-[#4f39f6]/30 rounded-full"></div>
+                            <div class="w-1 h-2 bg-[#4f39f6]/30 rounded-full"></div>
+                            <div class="w-1 h-4 bg-[#4f39f6]/30 rounded-full"></div>
+                            <div class="w-1 h-6 bg-[#4f39f6]/30 rounded-full"></div>
+                            <div class="w-1 h-3 bg-[#4f39f6]/30 rounded-full"></div>
+                            <div class="w-1 h-5 bg-[#4f39f6]/30 rounded-full"></div>
+                            <div class="w-1 h-4 bg-[#4f39f6]/30 rounded-full"></div>
+                            <div class="w-1 h-2 bg-[#4f39f6]/30 rounded-full"></div>
+                            <div class="w-1 h-5 bg-[#4f39f6]/30 rounded-full"></div>
+                            <div class="w-1 h-3 bg-[#4f39f6]/30 rounded-full"></div>
+                            <div class="w-1 h-6 bg-[#4f39f6]/30 rounded-full"></div>
+                            <div class="w-1 h-4 bg-[#4f39f6]/30 rounded-full"></div>
+                            <div class="w-1 h-5 bg-[#4f39f6]/30 rounded-full"></div>
+                            <div class="w-1 h-2 bg-[#4f39f6]/30 rounded-full"></div>
+                            <div class="w-1 h-4 bg-[#4f39f6]/30 rounded-full"></div>
+                        </div>
+                        <span class="text-xs font-bold text-slate-400">0:24</span>
+                    </div>
+
+                    <!-- Transcript -->
+                    <div class="space-y-4 mb-8">
+                        <div class="flex gap-3">
+                            <div class="w-6 h-6 rounded bg-[#eef2ff] flex items-center justify-center text-[10px] font-bold text-[#4f39f6] shrink-0">AI</div>
+                            <div>
+                                <p class="text-[15px] text-[#0f172b] font-medium leading-relaxed">
+                                    I understand you are worried, Fatou. A fever in a baby can be serious. How old is your baby exactly? And does she have any other symptoms like vomiting?
+                                </p>
+                                <div class="mt-1 text-[10px] font-bold text-[#94a3b8] text-right">10:31 AM</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Metrics & Flags -->
+                    <div class="bg-[#f8fafc] rounded-[12px] p-5 border border-[#f1f5f9]">
+                        <div class="flex items-center justify-between mb-4">
+                            <div class="flex items-center gap-6">
+                                <span class="text-[11px] font-bold text-[#94a3b8] uppercase tracking-wider">METRICS</span>
+                                <div class="flex gap-4 text-sm">
+                                    <span class="text-slate-500">Accuracy <strong class="text-[#4f39f6]">4.7/5</strong></span>
+                                    <span class="text-slate-500">Tone <strong class="text-[#4f39f6]">4/5</strong></span>
+                                    <span class="text-slate-500">Cultural <strong class="text-[#4f39f6]">3.7/5</strong></span>
+                                </div>
+                            </div>
+                            <button class="text-[#4f39f6] hover:bg-[#eef2ff] p-1.5 rounded-md transition-colors">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 3a2.828 2.828 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5L17 3z"></path></svg>
+                            </button>
+                        </div>
+
+                        <div class="flex items-start gap-6 mb-4">
+                            <span class="text-[11px] font-bold text-[#94a3b8] uppercase tracking-wider mt-1.5">FLAGS</span>
+                            <div class="flex gap-2">
+                                <span class="px-2.5 py-1 bg-[#fff7ed] text-[#c2410c] border border-[#ffedd5] rounded-full text-xs font-bold">Cultural Mismatch</span>
+                                <span class="px-2.5 py-1 bg-[#f8fafc] text-[#64748b] border border-[#e2e8f0] rounded-full text-xs font-bold">Safety Violation</span>
+                            </div>
+                        </div>
+
+                        <div class="flex items-start gap-6">
+                            <span class="text-[11px] font-bold text-[#94a3b8] uppercase tracking-wider mt-0.5">NOTE</span>
+                            <p class="text-sm text-slate-500 italic leading-relaxed">
+                                "The model response was generally good but seemed to miss the cultural nuance regarding the specific fever treatment mentioned..."
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Session Complete / Original Report -->
+                <div class="bg-white rounded-[16px] border border-slate-200 overflow-hidden shadow-sm">
+                    <div class="p-4 bg-[#f8fafc] border-b border-[#f1f5f9] flex items-center gap-3">
+                        <div class="w-8 h-8 rounded-full bg-[#eef2ff] flex items-center justify-center text-[#4f39f6]">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>
+                        </div>
+                        <div>
+                            <h3 class="text-[16px] font-bold text-[#0f172b]">Session Complete</h3>
+                            <p class="text-[10px] font-bold text-[#4f39f6] uppercase tracking-wider">ORIGINAL ANNOTATOR REPORT</p>
+                        </div>
+                    </div>
+                    
+                    <div class="p-6">
+                        <p class="text-xs text-slate-400 mb-6">Logged by <strong class="text-slate-700">Rema</strong> • Oct 24, 2025 at 10:45 AM</p>
+                        
+                        <div class="grid grid-cols-3 gap-4 mb-8">
+                            <div class="bg-[#f8fafc] rounded-[12px] p-4 flex flex-col items-center justify-center gap-1">
+                                <span class="text-2xl font-bold text-[#0f172b]">3.7</span>
+                                <span class="text-[10px] font-bold text-slate-400 uppercase tracking-wider">CULTURE</span>
+                            </div>
+                            <div class="bg-[#f8fafc] rounded-[12px] p-4 flex flex-col items-center justify-center gap-1">
+                                <span class="text-2xl font-bold text-[#0f172b]">3.3</span>
+                                <span class="text-[10px] font-bold text-slate-400 uppercase tracking-wider">EMPATHY</span>
+                            </div>
+                            <div class="bg-[#f8fafc] rounded-[12px] p-4 flex flex-col items-center justify-center gap-1">
+                                <span class="text-2xl font-bold text-[#0f172b]">4.7</span>
+                                <span class="text-[10px] font-bold text-slate-400 uppercase tracking-wider">ACCURACY</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- Right Sidebar: QA Details -->
+            <aside class="w-[360px] bg-white border-l border-slate-200 flex flex-col">
+                <div class="p-6 border-b border-slate-100">
+                    <h2 class="text-lg font-bold text-[#0f172b] flex items-center gap-2">
+                        <svg class="w-5 h-5 text-slate-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>
+                        QA Details
+                    </h2>
+                </div>
+
+                <div class="p-6 space-y-8 flex-1 overflow-y-auto">
+                    <!-- Review Outcome -->
+                    <div>
+                        <div class="text-[11px] font-bold text-[#94a3b8] uppercase tracking-wider mb-3">REVIEW OUTCOME</div>
+                        <div class="bg-[#f0fdf4] border border-[#dcfce7] rounded-[12px] p-6 flex flex-col items-center justify-center gap-2">
+                            <div class="w-8 h-8 rounded-full border-2 border-[#22c55e] flex items-center justify-center text-[#22c55e] mb-1">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                            </div>
+                            <span class="text-lg font-bold text-[#15803d]">Approved</span>
+                            <span class="text-xs text-[#16a34a] font-medium">Oct 25, 2025 at 09:15 AM</span>
+                        </div>
+                    </div>
+
+                    <!-- Reviewed By -->
+                    <div>
+                        <div class="text-[11px] font-bold text-[#94a3b8] uppercase tracking-wider mb-3">REVIEWED BY</div>
+                        <div class="bg-[#f8fafc] rounded-[12px] p-3 flex items-center gap-3">
+                            <div class="w-10 h-10 rounded-full bg-[#e2e8f0] flex items-center justify-center text-[#475569] font-bold text-sm">AK</div>
+                            <div>
+                                <div class="font-bold text-[#0f172b] text-sm">Alisha K.</div>
+                                <div class="text-xs text-[#64748b]">QA Lead</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Reviewer Notes -->
+                    <div>
+                        <div class="text-[11px] font-bold text-[#94a3b8] uppercase tracking-wider mb-3">REVIEWER NOTES</div>
+                        <div class="bg-[#f8fafc] rounded-[12px] p-4 text-sm text-[#334155] italic leading-relaxed">
+                            "Excellent annotation. The cultural mismatch flag was correctly identified, but the model's safety response was adequate. Approving this session."
+                        </div>
+                    </div>
+                </div>
+
+                <div class="p-6 border-t border-slate-100">
+                    <a href="project-detail-data-quality.html" class="flex items-center justify-center w-full h-[44px] border border-slate-200 text-slate-600 font-bold rounded-[8px] hover:bg-slate-50 transition-colors text-sm">
+                        Back to Data Quality
+                    </a>
+                </div>
+            </aside>
+        </div>
+    </main>
+</body>
+</html>
